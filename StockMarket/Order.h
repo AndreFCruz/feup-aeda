@@ -16,18 +16,36 @@ class Order
 
 public:
 	Order(string, double);
+	virtual ~Order() = default;
 	Date getDatePlaced() const;
 	double getValue() const;
 
-	virtual bool operator()() const = 0;	// Overload function operator -- use TBD
+	virtual Transaction * operator()(Order*) const = 0;	// Useful? TBD
+
+	class InvalidValue {
+		double value;
+	public:
+		InvalidValue(double value) : value(value) {}
+		double getValue() const {
+			return value;
+		}
+	};
 };
 
-class BuyOrder : Order
+class BuyOrder : public Order
 {
 	Client * buyer;
+
+public:
+	BuyOrder(Client*, string, double val, unsigned quantity);
+	Transaction * operator()(Order*) const;
 };
 
-class SellOrder : Order
+class SellOrder : public Order
 {
 	Client * seller;
+
+public:
+	SellOrder(Client*, string, double val);
+	Transaction * operator()(Order*) const;
 };

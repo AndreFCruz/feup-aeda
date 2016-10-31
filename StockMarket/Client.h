@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class Transaction;	// Forward declaration due to circular includes
+
 /*
 Class to represent a client
 */

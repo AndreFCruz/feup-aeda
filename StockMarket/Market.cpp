@@ -11,3 +11,16 @@ Market* Market::instance() {
 	return singleton_instance;
 }
 
+void Market::printTransactions(ostream & out) const
+{
+	for (Transaction * t : transactions) {
+		out << *t;
+	}
+}
+
+bool Market::placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity)
+{
+	Order * ptr = new BuyOrder(buyer, stock, value, quantity);	// exception can be thrown, should be handled by higher level function
+
+
+}

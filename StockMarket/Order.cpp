@@ -31,6 +31,10 @@ unsigned Order::getQuantity() const {
 /* BuyOrder Implementation */
 BuyOrder::BuyOrder(string stock, double val, unsigned quantity, Client* buyer) : Order(stock, val, quantity), buyer(buyer) {}
 
+Client * BuyOrder::getClientPtr() {
+	return buyer;
+}
+
 Transaction * BuyOrder::operator()(Order* ord) {
 	SellOrder * sellOrd = NULL;
 
@@ -53,6 +57,10 @@ Transaction * BuyOrder::operator()(Order* ord) {
 
 /* BuyOrder Implementation */
 SellOrder::SellOrder(string stock, double val, unsigned quantity, Client* buyer) : Order(stock, val, quantity), seller(seller) {}
+
+Client * SellOrder::getClientPtr() {
+	return seller;
+}
 
 Transaction * SellOrder::operator()(Order* ord) {
 	BuyOrder * buyOrd = NULL;

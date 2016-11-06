@@ -18,6 +18,7 @@ void Market::printTransactions(ostream & out) const
 	}
 }
 
+/* To Delete (?) */
 //bool Market::placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity)
 //{
 //	Order * ptr = new BuyOrder(stock, value, quantity, buyer);	// exception can be thrown, should be handled by higher level function
@@ -47,7 +48,7 @@ bool Market::placeOrder(Order * ptr)
 		Transaction * trans;
 		if ((trans = (*unfulfilled_orders[i])(ptr)) != NULL) {	// Transaction Successful ?
 			transactions.push_back(trans);
-
+			
 			// Corresponding Buy/Sell Order Fulfilled ?
 			if (unfulfilled_orders[i]->getQuantity() == 0) {
 				delete unfulfilled_orders[i];
@@ -57,7 +58,7 @@ bool Market::placeOrder(Order * ptr)
 				delete ptr;
 				return true;
 			}
-		}	// Memory Leak ?
+		}
 	}
 	return false;
 }

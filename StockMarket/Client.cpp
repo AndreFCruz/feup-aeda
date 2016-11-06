@@ -16,11 +16,3 @@ unsigned int Client::getNIF() const {
 	return nif;
 }
 
-vector<Transaction *> Client::getHistory() {
-	return history;
-}
-
-void Client::addTransaction(Transaction * t) {
-	history.push_back(t);
-}
-

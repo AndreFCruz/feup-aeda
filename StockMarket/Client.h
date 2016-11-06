@@ -15,15 +15,12 @@ class Client
 {
 	string name;
 	unsigned int nif;
-	vector<Transaction *> history;
 
 public:
 	Client() = default;
 	Client(string, unsigned int);
 	string getName() const;
 	unsigned int getNIF() const;
-	vector<Transaction *> getHistory();
-	void addTransaction(Transaction *);
 
 	class InvalidNIF
 	{
@@ -34,5 +31,4 @@ public:
 			return nif;
 		}
 	};
-
 };

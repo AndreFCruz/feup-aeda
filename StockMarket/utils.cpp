@@ -23,14 +23,14 @@ void clearScreen() {
 }
 
 // Repeatedly asks the user for input until a valid integer in range [min, max] is given
-unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short int max, string msg, size_t width)
+unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short int max, string msg, size_t msg_width)
 {
 	string dummy; unsigned short int input;
 	bool fail = false; // fail flag
 
 	while(true)
 	{
-		setcolor(14);  cout << TAB << setw(width) << msg; setcolor(15); cin >> input;
+		setcolor(14);  cout << TAB << setw(msg_width) << msg; setcolor(15); cin >> input;
 
 		if (cin.fail())
 		{
@@ -62,12 +62,12 @@ unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short in
 }
 
 template <class numT>
-numT getValue(string msg,size_t width) {
+numT getValue(string msg,size_t msg_width) {
 	string dummy; numT input; 
 	bool fail = false; // fail flag
 	while(true)
 	{
-		setcolor(14);  cout << TAB << setw(width) << msg; setcolor(15); cin >> input;
+		setcolor(14);  cout << TAB << setw(msg_width) << msg; setcolor(15); cin >> input;
 
 		if (cin.fail())	{
 			fail = true;

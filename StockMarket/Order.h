@@ -23,7 +23,8 @@ public:
 	string getStock() const;
 	double getValue() const;
 	unsigned getQuantity() const;
-
+	
+	virtual Client * getClientPtr() = 0;
 	virtual Transaction * operator()(Order*) = 0;	// Useful? TBD
 
 	class InvalidValue {
@@ -45,6 +46,7 @@ class BuyOrder : public Order
 
 public:
 	BuyOrder(string stock, double val, unsigned quantity, Client* buyer);
+	Client * getClientPtr();
 	Transaction * operator()(Order*);
 };
 
@@ -55,5 +57,6 @@ class SellOrder : public Order
 
 public:
 	SellOrder(string stock, double val, unsigned quantity, Client* seller);
+	Client * getClientPtr();
 	Transaction * operator()(Order*);
 };

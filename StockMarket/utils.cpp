@@ -1,7 +1,26 @@
 #include <fstream>
 #include <iomanip>
 #include "utils.h"
-#include "defs.h"
+
+// Clears the screen
+void clearScreen() {
+	COORD upperLeftCorner = { 0,0 };
+	DWORD charsWritten;
+	DWORD conSize;
+	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO  csbi;
+
+	GetConsoleScreenBufferInfo(hCon, &csbi);
+	conSize = csbi.dwSize.X * csbi.dwSize.Y;
+
+	// fill with spaces
+	FillConsoleOutputCharacter(hCon, TEXT(' '), conSize, upperLeftCorner, &charsWritten);
+	GetConsoleScreenBufferInfo(hCon, &csbi);
+	FillConsoleOutputAttribute(hCon, csbi.wAttributes, conSize, upperLeftCorner, &charsWritten);
+
+	// cursor to upper left corner
+	SetConsoleCursorPosition(hCon, upperLeftCorner);
+}
 
 // Repeatedly asks the user for input until a valid integer in range [min, max] is given
 unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short int max, string msg, size_t width)
@@ -11,7 +30,7 @@ unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short in
 
 	while(true)
 	{
-		cout << TAB << setw(width) << msg; cin >> input;
+		setcolor(14);  cout << TAB << setw(width) << msg; setcolor(15); cin >> input;
 
 		if (cin.fail())
 		{
@@ -26,29 +45,29 @@ unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short in
 				return input;
 			else
 			{
-				cout << "Input must be an integer between " << min << " and " << max << ".\a\n\n";
+				setcolor(12); cout << "Input must be an integer between " << min << " and " << max << ".\a\n\n"; setcolor(15);
 			}
-
+			
 		}
 		else fail = true;
 
 		if (fail)
 		{
-			cout << "Invalid input.\a\n\n";
+			setcolor(12); cout << "Invalid input.\a\n\n"; setcolor(15);
 		}
 
-
-	}
-
+		
+	} 
+	
 }
 
 template <class numT>
 numT getValue(string msg,size_t width) {
-	string dummy; numT input;
+	string dummy; numT input; 
 	bool fail = false; // fail flag
 	while(true)
 	{
-		cout << TAB << setw(width) << msg; cin >> input;
+		setcolor(14);  cout << TAB << setw(width) << msg; setcolor(15); cin >> input;
 
 		if (cin.fail())	{
 			fail = true;
@@ -62,7 +81,7 @@ numT getValue(string msg,size_t width) {
 
 		if (fail)
 		{
-			cout << "Invalid input.\a\n\n";
+			setcolor(12); cout << "Invalid input.\a\n\n"; setcolor(15);
 		}
 	}
 }
@@ -72,7 +91,7 @@ Date getDate(string msg) {
 	size_t width = 7;	//width para formatar a mensagem
 
 	cout << msg << endl;
-    year = getValue<unsigned short int>("Year: ", width);
+    year = getValue<unsigned short int>("Year: ", width); 
 	month = getUnsignedShortInt(1, 12, "Month: ",width);
 
 	if (month == 2)
@@ -127,10 +146,36 @@ void trim(string &s) {
 	s.erase(s.find_last_not_of(c) + 1, string::npos);
 }
 
+/*
+COLOR CODES:
+1   blue
+2   green
+3   cyan
+4   red
+5   magenta
+6   brown
+7   lightgray
+8   darkgray
+9   lightblue
+10  lightgreen
+11  lightcyan
+12  lightred
+13  lightmagenta
+14  yellow
+15  white
+*/
+void setcolor(unsigned int color)
+{
+	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hCon, color);
+}
+
 void showTitle(string title, ostream& out) {
+	setcolor(10);
 	out << endl
 		<< TAB_BIG << string(title.size() + 6, '*') << endl
 		<< TAB_BIG << "** " << title << " **" << endl
 		<< TAB_BIG << string(title.size() + 6, '*')
 		<< endl << endl;
+	setcolor(15);
 }

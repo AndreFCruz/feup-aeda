@@ -14,11 +14,14 @@ class Transaction
 	Client * seller;
 	Client * buyer;
 	string stock;
+	double value;
+	unsigned quantity;
 	Date time_stamp;
 
 public:
 	Transaction() = default;
-	Transaction(Client * seller, Client * buyer, string stock);
+	Transaction(Client * seller, Client * buyer, string stock, double value, unsigned quantity);
+	unsigned getQuantity() const;
 
 	friend ostream& operator<<(ostream&, const Transaction&);
 };

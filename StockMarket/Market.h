@@ -24,5 +24,6 @@ public:
 	static Market * instance();
 
 	void printTransactions(ostream&) const;
-	bool placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity);
+	//bool placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity);
+	bool placeOrder(Order *);	// Abstracts of Buy/Sell type
 };

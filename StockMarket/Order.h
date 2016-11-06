@@ -10,17 +10,21 @@ Super Class to represent an ORDER
 */
 class Order
 {
+protected:
 	Date placed;
 	string stock;
-	double valuePerStock;	// Value per stock, in cents
+	double valuePerStock;	// Value per stock
+	unsigned quantity;
 
 public:
-	Order(string, double);
+	Order(string, double, unsigned);
 	virtual ~Order() = default;
 	Date getDatePlaced() const;
+	string getStock() const;
 	double getValue() const;
+	unsigned getQuantity() const;
 
-	virtual Transaction * operator()(Order*) const = 0;	// Useful? TBD
+	virtual Transaction * operator()(Order*) = 0;	// Useful? TBD
 
 	class InvalidValue {
 		double value;
@@ -32,20 +36,24 @@ public:
 	};
 };
 
+class SellOrder;
+
 class BuyOrder : public Order
 {
+	friend SellOrder;
 	Client * buyer;
 
 public:
-	BuyOrder(Client*, string, double val, unsigned quantity);
-	Transaction * operator()(Order*) const;
+	BuyOrder(string stock, double val, unsigned quantity, Client* buyer);
+	Transaction * operator()(Order*);
 };
 
 class SellOrder : public Order
 {
+	friend BuyOrder;
 	Client * seller;
 
 public:
-	SellOrder(Client*, string, double val);
-	Transaction * operator()(Order*) const;
+	SellOrder(string stock, double val, unsigned quantity, Client* seller);
+	Transaction * operator()(Order*);
 };

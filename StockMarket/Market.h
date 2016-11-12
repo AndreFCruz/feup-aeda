@@ -19,9 +19,15 @@ private:
 	
 	Market() = default;	// TODO : change constructor
 	~Market();	// To delete all dynamically allocated memory
+	
 	map<unsigned int, Client *> clients;
 	vector<Transaction *> transactions;
 	vector<Order *> unfulfilled_orders;
+
+	string clientsFile, transactionsFile, ordersFile;
+	bool clientsChanged;
+	bool transactionsChanged;
+	bool ordersChanged;
 
 public:
 	static Market * instance();

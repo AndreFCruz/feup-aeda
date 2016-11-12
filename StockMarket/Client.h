@@ -18,6 +18,7 @@ class Client
 
 public:
 	Client() = default;
+	Client(ifstream&);
 	Client(string, unsigned int);
 	string getName() const;
 	unsigned int getNIF() const;

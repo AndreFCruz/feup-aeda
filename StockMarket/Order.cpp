@@ -80,4 +80,5 @@ Transaction * SellOrder::operator()(Order* ord) {
 		return NULL;
 }
 
+
 /// ///

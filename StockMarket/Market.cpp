@@ -1,8 +1,33 @@
 #include <stddef.h>
 #include "Market.h"
+#include "menus.h"
+#include "utils.h"
 
 
 Market* Market::singleton_instance = NULL;
+
+Market::Market() {
+	ifstream file_in; string line;
+	unsigned numberOfObjects;
+	ordersChanged = transactionsChanged = clientsChanged = false;
+
+	while (!initialInfo(clientsFile, transactionsFile, ordersFile)) {
+		cout << "\nInvalid StockMarket Initialization ! Carefully type the information required! \a\n\n";
+		cout << TAB << "\n Press ENTER to retry..."; cin.ignore(INT_MAX, '\n');
+		clearScreen();
+	}
+
+	/* Populate Data Structures */
+	// Clients from file
+	// Clients from file
+	file_in.open(clientsFile);
+	file_in >> numberOfObjects;
+	for (int i = 0; i < numberOfObjects; ++i) {
+		Client * temp_c = new Client(file_in);
+		clients.insert(pair<unsigned int, Client*>(temp_c->getNIF(), temp_c));
+	}
+	file_in.close();
+}
 
 Market* Market::instance() {
 	if (!singleton_instance)

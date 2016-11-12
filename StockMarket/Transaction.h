@@ -20,8 +20,11 @@ class Transaction
 
 public:
 	Transaction() = default;
+	Transaction(ifstream&);
 	Transaction(Client * seller, Client * buyer, string stock, double value, unsigned quantity);
 	unsigned getQuantity() const;
 
 	friend ostream& operator<<(ostream&, const Transaction&);
 };
+
+ostream& operator<<(ostream&, const Transaction&);

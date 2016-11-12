@@ -25,7 +25,8 @@ public:
 	unsigned getQuantity() const;
 	
 	virtual Client * getClientPtr() = 0;
-	virtual Transaction * operator()(Order*) = 0;	// Useful? TBD
+	virtual Transaction * operator()(Order*) = 0;
+	virtual void saveChanges(ostream&) const = 0;
 
 	class InvalidValue {
 		double value;
@@ -48,6 +49,7 @@ public:
 	BuyOrder(string stock, double val, unsigned quantity, Client* buyer);
 	Client * getClientPtr();
 	Transaction * operator()(Order*);
+	void saveChanges(ostream&) const;	// TODO
 };
 
 class SellOrder : public Order
@@ -59,4 +61,5 @@ public:
 	SellOrder(string stock, double val, unsigned quantity, Client* seller);
 	Client * getClientPtr();
 	Transaction * operator()(Order*);
+	void saveChanges(ostream&) const;	// TODO
 };

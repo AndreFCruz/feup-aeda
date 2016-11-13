@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Transaction.h"
+#include "defs.h"
 
 using namespace std;
 
@@ -14,23 +15,25 @@ Class to represent a client
 class Client
 {
 	string name;
-	uint nif;
+	nif_t nif;
 
 public:
 	Client() = default;
 	Client(ifstream&);
-	Client(string, uint);
+	Client(string, nif_t);
 	string getName() const;
-	uint getNIF() const;
+	nif_t getNIF() const;
 	void saveChanges(ofstream&) const;
 
 	class InvalidNIF
 	{
-		uint nif;
+		nif_t nif;
 	public:
-		InvalidNIF(uint nif) : nif(nif) {}
-		uint getNIF() const {
+		InvalidNIF(nif_t nif) : nif(nif) {}
+		nif_t getNIF() const {
 			return nif;
 		}
 	};
 };
+
+ostream& operator<<(ostream&, const Client&);

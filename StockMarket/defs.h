@@ -7,4 +7,4 @@
 #define TAB_BIG "          "
 #define TAB    "   "
 
-typedef unsigned int uint;
+typedef unsigned int nif_t;

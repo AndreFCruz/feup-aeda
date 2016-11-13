@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "defs.h"
 
-Transaction::Transaction(uint buyerNIF, uint sellerNIF, string stock, double value, unsigned quantity) :
+Transaction::Transaction(nif_t buyerNIF, nif_t sellerNIF, string stock, double value, unsigned quantity) :
 	sellerNIF(sellerNIF), buyerNIF(buyerNIF), stock(stock), value(value), quantity(quantity) {}
 
 // Constructs Transaction from Input FileStream
@@ -36,6 +36,14 @@ Transaction::Transaction(ifstream& in) {
 void Transaction::saveChanges(ofstream & out) const {
 	out << stock << " ; " << 'S' << sellerNIF << " ; " << 'B' << buyerNIF << " ; "
 		<< value << " ; " << quantity << " ; " << time_stamp << endl;
+}
+
+nif_t Transaction::getBuyerNIF() const {
+	return buyerNIF;
+}
+
+nif_t Transaction::getSellerNIF() const {
+	return sellerNIF;
 }
 
 unsigned Transaction::getQuantity() const {

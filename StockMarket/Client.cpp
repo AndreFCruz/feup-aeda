@@ -1,7 +1,7 @@
 #include "Client.h"
 #include "utils.h"
 
-Client::Client(string name, uint nif) : name(name)
+Client::Client(string name, nif_t nif) : name(name)
 {
 	if (to_string(nif).size() == 9)	// NIF is valid ?
 		this->nif = nif;
@@ -18,10 +18,14 @@ string Client::getName() const {
 	return name;
 }
 
-uint Client::getNIF() const {
+nif_t Client::getNIF() const {
 	return nif;
 }
 
 void Client::saveChanges(ofstream & out) const {
 	out << name << " ; " << nif << endl;
+}
+
+ostream& operator<<(ostream & out, const Client & cli) {
+	return out << "Client's name: " << cli.getName() << ". Client's NIF: " << cli.getNIF() << endl;
 }

@@ -1,4 +1,5 @@
 #include "Order.h"
+#include "utils.h"
 
 /* Order Implementation */
 
@@ -11,7 +12,7 @@ Order::Order(string stock, double value, unsigned quantity) : stock(stock), quan
 }
 
 Date Order::getDatePlaced() const {
-	return placed;
+	return datePlaced;
 }
 
 string Order::getStock() const {
@@ -26,14 +27,18 @@ unsigned Order::getQuantity() const {
 	return quantity;
 }
 
+void Order::saveChanges(ofstream & out) const {
+	out << stock << " ; " << valuePerStock << " ; " << quantity << " ; " << datePlaced << " ; ";
+}
+
 /// ///
 
 /* BuyOrder Implementation */
-BuyOrder::BuyOrder(string stock, double val, unsigned quantity, Client* buyer) : Order(stock, val, quantity), buyer(buyer) {}
+BuyOrder::BuyOrder(string stock, double val, unsigned quantity, uint buyerNIF) : Order(stock, val, quantity), buyerNIF(buyerNIF) {}
 
-Client * BuyOrder::getClientPtr() {
-	return buyer;
-}
+//uint BuyOrder::getClientNIF() const {
+//	return buyerNIF;
+//}
 
 Transaction * BuyOrder::operator()(Order* ord) {
 	SellOrder * sellOrd = NULL;
@@ -53,14 +58,20 @@ Transaction * BuyOrder::operator()(Order* ord) {
 		return NULL;
 }
 
+void BuyOrder::saveChanges(ofstream & out) const {
+	out << "B ";
+	Order::saveChanges(out);
+	out << buyerNIF << endl;
+}
+
 /// ///
 
-/* BuyOrder Implementation */
-SellOrder::SellOrder(string stock, double val, unsigned quantity, Client* buyer) : Order(stock, val, quantity), seller(seller) {}
+/* SellOrder Implementation */
+SellOrder::SellOrder(string stock, double val, unsigned quantity, uint sellerNIF) : Order(stock, val, quantity), sellerNIF(sellerNIF) {}
 
-Client * SellOrder::getClientPtr() {
-	return seller;
-}
+//Client * SellOrder::getClientNIF() const {
+//	return sellerNIF;
+//}
 
 Transaction * SellOrder::operator()(Order* ord) {
 	BuyOrder * buyOrd = NULL;
@@ -69,7 +80,7 @@ Transaction * SellOrder::operator()(Order* ord) {
 		double effectiveVal = (this->valuePerStock + buyOrd->valuePerStock) / 2;
 		unsigned effectiveQuant = quantity < buyOrd->quantity ? quantity : buyOrd->quantity;
 
-		Transaction * result = new Transaction(seller, buyOrd->buyer, stock, effectiveVal, effectiveQuant);
+		Transaction * result = new Transaction(buyOrd->buyerNIF, sellerNIF, stock, effectiveVal, effectiveQuant);
 
 		quantity -= buyOrd->quantity;
 		buyOrd->quantity -= quantity;
@@ -80,5 +91,9 @@ Transaction * SellOrder::operator()(Order* ord) {
 		return NULL;
 }
 
-
+void SellOrder::saveChanges(ofstream & out) const {
+	out << "S ";
+	Order::saveChanges(out);
+	out << sellerNIF << endl;
+}
 /// ///

@@ -11,8 +11,8 @@ Class to represent a transaction
 */
 class Transaction
 {
-	Client * seller;
-	Client * buyer;
+	uint sellerNIF;
+	uint buyerNIF;
 	string stock;
 	double value;
 	unsigned quantity;
@@ -21,8 +21,10 @@ class Transaction
 public:
 	Transaction() = default;
 	Transaction(ifstream&);
-	Transaction(Client * seller, Client * buyer, string stock, double value, unsigned quantity);
+	Transaction(uint buyerNIF, uint sellerNIF, string stock, double value, unsigned quantity);
 	unsigned getQuantity() const;
+	Date getDate() const;
+	void saveChanges(ofstream&) const;
 
 	friend ostream& operator<<(ostream&, const Transaction&);
 };

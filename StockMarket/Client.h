@@ -14,21 +14,22 @@ Class to represent a client
 class Client
 {
 	string name;
-	unsigned int nif;
+	uint nif;
 
 public:
 	Client() = default;
 	Client(ifstream&);
-	Client(string, unsigned int);
+	Client(string, uint);
 	string getName() const;
-	unsigned int getNIF() const;
+	uint getNIF() const;
+	void saveChanges(ofstream&) const;
 
 	class InvalidNIF
 	{
-		unsigned int nif;
+		uint nif;
 	public:
-		InvalidNIF(unsigned int nif) : nif(nif) {}
-		unsigned int getNIF() const {
+		InvalidNIF(uint nif) : nif(nif) {}
+		uint getNIF() const {
 			return nif;
 		}
 	};

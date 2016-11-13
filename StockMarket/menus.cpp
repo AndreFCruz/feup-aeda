@@ -3,6 +3,22 @@
 #include "menus.h"
 #include "utils.h"
 
+
+bool initialInfo(string & clientsFile, string & transactionsFile, string & ordersFile) {
+	cout << TAB_BIG; showTitle("Stock Market");
+	cout << "\n Type the name of the files where information is stored (FileName.txt): \n" << endl;
+	cout << setw(21) << "Clients' file: "; setcolor(14); cin >> clientsFile;
+	setcolor(15); cin.ignore(INT_MAX, '\n');
+
+	cout << setw(21) << "Transactions' file: "; setcolor(14); cin >> transactionsFile;
+	setcolor(15); cin.ignore(INT_MAX, '\n');
+
+	cout << setw(21) << "Orders' file: "; setcolor(14); cin >> ordersFile;
+	setcolor(15); cin.ignore(INT_MAX, '\n');	// clear the end-of-line character from the cin stream buffer
+
+	return (validFile(clientsFile) && validFile(transactionsFile) && validFile(ordersFile) && !cin.fail());
+}
+
 /******************************************
  * Gestao de Clientes
  ******************************************/
@@ -24,7 +40,7 @@ unsigned short int clientOptions() {
 }
 
 void clientMenu() {
-	unsigned short int option; unsigned int nif;
+	unsigned short int option; uint nif;
 
 	while ((option = clientOptions())) {
 		switch (option) {

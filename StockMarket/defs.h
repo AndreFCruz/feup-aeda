@@ -7,3 +7,4 @@
 #define TAB_BIG "          "
 #define TAB    "   "
 
+typedef unsigned int uint;

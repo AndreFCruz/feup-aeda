@@ -1,5 +1,6 @@
-#include <stddef.h>
+#include <algorithm>
 #include "Market.h"
+#include "defs.h"
 #include "menus.h"
 #include "utils.h"
 
@@ -19,14 +20,65 @@ Market::Market() {
 
 	/* Populate Data Structures */
 	// Clients from file
-	// Clients from file
 	file_in.open(clientsFile);
 	file_in >> numberOfObjects;
 	for (int i = 0; i < numberOfObjects; ++i) {
 		Client * temp_c = new Client(file_in);
-		clients.insert(pair<unsigned int, Client*>(temp_c->getNIF(), temp_c));
+		clients.insert(pair<uint, Client*>(temp_c->getNIF(), temp_c));
 	}
 	file_in.close();
+
+	// Transactions from file
+	file_in.open(transactionsFile);
+	file_in >> numberOfObjects;
+	transactions.reserve(numberOfObjects);
+	for (int i = 0; i < numberOfObjects; ++i) {
+		Transaction * temp_t = new Transaction(file_in);
+		transactions.push_back(temp_t);
+	}
+	file_in.close();
+	
+	// Sort transactions by chronological order
+	sort(transactions.begin(), transactions.end(), [](const Transaction * t1, const Transaction * t2) {return t1->getDate() < t2->getDate(); });
+
+	// Unfulfilled Orders from file
+	char c;	// Buy/Sell Char Flag
+	file_in.open(ordersFile);
+	file_in >> numberOfObjects;
+	transactions.reserve(numberOfObjects);
+	for (int i = 0; i < numberOfObjects; ++i) {
+		Order * temp_o;
+		file_in >> c;
+		switch (c) {
+		case 'B':
+			temp_o = new BuyOrder(file_in);
+			break;
+		case 'S':
+			temp_o = new SellOrder(file_in);
+			break;
+		default:
+			cerr << "Invalid Order Identifier in File \"" << ordersFile << "\".\n";
+			break;
+		}
+		unfulfilled_orders.push_back(temp_o);
+	}
+	file_in.close();
+}
+
+Market::~Market() {
+	// Warning: Do Not delete from files
+
+	// Delete Clients from Memory
+	for (auto p : clients)
+		delete p.second;
+
+	// Delete Transactions from Memory
+	for (Transaction * t : transactions)
+		delete t;
+
+	// Delete Orders from Memory
+	for (Order * o : unfulfilled_orders)
+		delete o;
 }
 
 Market* Market::instance() {

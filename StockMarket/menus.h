@@ -6,3 +6,6 @@ bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFi
 
 // Menu implementation
 void clientMenu();
+void transactionMenu();
+void orderMenu();
+void initialMenu();

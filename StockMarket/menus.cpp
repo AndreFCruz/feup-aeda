@@ -40,7 +40,7 @@ unsigned short int clientOptions() {
 }
 
 void clientMenu() {
-	unsigned short int option; uint nif;
+	unsigned short int option; nif_t nif;
 
 	while ((option = clientOptions())) {
 		switch (option) {

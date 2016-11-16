@@ -2,6 +2,13 @@
 #include "utils.h"
 
 /* Order Implementation */
+Order::Order(ifstream & in) {
+	char dummy;
+	getline(in, stock, ';'); trim(stock);
+	in >> valuePerStock >> dummy;
+	in >> quantity >> dummy;
+	in >> datePlaced >> dummy;
+}
 
 Order::Order(string stock, double value, unsigned quantity) : stock(stock), quantity(quantity)
 {
@@ -34,9 +41,13 @@ void Order::saveChanges(ofstream & out) const {
 /// ///
 
 /* BuyOrder Implementation */
-BuyOrder::BuyOrder(string stock, double val, unsigned quantity, uint buyerNIF) : Order(stock, val, quantity), buyerNIF(buyerNIF) {}
+BuyOrder::BuyOrder(ifstream & in) : Order(in) {
+	in >> buyerNIF; in.ignore(3, '\n');
+}
 
-//uint BuyOrder::getClientNIF() const {
+BuyOrder::BuyOrder(string stock, double val, unsigned quantity, nif_t buyerNIF) : Order(stock, val, quantity), buyerNIF(buyerNIF) {}
+
+//nif_t BuyOrder::getClientNIF() const {
 //	return buyerNIF;
 //}
 
@@ -47,7 +58,7 @@ Transaction * BuyOrder::operator()(Order* ord) {
 		double effectiveVal = (this->valuePerStock + sellOrd->valuePerStock) / 2;
 		unsigned effectiveQuant = quantity < sellOrd->quantity ? quantity : sellOrd->quantity;
 
-		Transaction * result = new Transaction(sellOrd->seller, buyer, stock, effectiveVal, effectiveQuant);
+		Transaction * result = new Transaction(sellOrd->sellerNIF, buyerNIF, stock, effectiveVal, effectiveQuant);
 
 		quantity -= sellOrd->quantity;
 		sellOrd->quantity -= quantity;
@@ -67,7 +78,11 @@ void BuyOrder::saveChanges(ofstream & out) const {
 /// ///
 
 /* SellOrder Implementation */
-SellOrder::SellOrder(string stock, double val, unsigned quantity, uint sellerNIF) : Order(stock, val, quantity), sellerNIF(sellerNIF) {}
+SellOrder::SellOrder(ifstream & in) : Order(in) {
+	in >> sellerNIF; in.ignore(3, '\n');
+}
+
+SellOrder::SellOrder(string stock, double val, unsigned quantity, nif_t sellerNIF) : Order(stock, val, quantity), sellerNIF(sellerNIF) {}
 
 //Client * SellOrder::getClientNIF() const {
 //	return sellerNIF;

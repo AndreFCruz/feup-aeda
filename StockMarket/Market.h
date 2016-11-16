@@ -21,7 +21,7 @@ private:
 	~Market();	// To delete all dynamically allocated memory
 	// Private Destructor ? TBD
 
-	map<uint, Client *> clients;
+	map<nif_t, Client *> clients;
 	vector<Transaction *> transactions;
 	vector<Order *> unfulfilled_orders;
 
@@ -33,13 +33,13 @@ private:
 public:
 	static Market * instance();
 
-	void showClientInfo(uint nif);
-	void showClientHistory(uint nif);
-	vector<Transaction*> clientHistory(Client *);
+	void showClientInfo(nif_t nif) const;
+	void showClientHistory(nif_t nif) const;
+	vector<Transaction*> clientHistory(Client *) const;
 	void printTransactions(ostream&) const;
 	//bool placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity);
 	bool placeOrder(Order *);	// Abstracts of Buy/Sell type
-	void saveChanges();	// Save All Info to Files
+	void saveChanges() const;	// Save All Info to Files
 
 	friend ostream& operator<<(ostream & out, const Market & m);
 };

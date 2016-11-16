@@ -22,9 +22,9 @@ Market::Market() {
 	// Clients from file
 	file_in.open(clientsFile);
 	file_in >> numberOfObjects;
-	for (int i = 0; i < numberOfObjects; ++i) {
+	for (unsigned i = 0; i < numberOfObjects; ++i) {
 		Client * temp_c = new Client(file_in);
-		clients.insert(pair<uint, Client*>(temp_c->getNIF(), temp_c));
+		clients.insert(pair<nif_t, Client*>(temp_c->getNIF(), temp_c));
 	}
 	file_in.close();
 
@@ -32,7 +32,7 @@ Market::Market() {
 	file_in.open(transactionsFile);
 	file_in >> numberOfObjects;
 	transactions.reserve(numberOfObjects);
-	for (int i = 0; i < numberOfObjects; ++i) {
+	for (unsigned i = 0; i < numberOfObjects; ++i) {
 		Transaction * temp_t = new Transaction(file_in);
 		transactions.push_back(temp_t);
 	}
@@ -88,6 +88,32 @@ Market* Market::instance() {
 	return singleton_instance;
 }
 
+// Can throw exception, should be handled by higher function
+void Market::showClientInfo(nif_t nif) const {
+	Client * cli = clients.at(nif);
+
+	cout << "Name: " << cli->getName() << ". NIF: " << cli->getNIF() << endl;
+}
+
+// Can throw exception, should be handled by higher function
+void Market::showClientHistory(nif_t nif) const {
+	Client * cli = clients.at(nif);
+	cout << *cli;
+
+	for (Transaction * t_ptr : clientHistory(cli))
+		cout << *t_ptr;
+}
+
+vector<Transaction *> Market::clientHistory(Client * c_ptr) const {
+	vector<Transaction *> result;
+	for (Transaction * t_ptr : transactions) {
+		if (t_ptr->getBuyerNIF() == c_ptr->getNIF() || t_ptr->getSellerNIF() == c_ptr->getNIF())
+			result.push_back(t_ptr);
+	}
+
+	return result;
+}
+
 void Market::printTransactions(ostream & out) const
 {
 	for (Transaction * t : transactions) {
@@ -138,4 +164,46 @@ bool Market::placeOrder(Order * ptr)
 		}
 	}
 	return false;
+}
+
+void Market::saveChanges() const {
+	ofstream out;
+
+	// Save Clients if Changed
+	if (clientsChanged) {
+		out.open(clientsFile);
+		out << clients.size();
+
+		for (auto p : clients)
+			p.second->saveChanges(out);
+
+		out.close();
+	}
+
+	// Save Transactions if Changed
+	if (transactionsChanged) {
+		out.open(transactionsFile);
+		out << transactions.size();
+
+		for (Transaction * ptr : transactions)
+			ptr->saveChanges(out);
+
+		out.close();
+	}
+
+	// Save Orders if Changed
+	if (ordersChanged) {
+		out.open(ordersFile);
+		out << unfulfilled_orders.size();
+
+		for (Order * ptr : unfulfilled_orders)
+			ptr->saveChanges(out);
+
+		out.close();
+	}
+}
+
+ostream& operator<<(ostream & out, const Market & m) {
+	out << "Place Holder for StockMarket Statistics.\n";
+	return out;
 }

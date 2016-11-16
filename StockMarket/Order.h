@@ -18,6 +18,7 @@ protected:
 	Date datePlaced;
 
 public:
+	Order(ifstream&);
 	Order(string, double, unsigned);
 	virtual ~Order() = default;
 	Date getDatePlaced() const;
@@ -25,7 +26,7 @@ public:
 	double getValue() const;
 	unsigned getQuantity() const;
 	
-	virtual Client * getClientPtr() = 0;
+	//virtual nif_t getClientNIF() = 0;
 	virtual Transaction * operator()(Order*) = 0;
 	virtual void saveChanges(ofstream&) const;
 
@@ -44,11 +45,12 @@ class SellOrder;
 class BuyOrder : public Order
 {
 	friend SellOrder;
-	uint buyerNIF;
+	nif_t buyerNIF;
 
 public:
-	BuyOrder(string stock, double val, unsigned quantity, uint buyerNIF);
-	//uint getClientNIF() const;
+	BuyOrder(ifstream&);
+	BuyOrder(string stock, double val, unsigned quantity, nif_t buyerNIF);
+	//nif_t getClientNIF() const;
 	Transaction * operator()(Order*);
 	void saveChanges(ofstream&) const;
 };
@@ -56,11 +58,12 @@ public:
 class SellOrder : public Order
 {
 	friend BuyOrder;
-	uint sellerNIF;
+	nif_t sellerNIF;
 
 public:
-	SellOrder(string stock, double val, unsigned quantity, uint sellerNIF);
-	//uint getClientNIF() const;
+	SellOrder(ifstream&);
+	SellOrder(string stock, double val, unsigned quantity, nif_t sellerNIF);
+	//nif_t getClientNIF() const;
 	Transaction * operator()(Order*);
 	void saveChanges(ofstream&) const;
 };

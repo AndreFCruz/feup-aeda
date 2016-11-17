@@ -35,7 +35,7 @@ public:
 	static Market * instance();
 
 	bool signIn();
-	bool signUp();
+	bool signUp(string name, nif_t nif);
 	void showClientInfo() const;
 	void showClientHistory() const;
 

@@ -176,18 +176,13 @@ unsigned short int initialOptions() {
 	cout << TAB << "2 - Manage transactions" << endl;
 	cout << TAB << "3 - Manage orders" << endl;
 	cout << TAB << "4 - Statistic Information" << endl;
-	cout << TAB << "5 - Exit program" << endl << endl;
+	cout << TAB << "5 - Sign Out" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 5, msg);
 	cout << endl << endl;
 
-	if (option == 5) {
-		setcolor(14);
-		cout << TAB << "Thank you for using our software!\n" << TAB << "Developed by Andre Cruz, Edgar Carneiro and Joao Conde\n" << endl;
-		setcolor(15);
+	if (option == 5) 
 		return false;
-	}
-
 
 	return option;
 }
@@ -226,8 +221,12 @@ unsigned short int startingOptions() {
 	option = getUnsignedShortInt(1, 3, msg);
 	cout << endl << endl;
 
-	if (option == 3)
+	if (option == 3) {
+		setcolor(14);
+		cout << TAB << "Thank you for using our software!\n" << TAB << "Developed by Andre Cruz, Edgar Carneiro and Joao Conde\n" << endl;
+		setcolor(15);
 		return false;
+	}
 
 	return option;
 }
@@ -239,15 +238,26 @@ void initialMenu() {
 	while ((option = startingOptions()))
 		switch (option) {
 		case 1:
-			Market::instance()->signIn();
+			if (Market::instance()->signIn()) {
+				cout << "\nSigned In successfully!\n";
+				startingMenu();
+			}
 			break;
 		case 2:
-			// Pedir nome e nif, fazer try catch de nifs invalidos!!! remembaaa
+			string name;
+			nif_t nif;
+
+			cout << "Name: ";
+			getline(cin, name, '\n');
+			trim(name);
+			cout << "NIF: ";
+			cin >> nif;
+			// Confirmar
 			try {
-				Market::instance()->signUp();
+				Market::instance()->signUp(name,nif);
 			}
 			catch (Client::InvalidNIF & e) {
-				// Cenas
+				cout << "\nInvalidNIF: " << e.getNIF() << endl;
 			}
 			break;
 		}

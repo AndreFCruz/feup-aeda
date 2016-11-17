@@ -89,13 +89,32 @@ Market* Market::instance() {
 }
 
 bool Market::signIn() {
+	string name;
+	nif_t nif;
 
+	cout << "Name: ";
+	getline(cin, name, '\n');
+	trim(name);
+	cout << "NIF: ";
+	cin >> nif;
+
+	for (auto it = clients.begin(); it != clients.end(); ++it) {
+		if ((it->first == nif) && ((it->second)->getName() == name)) {
+			currentNIF = nif;
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Market::signUp(string name, nif_t nif) {
 	// acrescentar cliente ao map (nif, client*) e mudar currentNIF etc
-
+	Client * newClient = new Client(name, nif);
+	clients.insert(pair<nif_t, Client *>(nif, newClient));
+	
+	currentNIF = nif;
 	clientsChanged = true;
+	return true;
 }
 
 // Can throw exception, should be handled by higher function

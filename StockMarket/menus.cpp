@@ -39,6 +39,7 @@ unsigned short int clientOptions() {
 	return option;
 }
 
+// TODO cin.ignore(INT_MAX, '\n') depois de pedir nif etc (?)
 void clientMenu() {
 	unsigned short int option; nif_t nif;
 
@@ -46,11 +47,11 @@ void clientMenu() {
 		switch (option) {
 		case 1: //Show Info
 			cout << endl << TAB << "Client's NIF: "; cin >> nif;
-			Market::instance()->showClientInfo(nif);
+			Market::instance()->showClientInfo();
 			break;
 		case 2: //Show Client History
 			cout << endl << TAB << "Client's NIF: "; cin >> nif;
-			Market::instance()->showClientHistory(nif);
+			Market::instance()->showClientHistory();
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
@@ -94,7 +95,7 @@ void transactionMenu() {
 			break;
 		case 2: //list client transactions
 			cout << endl << TAB << "Client name: "; getline(cin, clientName);
-			Market::instance()->listTransactions(clientName);
+			//Market::instance()->showClientHistory(self->getNIF());
 			break;
 		case 3: //list transactions between 2 days
 			Market::instance()->listTransactions(getDate("First day"), getDate("Last day"));
@@ -136,7 +137,7 @@ unsigned short int orderOptions() {
 }
 
 void orderMenu() {
-	unsigned short int option; 
+	unsigned short int option;
 
 	while ((option = transactionOptions())) {
 		switch (option) {
@@ -191,7 +192,7 @@ unsigned short int initialOptions() {
 	return option;
 }
 
-void initialMenu() {
+void startingMenu() {
 	unsigned int option;
 
 
@@ -204,6 +205,50 @@ void initialMenu() {
 		case 3: orderMenu();
 			break;
 		case 4: //Show statistics? 
+			break;
+		}
+
+	Market::instance()->saveChanges();
+}
+
+/******************************************
+* Menu de Inicialização
+******************************************/
+unsigned short int startingOptions() {
+	unsigned short int option;
+
+	clearScreen();
+	showTitle("Starting Menu");
+	cout << TAB << "1 - Sign In" << endl;
+	cout << TAB << "2 - Sign Up" << endl;
+	cout << TAB << "3 - Exit program" << endl << endl;
+	string msg = TAB; msg += "Your option: ";
+	option = getUnsignedShortInt(1, 3, msg);
+	cout << endl << endl;
+
+	if (option == 3)
+		return false;
+
+	return option;
+}
+
+void initialMenu() {
+	unsigned int option;
+
+
+	while ((option = startingOptions()))
+		switch (option) {
+		case 1:
+			Market::instance()->signIn();
+			break;
+		case 2:
+			// Pedir nome e nif, fazer try catch de nifs invalidos!!! remembaaa
+			try {
+				Market::instance()->signUp();
+			}
+			catch (Client::InvalidNIF & e) {
+				// Cenas
+			}
 			break;
 		}
 

@@ -16,6 +16,7 @@ class Market
 {
 private:
 	static Market * singleton_instance;
+	nif_t currentNIF;	// NIF corresponding to current user of the program
 	
 	Market();
 	~Market();	// To delete all dynamically allocated memory
@@ -33,8 +34,11 @@ private:
 public:
 	static Market * instance();
 
-	void showClientInfo(nif_t nif) const;
-	void showClientHistory(nif_t nif) const;
+	bool signIn();
+	bool signUp();
+	void showClientInfo() const;
+	void showClientHistory() const;
+
 	vector<Transaction*> clientHistory(Client *) const;
 	void printTransactions(ostream&) const;
 	//bool placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity);

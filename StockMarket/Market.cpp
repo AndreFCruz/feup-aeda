@@ -88,16 +88,26 @@ Market* Market::instance() {
 	return singleton_instance;
 }
 
+bool Market::signIn() {
+
+}
+
+bool Market::signUp(string name, nif_t nif) {
+	// acrescentar cliente ao map (nif, client*) e mudar currentNIF etc
+
+	clientsChanged = true;
+}
+
 // Can throw exception, should be handled by higher function
-void Market::showClientInfo(nif_t nif) const {
-	Client * cli = clients.at(nif);
+void Market::showClientInfo() const {
+	Client * cli = clients.at(currentNIF);
 
 	cout << "Name: " << cli->getName() << ". NIF: " << cli->getNIF() << endl;
 }
 
 // Can throw exception, should be handled by higher function
-void Market::showClientHistory(nif_t nif) const {
-	Client * cli = clients.at(nif);
+void Market::showClientHistory() const {
+	Client * cli = clients.at(currentNIF);
 	cout << *cli;
 
 	for (Transaction * t_ptr : clientHistory(cli))
@@ -145,6 +155,7 @@ void Market::printTransactions(ostream & out) const
 //	return false;
 //}
 
+// TODO Por a devolver vector<Transaction*>. Ass: Andre
 bool Market::placeOrder(Order * ptr)
 {
 	for (unsigned i = 0; i < unfulfilled_orders.size(); i++) {
@@ -163,6 +174,7 @@ bool Market::placeOrder(Order * ptr)
 			}
 		}
 	}
+	ordersChanged = true;
 	return false;
 }
 

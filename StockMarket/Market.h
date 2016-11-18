@@ -41,6 +41,9 @@ public:
 
 	vector<Transaction*> clientHistory(Client *) const;
 	void printTransactions(ostream&) const;
+	void listTransactions(Date day1, Date day2);
+	void listDailyTransactions(Date d);
+	void addTransaction();
 	//bool placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity);
 	bool placeOrder(Order *);	// Abstracts of Buy/Sell type
 	void saveChanges() const;	// Save All Info to Files

@@ -29,7 +29,7 @@ public:
 	friend istream& operator>>(istream& in, Date& date);
 //	friend bool operator<=(const Date& d1, const Date& d2);
 	friend bool operator<(const Date& d1, const Date& d2);
-//	friend bool operator==(const Date& d1, const Date& d2);
+	friend bool operator==(const Date& d1, const Date& d2);
 };
 
 

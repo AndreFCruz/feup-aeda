@@ -70,7 +70,7 @@ unsigned short int transactionOptions() {
 	clearScreen();
 	showTitle("Transactions Menu");
 	cout << TAB << "1 - List ALL transactions" << endl;
-	cout << TAB << "2 - List client's transactions" << endl;
+	//cout << TAB << "2 - List client's transactions" << endl;
 	cout << TAB << "3 - List transactions between 2 days" << endl;
 	cout << TAB << "4 - List daily transactions " << endl;
 	cout << TAB << "5 - Add transaction" << endl;
@@ -91,18 +91,17 @@ void transactionMenu() {
 		switch (option) {
 		case 1: //list all transactions
 			cout << endl;
-			Market::instance()->listTransactions();
+			Market::instance()->printTransactions(cout);
 			break;
-		case 2: //list client transactions
+	/*	case 2: //list client transactions
 			cout << endl << TAB << "Client name: "; getline(cin, clientName);
-			//Market::instance()->showClientHistory(self->getNIF());
-			break;
+			Market::instance()->showClientHistory(self->getNIF());
+			break;   OBS: remover uma vez que o cliente apenas pode ver as suas proprias? (usando o menu cliente)*/
 		case 3: //list transactions between 2 days
 			Market::instance()->listTransactions(getDate("First day"), getDate("Last day"));
 			break;
 		case 4: //list daily transactions
-			cout << endl << TAB << "Transaction day\n";
-			Market::instance()->listTransactions(getDate());
+			Market::instance()->listDailyTransactions(getDate("Transaction day\n"));
 			break;
 		case 5: //add transaction
 			Market::instance()->addTransaction();

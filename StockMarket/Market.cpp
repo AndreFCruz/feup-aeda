@@ -150,6 +150,52 @@ void Market::printTransactions(ostream & out) const
 	}
 }
 
+void Market::listTransactions(Date day1, Date day2) {
+
+	for (size_t i = 0; i < transactions.size(); i++) {
+		Date d = transactions.at(i)->getDate();
+		
+		if (isBetween(d, day1, day2))
+			cout << transactions.at(i);
+	}
+
+}
+
+void Market::listDailyTransactions(Date d) {
+
+	for (size_t i = 0; i < transactions.size(); i++) {
+		if (transactions.at(i)->getDate() == d)
+			cout << transactions.at(i);
+	}
+}
+
+void Market::addTransaction() {
+	
+	nif_t buyer, seller;
+	string stock;
+	double val;
+	unsigned quant;
+
+	cout << "Buyer NIF: ";
+	cin >> buyer; cin.ignore();
+
+	cout << "Seller NIF: ";
+	cin >> seller; cin.ignore();
+
+	cout << "Stock: ";
+	getline(cin, stock);
+
+	cout << "Value: ";
+	cin >> val; cin.ignore();
+
+	cout << "Quantity: ";
+	cin >> quant; cin.ignore();
+
+	Transaction *t = new Transaction(buyer, seller, stock, val, quant);
+
+	transactions.push_back(t);
+}
+
 /* To Delete (?) */
 //bool Market::placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity)
 //{

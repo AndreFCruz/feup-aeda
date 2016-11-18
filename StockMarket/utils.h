@@ -20,9 +20,11 @@ template <class numT>
 numT getValue(string msg = "", size_t width = 0);
 
 bool validFile(const string file);
+bool isBetween(Date d, Date d1, Date d2);
 char toUpper(char c);
 void trim(string &value);
 void showTitle(string title, ostream& out = cout);
 Date getDate(string msg = "");
+
 
 

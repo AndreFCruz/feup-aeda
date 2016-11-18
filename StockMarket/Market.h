@@ -38,14 +38,16 @@ public:
 	bool signUp(string name, nif_t nif);
 	void showClientInfo() const;
 	void showClientHistory() const;
+	void listBuyOrders() const;
+	void listSellOrders() const;
 
 	vector<Transaction*> clientHistory(Client *) const;
 	void printTransactions(ostream&) const;
 	void listTransactions(Date day1, Date day2);
 	void listDailyTransactions(Date d);
-	void addTransaction();
+	
 	//bool placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity);
-	bool placeOrder(Order *);	// Abstracts of Buy/Sell type
+	auto placeOrder(Order *);	// Abstracts of Buy/Sell type
 	void saveChanges() const;	// Save All Info to Files
 
 	friend ostream& operator<<(ostream & out, const Market & m);

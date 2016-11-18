@@ -141,7 +141,6 @@ void orderMenu() {
 	while ((option = transactionOptions())) {
 		switch (option) {
 		case 1: //list all buy orders
-			cout << endl;
 			Market::instance()->listBuyOrders();
 			break;
 		case 2: //list sell orders
@@ -151,7 +150,6 @@ void orderMenu() {
 			Market::instance()->addBuyOrder();
 			break;
 		case 4: 
-			cout << endl << TAB << "Transaction day\n";
 			Market::instance()->addSellOrder();
 			break;
 		}

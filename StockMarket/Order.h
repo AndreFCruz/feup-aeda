@@ -25,6 +25,7 @@ public:
 	string getStock() const;
 	double getValue() const;
 	unsigned getQuantity() const;
+	void printInfo() const;
 	
 	//virtual nif_t getClientNIF() = 0;
 	virtual Transaction * operator()(Order*) = 0;

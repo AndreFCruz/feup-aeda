@@ -169,32 +169,47 @@ void Market::listDailyTransactions(Date d) {
 	}
 }
 
-void Market::addTransaction() {
-	
-	nif_t buyer, seller;
-	string stock;
-	double val;
-	unsigned quant;
-
-	cout << "Buyer NIF: ";
-	cin >> buyer; cin.ignore();
-
-	cout << "Seller NIF: ";
-	cin >> seller; cin.ignore();
-
-	cout << "Stock: ";
-	getline(cin, stock);
-
-	cout << "Value: ";
-	cin >> val; cin.ignore();
-
-	cout << "Quantity: ";
-	cin >> quant; cin.ignore();
-
-	Transaction *t = new Transaction(buyer, seller, stock, val, quant);
-
-	transactions.push_back(t);
+void Market::listBuyOrders() const {
+	for (Order * ptr : unfulfilled_orders) {
+		if (dynamic_cast<BuyOrder*>(ptr) != NULL)
+			ptr->printInfo();
+	}
 }
+
+void Market::listSellOrders() const {
+	for (Order * ptr : unfulfilled_orders) {
+		if (dynamic_cast<SellOrder*>(ptr) != NULL)
+			ptr->printInfo();
+	}
+}
+
+// wtf isto devia estar na implementacao do menu. E btw nao devia ser possivel adicionar transacoes, so qd ordens sao fulfilled
+//void Market::addTransaction() {
+//	
+//	nif_t buyer, seller;
+//	string stock;
+//	double val;
+//	unsigned quant;
+//
+//	cout << "Buyer NIF: ";
+//	cin >> buyer; cin.ignore();
+//
+//	cout << "Seller NIF: ";
+//	cin >> seller; cin.ignore();
+//
+//	cout << "Stock: ";
+//	getline(cin, stock);
+//
+//	cout << "Value: ";
+//	cin >> val; cin.ignore();
+//
+//	cout << "Quantity: ";
+//	cin >> quant; cin.ignore();
+//
+//	Transaction *t = new Transaction(buyer, seller, stock, val, quant);
+//
+//	transactions.push_back(t);
+//}
 
 /* To Delete (?) */
 //bool Market::placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity)
@@ -220,9 +235,11 @@ void Market::addTransaction() {
 //	return false;
 //}
 
-// TODO Por a devolver vector<Transaction*>. Ass: Andre
-bool Market::placeOrder(Order * ptr)
+// Returns pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator >
+auto Market::placeOrder(Order * ptr)
 {
+	typedef vector<Transaction *>::iterator transIt;
+	size_t initialSize = transactions.size();
 	for (unsigned i = 0; i < unfulfilled_orders.size(); i++) {
 		Transaction * trans;
 		if ((trans = (*unfulfilled_orders[i])(ptr)) != NULL) {	// Transaction Successful ?
@@ -235,12 +252,17 @@ bool Market::placeOrder(Order * ptr)
 			}
 			if (0 == ptr->getQuantity()) {
 				delete ptr;
-				return true;
+				break;
 			}
 		}
 	}
 	ordersChanged = true;
-	return false;
+	if (transactions.size() > initialSize) {
+		transactionsChanged = true;
+		return pair<transIt, transIt>(transactions.begin() + initialSize, transactions.end());
+	}
+
+	return pair<transIt, transIt> (transactions.end(), transactions.end());
 }
 
 void Market::saveChanges() const {

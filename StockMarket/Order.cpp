@@ -38,6 +38,9 @@ void Order::saveChanges(ofstream & out) const {
 	out << stock << " ; " << valuePerStock << " ; " << quantity << " ; " << datePlaced << " ; ";
 }
 
+void Order::printInfo() const {
+	cout << "Stock: " << stock << ". Quantity: " << quantity << ". Price per stock: " << valuePerStock << ". Date placed: " << datePlaced << ".\n";
+}
 /// ///
 
 /* BuyOrder Implementation */

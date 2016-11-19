@@ -66,4 +66,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\Toshiba\Downloads\o.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="C:\Users\Toshiba\Downloads\c.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="C:\Users\Toshiba\Downloads\t.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

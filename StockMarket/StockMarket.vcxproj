@@ -38,6 +38,11 @@
     <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\Toshiba\Downloads\c.txt" />
+    <Text Include="C:\Users\Toshiba\Downloads\o.txt" />
+    <Text Include="C:\Users\Toshiba\Downloads\t.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{36652EEF-95E2-4F42-B39F-BB23A741F07E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

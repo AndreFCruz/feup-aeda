@@ -73,7 +73,7 @@ unsigned short int transactionOptions() {
 	//cout << TAB << "2 - List client's transactions" << endl;
 	cout << TAB << "3 - List transactions between 2 days" << endl;
 	cout << TAB << "4 - List daily transactions " << endl;
-	cout << TAB << "5 - Add transaction" << endl;
+	//cout << TAB << "5 - Add transaction" << endl;
 	cout << TAB << "6 - Exit sub-menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 6, msg);
@@ -97,15 +97,16 @@ void transactionMenu() {
 			cout << endl << TAB << "Client name: "; getline(cin, clientName);
 			Market::instance()->showClientHistory(self->getNIF());
 			break;   OBS: remover uma vez que o cliente apenas pode ver as suas proprias? (usando o menu cliente)*/
+			//Apesar de ele estar la tb podiamos deixar estar aqui visto que tb se enquadra no mm menu... Basicamente a mm funcionalidade em 2 menus.. opinions? Ass:edgar
 		case 3: //list transactions between 2 days
 			Market::instance()->listTransactions(getDate("First day"), getDate("Last day"));
 			break;
 		case 4: //list daily transactions
 			Market::instance()->listDailyTransactions(getDate("Transaction day\n"));
 			break;
-		case 5: //add transaction
+/*		case 5: //add transaction	//Como Andre disse isto não faz mt sentido, prolly esqueceu-se de retirar
 			Market::instance()->addTransaction();
-			break;
+			break; */
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 	}
@@ -237,6 +238,7 @@ void initialMenu() {
 		case 1:
 			if (Market::instance()->signIn()) {
 				cout << "\nSigned In successfully!\n";
+				cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 				startingMenu();
 			}
 			break;
@@ -248,7 +250,7 @@ void initialMenu() {
 			getline(cin, name, '\n');
 			trim(name);
 			cout << "NIF: ";
-			cin >> nif;
+			cin >> nif; cin.ignore();
 			// Confirmar
 			try {
 				Market::instance()->signUp(name,nif);

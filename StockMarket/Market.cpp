@@ -114,6 +114,7 @@ bool Market::signUp(string name, nif_t nif) {
 	
 	currentNIF = nif;
 	clientsChanged = true;
+	cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');	//Re-check
 	return true;
 }
 
@@ -263,6 +264,89 @@ auto Market::placeOrder(Order * ptr)
 	}
 
 	return pair<transIt, transIt> (transactions.end(), transactions.end());
+}
+
+void Market::addBuyOrder()
+{
+	//Getting the info from the user
+	string stock;
+	double val;
+	unsigned quantity;
+
+	cout << TAB << "Adding a new Buy Order...\nStock: ";
+	getline(cin, stock);
+	trim(stock);
+	cout << "Stock's value: ";
+	cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
+	cout << "Quantity: ";
+	cin >> quantity; cin.ignore();	//Gestao inputs
+
+	Order * newOrder = new BuyOrder(stock, val, quantity, currentNIF);
+	unfulfilled_orders.push_back(newOrder);		//Ao fim de meia hora n vejo onde o se faz a atualização do unfulfilledorders, que dps e usado no placeORder.. Re-verificar
+	auto result = placeOrder(newOrder);
+	
+	bool fullfilled = true;
+	if (result.first != result.second) {	//Transitions were made
+		for (unsigned int i = 0; i < unfulfilled_orders.size(); i++) {
+			if (unfulfilled_orders.at(i) == newOrder)
+				fullfilled = false;			//Buy Order not fully fullfilled
+		}
+		if (fullfilled)
+			cout << "Your order was instantly fullfilled!\n";
+		else
+			cout << "Your order was partially fullfilled. Waiting for more Sell Orders to completely fullfill it!\n";
+
+		cout << "Transactions that were made:\n ";
+		while (result.first != result.second)	//Showing the transactions made
+		{
+			cout << *result.first;	//Well-Done? Possibly not
+			result.first++;
+		}
+	}
+	else
+		cout << "Waiting for Sell Orders to fullfill your order!\n";
+
+}
+
+void Market::addSellOrder()
+{
+	//Getting the info from the user
+	string stock;
+	double val;
+	unsigned quantity;
+
+	cout << TAB << "Adding a new Sell Order...\nStock: ";
+	getline(cin, stock);
+	trim(stock);
+	cout << "Stock's value: ";
+	cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
+	cout << "Quantity: ";
+	cin >> quantity; cin.ignore();	//Gestao inputs
+
+	Order * newOrder = new SellOrder(stock, val, quantity, currentNIF);
+	unfulfilled_orders.push_back(newOrder);		//Ao fim de meia hora n vejo onde o se faz a atualização do unfulfilledorders, que dps e usado no placeORder.. Re-verificar
+	auto result = placeOrder(newOrder);
+
+	bool fullfilled = true;
+	if (result.first != result.second) {	//Transitions were made
+		for (unsigned int i = 0; i < unfulfilled_orders.size(); i++) {
+			if (unfulfilled_orders.at(i) == newOrder)
+				fullfilled = false;			//Order not fully fullfilled
+		}
+		if (fullfilled)
+			cout << "Your order was instantly fullfilled!\n";
+		else
+			cout << "Your order was partially fullfilled. Waiting for more Buy Orders to completely fullfill it!\n";
+
+		cout << "Transactions that were made:\n ";
+		while (result.first != result.second)	//Showing the transactions made
+		{
+			cout << *result.first;	//Well-Done? Possibly not
+			result.first++;
+		}
+	}
+	else
+		cout << "Waiting for Buy Orders to fullfill your order!\n";
 }
 
 void Market::saveChanges() const {

@@ -40,6 +40,8 @@ public:
 	void showClientHistory() const;
 	void listBuyOrders() const;
 	void listSellOrders() const;
+	void addBuyOrder();
+	void addSellOrder();
 
 	vector<Transaction*> clientHistory(Client *) const;
 	void printTransactions(ostream&) const;

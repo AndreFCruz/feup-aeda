@@ -8,4 +8,5 @@ bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFi
 void clientMenu();
 void transactionMenu();
 void orderMenu();
+void startingMenu();
 void initialMenu();

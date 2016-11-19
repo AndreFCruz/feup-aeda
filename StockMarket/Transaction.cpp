@@ -14,23 +14,23 @@ Transaction::Transaction(ifstream& in) {
 	stock = s;
 
 	// Extract Clients' NIFs
-	in.ignore(3, 'S'); // Extract 'S' (Seller)
+	in.ignore(5, 'S'); // Extract 'S' (Seller)
 	in >> sellerNIF;
-	in.ignore(3, 'B'); // Extract 'B' (Buyer)
+	in.ignore(5, 'B'); // Extract 'B' (Buyer)
 	in >> buyerNIF;
-	in.ignore(3, ';');
+	in.ignore(5, ';');
 
 	// Extract Value
 	in >> value;
-	in.ignore(3, ';');
+	in.ignore(5, ';');
 
 	// Extract Quantity
 	in >> quantity;
-	in.ignore(3, ';');
+	in.ignore(5, ';');
 
 	// Extract Date
 	in >> time_stamp;
-	in.ignore(3, '\n');
+	in.ignore(5, '\n');
 }
 
 void Transaction::saveChanges(ofstream & out) const {

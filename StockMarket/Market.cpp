@@ -244,7 +244,7 @@ void Market::saveChanges() const {
 	// Save Clients if Changed
 	if (clientsChanged) {
 		out.open(clientsFile);
-		out << clients.size();
+		out << clients.size() << endl;
 
 		for (auto p : clients)
 			p.second->saveChanges(out);
@@ -255,7 +255,7 @@ void Market::saveChanges() const {
 	// Save Transactions if Changed
 	if (transactionsChanged) {
 		out.open(transactionsFile);
-		out << transactions.size();
+		out << transactions.size() << endl;
 
 		for (Transaction * ptr : transactions)
 			ptr->saveChanges(out);
@@ -266,7 +266,7 @@ void Market::saveChanges() const {
 	// Save Orders if Changed
 	if (ordersChanged) {
 		out.open(ordersFile);
-		out << unfulfilled_orders.size();
+		out << unfulfilled_orders.size() << endl;
 
 		for (Order * ptr : unfulfilled_orders)
 			ptr->saveChanges(out);

@@ -130,7 +130,7 @@ unsigned short int orderOptions() {
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 5, msg);
 
-	if (option == 6)
+	if (option == 5)
 		return false;	// false == 0
 
 	return option;
@@ -139,7 +139,7 @@ unsigned short int orderOptions() {
 void orderMenu() {
 	unsigned short int option;
 
-	while ((option = transactionOptions())) {
+	while ((option = orderOptions())) {
 		switch (option) {
 		case 1: //list all buy orders
 			Market::instance()->listBuyOrders();
@@ -237,8 +237,8 @@ void initialMenu() {
 		switch (option) {
 		case 1:
 			if (Market::instance()->signIn()) {
-				cout << "\nSigned In successfully!\n";
-				cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
+				cout << TAB_BIG << "\nSigned In successfully!\n";
+				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 				startingMenu();
 			}
 			break;
@@ -246,17 +246,17 @@ void initialMenu() {
 			string name;
 			nif_t nif;
 
-			cout << "Name: ";
+			cout << TAB << "Name: ";
 			getline(cin, name, '\n');
 			trim(name);
-			cout << "NIF: ";
+			cout << TAB <<"NIF: ";
 			cin >> nif; cin.ignore();
 			// Confirmar
 			try {
 				Market::instance()->signUp(name,nif);
 			}
 			catch (Client::InvalidNIF & e) {
-				cout << "\nInvalidNIF: " << e.getNIF() << endl;
+				cout << TAB <<"\nInvalidNIF: " << e.getNIF() << endl;
 			}
 			break;
 		}

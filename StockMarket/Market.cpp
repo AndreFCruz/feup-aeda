@@ -114,7 +114,8 @@ bool Market::signUp(string name, nif_t nif) {
 	
 	currentNIF = nif;
 	clientsChanged = true;
-	cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');	//Re-check
+	cout << TAB << "New Client created sucessfully!\n"
+		 << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');	//Re-check
 	return true;
 }
 
@@ -338,10 +339,10 @@ void Market::addSellOrder()
 		else
 			cout << "Your order was partially fullfilled. Waiting for more Buy Orders to completely fullfill it!\n";
 
-		cout << "Transactions that were made:\n ";
+		cout << "Transactions that were made:\n\n";
 		while (result.first != result.second)	//Showing the transactions made
 		{
-			cout << *result.first;	//Well-Done? Possibly not
+			cout << *(*result.first) << endl;	//Well-Done? Possibly not
 			result.first++;
 		}
 	}

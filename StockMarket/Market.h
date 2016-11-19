@@ -34,14 +34,14 @@ private:
 public:
 	static Market * instance();
 
-	bool signIn();
+	bool signIn(string name, nif_t nif);
 	bool signUp(string name, nif_t nif);
 	void showClientInfo() const;
 	void showClientHistory() const;
 	void listBuyOrders() const;
 	void listSellOrders() const;
-	void addBuyOrder();
-	void addSellOrder();
+	void addBuyOrder(string stock, double val, int quantity);
+	void addSellOrder(string stock, double val, int quantity);
 
 	vector<Transaction*> clientHistory(Client *) const;
 	void printTransactions(ostream&) const;

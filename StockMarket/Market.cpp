@@ -88,16 +88,7 @@ Market* Market::instance() {
 	return singleton_instance;
 }
 
-bool Market::signIn() {
-	string name;
-	nif_t nif;
-
-	cout << "Name: ";
-	getline(cin, name, '\n');
-	trim(name);
-	cout << "NIF: ";
-	cin >> nif;
-
+bool Market::signIn(string name, nif_t nif) {
 	for (auto it = clients.begin(); it != clients.end(); ++it) {
 		if ((it->first == nif) && ((it->second)->getName() == name)) {
 			currentNIF = nif;
@@ -114,8 +105,7 @@ bool Market::signUp(string name, nif_t nif) {
 	
 	currentNIF = nif;
 	clientsChanged = true;
-	cout << TAB << "New Client created sucessfully!\n"
-		 << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');	//Re-check
+	cout << TAB << "New Client created sucessfully!\n";	// Needs to be done here because of the try catch thing
 	return true;
 }
 
@@ -123,7 +113,7 @@ bool Market::signUp(string name, nif_t nif) {
 void Market::showClientInfo() const {
 	Client * cli = clients.at(currentNIF);
 
-	cout << "Name: " << cli->getName() << ". NIF: " << cli->getNIF() << endl;
+	cout << *cli << endl;
 }
 
 // Can throw exception, should be handled by higher function
@@ -131,6 +121,7 @@ void Market::showClientHistory() const {
 	Client * cli = clients.at(currentNIF);
 	cout << *cli;
 
+	cout << TAB << "\nTransaction History:\n";
 	for (Transaction * t_ptr : clientHistory(cli))
 		cout << *t_ptr;
 }
@@ -267,21 +258,8 @@ auto Market::placeOrder(Order * ptr)
 	return pair<transIt, transIt> (transactions.end(), transactions.end());
 }
 
-void Market::addBuyOrder()
+void Market::addBuyOrder(string stock, double val, int quantity)
 {
-	//Getting the info from the user
-	string stock;
-	double val;
-	unsigned quantity;
-
-	cout << TAB << "Adding a new Buy Order...\nStock: ";
-	getline(cin, stock);
-	trim(stock);
-	cout << "Stock's value: ";
-	cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
-	cout << "Quantity: ";
-	cin >> quantity; cin.ignore();	//Gestao inputs
-
 	Order * newOrder = new BuyOrder(stock, val, quantity, currentNIF);
 	unfulfilled_orders.push_back(newOrder);		//Ao fim de meia hora n vejo onde o se faz a atualização do unfulfilledorders, que dps e usado no placeORder.. Re-verificar
 	auto result = placeOrder(newOrder);
@@ -309,21 +287,8 @@ void Market::addBuyOrder()
 
 }
 
-void Market::addSellOrder()
+void Market::addSellOrder(string stock, double val, int quantity)
 {
-	//Getting the info from the user
-	string stock;
-	double val;
-	unsigned quantity;
-
-	cout << TAB << "Adding a new Sell Order...\nStock: ";
-	getline(cin, stock);
-	trim(stock);
-	cout << "Stock's value: ";
-	cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
-	cout << "Quantity: ";
-	cin >> quantity; cin.ignore();	//Gestao inputs
-
 	Order * newOrder = new SellOrder(stock, val, quantity, currentNIF);
 	unfulfilled_orders.push_back(newOrder);		//Ao fim de meia hora n vejo onde o se faz a atualização do unfulfilledorders, que dps e usado no placeORder.. Re-verificar
 	auto result = placeOrder(newOrder);

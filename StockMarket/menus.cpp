@@ -41,16 +41,14 @@ unsigned short int clientOptions() {
 
 // TODO cin.ignore(INT_MAX, '\n') depois de pedir nif etc (?)
 void clientMenu() {
-	unsigned short int option; nif_t nif;
+	unsigned short int option;
 
 	while ((option = clientOptions())) {
 		switch (option) {
 		case 1: //Show Info
-			cout << endl << TAB << "Client's NIF: "; cin >> nif;
 			Market::instance()->showClientInfo();
 			break;
 		case 2: //Show Client History
-			cout << endl << TAB << "Client's NIF: "; cin >> nif;
 			Market::instance()->showClientHistory();
 			break;
 		}
@@ -138,6 +136,9 @@ unsigned short int orderOptions() {
 
 void orderMenu() {
 	unsigned short int option;
+	string stock;
+	double val;
+	unsigned quantity;
 
 	while ((option = orderOptions())) {
 		switch (option) {
@@ -148,10 +149,30 @@ void orderMenu() {
 			Market::instance()->listSellOrders();
 			break;
 		case 3: 
-			Market::instance()->addBuyOrder();
+			//Getting the info from the user
+
+			cout << TAB << "Adding a new Buy Order...\nStock: ";
+			getline(cin, stock);
+			trim(stock);
+			cout << "Stock's value: ";
+			cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
+			cout << "Quantity: ";
+			cin >> quantity; cin.ignore();	//Gestao inputs
+
+			Market::instance()->addBuyOrder(stock, val, quantity);
 			break;
 		case 4: 
-			Market::instance()->addSellOrder();
+			//Getting the info from the user
+
+			cout << TAB << "Adding a new Sell Order...\nStock: ";
+			getline(cin, stock);
+			trim(stock);
+			cout << "Stock's value: ";
+			cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
+			cout << "Quantity: ";
+			cin >> quantity; cin.ignore();	//Gestao inputs
+
+			Market::instance()->addSellOrder(stock, val, quantity);
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
@@ -231,33 +252,38 @@ unsigned short int startingOptions() {
 
 void initialMenu() {
 	unsigned int option;
-
+	string name;
+	nif_t nif;
 
 	while ((option = startingOptions()))
 		switch (option) {
 		case 1:
-			if (Market::instance()->signIn()) {
+			cout << "Name: ";
+			getline(cin, name, '\n');
+			trim(name);
+			cout << "NIF: ";
+			cin >> nif;
+
+			if (Market::instance()->signIn(name, nif)) {
 				cout << TAB_BIG << "\nSigned In successfully!\n";
 				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 				startingMenu();
 			}
 			break;
 		case 2:
-			string name;
-			nif_t nif;
-
 			cout << TAB << "Name: ";
 			getline(cin, name, '\n');
 			trim(name);
 			cout << TAB <<"NIF: ";
 			cin >> nif; cin.ignore();
-			// Confirmar
+		
 			try {
 				Market::instance()->signUp(name,nif);
 			}
 			catch (Client::InvalidNIF & e) {
 				cout << TAB <<"\nInvalidNIF: " << e.getNIF() << endl;
 			}
+			cout << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 			break;
 		}
 

@@ -71,12 +71,11 @@ unsigned short int transactionOptions() {
 	//cout << TAB << "2 - List client's transactions" << endl;
 	cout << TAB << "3 - List transactions between 2 days" << endl;
 	cout << TAB << "4 - List daily transactions " << endl;
-	//cout << TAB << "5 - Add transaction" << endl;
-	cout << TAB << "6 - Exit sub-menu" << endl << endl;
+	cout << TAB << "5 - Exit sub-menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 6, msg);
 
-	if (option == 6)
+	if (option == 5)
 		return false;	// false == 0
 
 	return option;
@@ -102,9 +101,6 @@ void transactionMenu() {
 		case 4: //list daily transactions
 			Market::instance()->listDailyTransactions(getDate("Transaction day\n"));
 			break;
-/*		case 5: //add transaction	//Como Andre disse isto não faz mt sentido, prolly esqueceu-se de retirar
-			Market::instance()->addTransaction();
-			break; */
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 	}

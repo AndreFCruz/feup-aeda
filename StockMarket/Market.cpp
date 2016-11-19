@@ -176,34 +176,6 @@ void Market::listSellOrders() const {
 	}
 }
 
-// wtf isto devia estar na implementacao do menu. E btw nao devia ser possivel adicionar transacoes, so qd ordens sao fulfilled
-//void Market::addTransaction() {
-//	
-//	nif_t buyer, seller;
-//	string stock;
-//	double val;
-//	unsigned quant;
-//
-//	cout << "Buyer NIF: ";
-//	cin >> buyer; cin.ignore();
-//
-//	cout << "Seller NIF: ";
-//	cin >> seller; cin.ignore();
-//
-//	cout << "Stock: ";
-//	getline(cin, stock);
-//
-//	cout << "Value: ";
-//	cin >> val; cin.ignore();
-//
-//	cout << "Quantity: ";
-//	cin >> quant; cin.ignore();
-//
-//	Transaction *t = new Transaction(buyer, seller, stock, val, quant);
-//
-//	transactions.push_back(t);
-//}
-
 /* To Delete (?) */
 //bool Market::placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity)
 //{
@@ -261,7 +233,6 @@ auto Market::placeOrder(Order * ptr)
 void Market::addBuyOrder(string stock, double val, int quantity)
 {
 	Order * newOrder = new BuyOrder(stock, val, quantity, currentNIF);
-	unfulfilled_orders.push_back(newOrder);		//Ao fim de meia hora n vejo onde o se faz a atualização do unfulfilledorders, que dps e usado no placeORder.. Re-verificar
 	auto result = placeOrder(newOrder);
 	
 	bool fullfilled = true;
@@ -278,7 +249,7 @@ void Market::addBuyOrder(string stock, double val, int quantity)
 		cout << "Transactions that were made:\n ";
 		while (result.first != result.second)	//Showing the transactions made
 		{
-			cout << *result.first;	//Well-Done? Possibly not
+			cout << *(*result.first) << endl;
 			result.first++;
 		}
 	}
@@ -290,7 +261,6 @@ void Market::addBuyOrder(string stock, double val, int quantity)
 void Market::addSellOrder(string stock, double val, int quantity)
 {
 	Order * newOrder = new SellOrder(stock, val, quantity, currentNIF);
-	unfulfilled_orders.push_back(newOrder);		//Ao fim de meia hora n vejo onde o se faz a atualização do unfulfilledorders, que dps e usado no placeORder.. Re-verificar
 	auto result = placeOrder(newOrder);
 
 	bool fullfilled = true;
@@ -307,7 +277,7 @@ void Market::addSellOrder(string stock, double val, int quantity)
 		cout << "Transactions that were made:\n\n";
 		while (result.first != result.second)	//Showing the transactions made
 		{
-			cout << *(*result.first) << endl;	//Well-Done? Possibly not
+			cout << *(*result.first) << endl;
 			result.first++;
 		}
 	}

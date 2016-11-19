@@ -6,15 +6,11 @@
 #include "Transaction.h"
 #include "Order.h"
 
-/*
- * Singleton Class to implement most of the logic behind the StockMarket
- */
-
 using namespace std;
 
+
 /**
-*  A singleton class used to represent the market.
-*  Contains all the data structures.
+*  Singleton Class to implement most of the logic behind the StockMarket
 */
 
 class Market
@@ -48,7 +44,7 @@ private:
 public:
 
 	/**
-	* A member function returning the one and only instace of Market.
+	* A member function returning the one and only instace of Market (creates it if one doesn't exist).
 	* @return A pointer to the singleton instance of Market.
 	*/
 	static Market * instance();
@@ -62,12 +58,23 @@ public:
 	bool signIn(string name, nif_t nif);
 
 	/**
+	* A member function that signs out the user.
+	*/
+	void signOut();
+
+	/**
 	* A member function that signs up the user.
 	* @param name Name of the client/user
 	* @param nif  NIF othe client/user
 	* @return A boolean, true if signing up was done successfully.
 	*/
 	bool signUp(string name, nif_t nif);
+
+	/**
+	* A member function that returns the current user's NIF.
+	* @return The current user's nif.
+	*/
+	nif_t getCurrentNIF() const;
 
 	/**
 	* A const member function that displays the client's information.
@@ -88,22 +95,6 @@ public:
 	* A const member function that displays the sell orders.
 	*/
 	void listSellOrders() const;
-
-	/**
-	* A member function that adds a buy order to the unfulfilledOrders.
-	* @param stock A string with the stock name
-	* @param val  A double value of the stock
-	* @param quantity An integer with the quantity of stock
-	*/
-	void addBuyOrder(string stock, double val, int quantity);
-
-	/**
-	* A member function that adds a sell order to the unfulfilledOrders.
-	* @param stock A string with the stock name
-	* @param val  A double value of the stock
-	* @param quantity An integer with the quantity of stock
-	*/
-	void addSellOrder(string stock, double val, int quantity);
 
 	/**
 	* A const member function used to get the client's history of transactions.
@@ -137,7 +128,7 @@ public:
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.
 	* @param o A pointer to the order.
 	*/
-	auto placeOrder(Order * o);	// Abstracts of Buy/Sell type
+	pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > placeOrder(Order * o);	// Abstracts of Buy/Sell type
 	
 	/**
 	*	A const member function that saves ALL information to the files.
@@ -145,7 +136,7 @@ public:
 	void saveChanges() const;	
 
 	/**
-	* Operator << for class Market.
+	* Overload of Operator << for class Market.
 	* Prints the Market statistics.
 	* @param out The outstream to write to.
 	* @param m The Market.

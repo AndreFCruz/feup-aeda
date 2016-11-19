@@ -7,7 +7,7 @@
 
 Market* Market::singleton_instance = NULL;
 
-Market::Market() {
+Market::Market() : currentNIF(0) {
 	ifstream file_in; string line;
 	unsigned numberOfObjects;
 	ordersChanged = transactionsChanged = clientsChanged = false;
@@ -46,7 +46,7 @@ Market::Market() {
 	file_in.open(ordersFile);
 	file_in >> numberOfObjects;
 	transactions.reserve(numberOfObjects);
-	for (int i = 0; i < numberOfObjects; ++i) {
+	for (unsigned i = 0; i < numberOfObjects; ++i) {
 		Order * temp_o;
 		file_in >> c;
 		switch (c) {
@@ -98,6 +98,10 @@ bool Market::signIn(string name, nif_t nif) {
 	return false;
 }
 
+void Market::signOut() {
+	currentNIF = 0;
+}
+
 bool Market::signUp(string name, nif_t nif) {
 	// acrescentar cliente ao map (nif, client*) e mudar currentNIF etc
 	Client * newClient = new Client(name, nif);
@@ -107,6 +111,10 @@ bool Market::signUp(string name, nif_t nif) {
 	clientsChanged = true;
 	cout << TAB << "New Client created sucessfully!\n";	// Needs to be done here because of the try catch thing
 	return true;
+}
+
+nif_t Market::getCurrentNIF() const {
+	return currentNIF;
 }
 
 // Can throw exception, should be handled by higher function
@@ -201,7 +209,7 @@ void Market::listSellOrders() const {
 //}
 
 // Returns pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator >
-auto Market::placeOrder(Order * ptr)
+pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > Market::placeOrder(Order * ptr)
 {
 	typedef vector<Transaction *>::iterator transIt;
 	size_t initialSize = transactions.size();
@@ -228,61 +236,6 @@ auto Market::placeOrder(Order * ptr)
 	}
 
 	return pair<transIt, transIt> (transactions.end(), transactions.end());
-}
-
-void Market::addBuyOrder(string stock, double val, int quantity)
-{
-	Order * newOrder = new BuyOrder(stock, val, quantity, currentNIF);
-	auto result = placeOrder(newOrder);
-	
-	bool fullfilled = true;
-	if (result.first != result.second) {	//Transitions were made
-		for (unsigned int i = 0; i < unfulfilled_orders.size(); i++) {
-			if (unfulfilled_orders.at(i) == newOrder)
-				fullfilled = false;			//Buy Order not fully fullfilled
-		}
-		if (fullfilled)
-			cout << "Your order was instantly fullfilled!\n";
-		else
-			cout << "Your order was partially fullfilled. Waiting for more Sell Orders to completely fullfill it!\n";
-
-		cout << "Transactions that were made:\n ";
-		while (result.first != result.second)	//Showing the transactions made
-		{
-			cout << *(*result.first) << endl;
-			result.first++;
-		}
-	}
-	else
-		cout << "Waiting for Sell Orders to fullfill your order!\n";
-
-}
-
-void Market::addSellOrder(string stock, double val, int quantity)
-{
-	Order * newOrder = new SellOrder(stock, val, quantity, currentNIF);
-	auto result = placeOrder(newOrder);
-
-	bool fullfilled = true;
-	if (result.first != result.second) {	//Transitions were made
-		for (unsigned int i = 0; i < unfulfilled_orders.size(); i++) {
-			if (unfulfilled_orders.at(i) == newOrder)
-				fullfilled = false;			//Order not fully fullfilled
-		}
-		if (fullfilled)
-			cout << "Your order was instantly fullfilled!\n";
-		else
-			cout << "Your order was partially fullfilled. Waiting for more Buy Orders to completely fullfill it!\n";
-
-		cout << "Transactions that were made:\n\n";
-		while (result.first != result.second)	//Showing the transactions made
-		{
-			cout << *(*result.first) << endl;
-			result.first++;
-		}
-	}
-	else
-		cout << "Waiting for Buy Orders to fullfill your order!\n";
 }
 
 void Market::saveChanges() const {

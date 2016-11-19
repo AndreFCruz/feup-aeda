@@ -135,6 +135,7 @@ void orderMenu() {
 	string stock;
 	double val;
 	unsigned quantity;
+	Order * newOrder;
 
 	while ((option = orderOptions())) {
 		switch (option) {
@@ -155,7 +156,8 @@ void orderMenu() {
 			cout << "Quantity: ";
 			cin >> quantity; cin.ignore();	//Gestao inputs
 
-			Market::instance()->addBuyOrder(stock, val, quantity);
+			newOrder = new BuyOrder(stock, val, quantity, Market::instance()->getCurrentNIF());
+			addOrder(newOrder);
 			break;
 		case 4: 
 			//Getting the info from the user
@@ -168,7 +170,8 @@ void orderMenu() {
 			cout << "Quantity: ";
 			cin >> quantity; cin.ignore();	//Gestao inputs
 
-			Market::instance()->addSellOrder(stock, val, quantity);
+			newOrder = new SellOrder(stock, val, quantity, Market::instance()->getCurrentNIF());
+			addOrder(newOrder);
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
@@ -284,4 +287,30 @@ void initialMenu() {
 		}
 
 	Market::instance()->saveChanges();
+}
+
+/* Generic Helper Function for Handling New Orders */
+void addOrder(Order * newOrder)
+{
+	auto result = Market::instance()->placeOrder(newOrder);
+
+	bool fullfilled = true;
+	unsigned transactioned = 0;
+	for (; result.first != result.second; ++(result.first)) {
+		transactioned += (*result.first)->getQuantity();
+	}
+	if (0 == transactioned) {
+		cout << "StockMarket was unable to fulfill your Order and was put on hold till compatible orders are found.\n";
+		return;
+	} else if (transactioned != newOrder->getQuantity()) {
+		cout
+			<< "Your order was partially fullfilled. Waiting for more Buy Orders to completely fullfill it!\n"
+			<< "Transactioned stocks: " << transactioned << ".\n";
+	} else {
+		cout << "Your order was instantly fullfilled!\n";
+	}
+
+	cout << "Transactions generated:\n";
+	while (result.first++ != result.second)
+		cout << *(*result.first);
 }

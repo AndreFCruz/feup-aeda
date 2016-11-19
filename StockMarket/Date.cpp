@@ -3,7 +3,7 @@
 #include "Date.h"
 
 // Seconds in a given month. Non-leap year
-int secondsPerMonth[12] = {
+unsigned int secondsPerMonth[12] = {
 	3600 * 24 * 31, // january
 	3600 * 24 * 28, // february
 	3600 * 24 * 31,
@@ -28,8 +28,8 @@ Date::Date() {
 	this->year = 1970 + current / 31557600;
 
 	this->month = 1;
-	int s = current % 31557600; // s -> number of seconds in the current year
-	for (int i = 0; (s - secondsPerMonth[i]) > 0 && i < 12; s -= secondsPerMonth[i], i++)
+	unsigned int s = current % 31557600; // s -> number of seconds in the current year
+	for (unsigned i = 0; (s - secondsPerMonth[i]) > 0 && i < 12; s -= secondsPerMonth[i], ++i)
 		month++;
 	// s ~> number of seconds in the current month
 	s -= 11 * 3600;	// Adjust for local time GMT + 1.
@@ -51,31 +51,17 @@ Date::Date(unsigned short int day, unsigned short int month, unsigned short int 
 	this->year = year;
 }
 
-int Date::get_day() const {
+unsigned short Date::get_day() const {
 	return day;
 }
 
-int Date::get_month() const {
+unsigned short Date::get_month() const {
 	return month;
 }
 
-int Date::get_year() const {
+unsigned short Date::get_year() const {
 	return year;
 }
-
-// Set Methods -- Necessary?
-//void Date::set_day(int day) {
-//	this->day = day;
-//}
-//
-//void Date::set_month(int month) {
-//	this->month = month;
-//}
-//
-//void Date::set_year(int year) {
-//	this->year = year;
-//}
-
 
 //bool operator<=(const Date& d1, const Date& d2)
 //{
@@ -125,12 +111,6 @@ bool operator==(const Date & d1, const Date & d2)
 	
 	return true;
 }
-
-
-//bool operator==(const Date& d1, const Date& d2)
-//{
-//	return d1.day == d2.day && d1.month == d2.month && d1.year == d2.year;
-//}
 
 
 ostream& operator<<(ostream& out, const Date & date) {

@@ -12,9 +12,9 @@ using namespace std;
 
 class Date {
 private:
-	int day;    /**< int day. Integer representing the date day. */
-	int month;  /**< int month. Integer representing the date month. */
-	int year;	/**< int year. Integer representing the date year. */
+	unsigned day;	/**< unsigned day. Unsigned Integer representing the date day. */
+	unsigned month;	/**< unsigned month. Unsigned Integer representing the date month. */
+	unsigned year;	/**< unsigned year. Unsigned Integer representing the date year. */
 
 public:
 	
@@ -34,29 +34,29 @@ public:
 	/**
 	* A constructor.
 	* The construtor creates a date object with the specified day, month and year passed as arguments.
-	* @param day A unsigned short int representing the day
-	* @param month A unsigned short int representing the month
-	* @param year A unsigned short int representing the year
+	* @param day A unsigned short representing the day
+	* @param month A unsigned short representing the month
+	* @param year A unsigned short representing the year
 	*/
-	Date(unsigned short int day,unsigned short int month,unsigned short int year);
+	Date(unsigned short day,unsigned short month,unsigned short year);
 	
 	/**
 	* A member function with no arguments to get the date's day.
 	* @return An integer, the date's day
 	*/
-	int get_day() const;
+	unsigned short get_day() const;
 	
 	/**
 	* A member function with no arguments to get the date's month.
 	* @return An integer, the date's month
 	*/
-	int get_month() const;
+	unsigned short get_month() const;
 
 	/**
 	* A member function with no arguments to get the date's year.
 	* @return An integer, the date's year
 	*/
-	int get_year() const;
+	unsigned short get_year() const;
 
 	/**
 	* Operator << for class Date.

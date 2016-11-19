@@ -60,15 +60,6 @@ public:
 	void saveChanges(ofstream& out) const;
 
 	/**
-	* Operator << for class client.
-	* Prints the specified Client as 2nd argument in the outstream passed as 1st argument.
-	* @param out The outstream to write to.
-	* @param c The client to be written.
-	* @return Returns the output stream to allow chainning
-	*/
-	friend ostream& operator<<(ostream& out, const Client& c);
-
-	/**
 	*  A class used to represent an exception.
 	*  The exception object contains the invalid NIF
 	*/
@@ -84,3 +75,11 @@ public:
 };
 
 
+/**
+* Overload of Operator << for class Client.
+* Prints the specified Client (2nd argument) to the outstream passed as 1st argument.
+* @param out The outstream to write to.
+* @param c The client to be written.
+* @return Returns the output stream to allow chainning
+*/
+ostream& operator<<(ostream& out, const Client& c);

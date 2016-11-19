@@ -67,13 +67,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="C:\Users\Toshiba\Downloads\o.txt">
+    <Text Include="c.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="C:\Users\Toshiba\Downloads\c.txt">
+    <Text Include="o.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="C:\Users\Toshiba\Downloads\t.txt">
+    <Text Include="t.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

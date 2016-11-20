@@ -64,8 +64,8 @@ Transaction * BuyOrder::operator()(Order* ord) {
 
 		Transaction * result = new Transaction(sellOrd->sellerNIF, buyerNIF, stock, effectiveVal, effectiveQuant);
 
-		quantity -= sellOrd->quantity;
-		sellOrd->quantity -= quantity;
+		quantity -= effectiveQuant;
+		sellOrd->quantity -= effectiveQuant;
 
 		return result;
 	}

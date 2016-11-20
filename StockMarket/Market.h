@@ -116,23 +116,22 @@ public:
 	vector<Transaction*> clientHistory(Client * c) const;
 
 	/**
-	* A const member function that prints the transactions to an output stream.
-	* @param out The outputstream to write to.
+	* A const member function that prints the transactions to the COUT output stream.
 	*/
-	void printTransactions(ostream& out) const;
+	void printTransactions() const;
 
 	/**
 	* A member function that prints the transactions between 2 days.
 	* @param day1 The first day of the interval.
 	* @param day2 The last day of the interval.
 	*/
-	void listTransactions(Date day1, Date day2);
+	void printTransactions(Date day1, Date day2);
 
 	/**
 	* A member function that prints the daily transactions.
 	* @param d The day whoose transactions will be shown. 
 	*/
-	void listDailyTransactions(Date d);
+	void printTransactions(Date d);
 	
 	/**
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.

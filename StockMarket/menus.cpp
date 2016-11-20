@@ -84,7 +84,7 @@ unsigned short int transactionOptions() {
 	clearScreen();
 	showTitle("Transactions Menu");
 	cout << TAB << "1 - List ALL transactions" << endl;
-	//cout << TAB << "2 - List client's transactions" << endl;
+	cout << TAB << "2 - List client's transactions" << endl;
 	cout << TAB << "3 - List transactions between 2 days" << endl;
 	cout << TAB << "4 - List daily transactions " << endl;
 	cout << TAB << "5 - Exit sub-menu" << endl << endl;
@@ -104,18 +104,17 @@ void transactionMenu() {
 		switch (option) {
 		case 1: //list all transactions
 			cout << endl;
-			Market::instance()->printTransactions(cout);
+			Market::instance()->printTransactions();
 			break;
-	/*	case 2: //list client transactions
+		case 2: //list client transactions
 			cout << endl << TAB << "Client name: "; getline(cin, clientName);
-			Market::instance()->showClientHistory(self->getNIF());
-			break;   OBS: remover uma vez que o cliente apenas pode ver as suas proprias? (usando o menu cliente)*/
-			//Apesar de ele estar la tb podiamos deixar estar aqui visto que tb se enquadra no mm menu... Basicamente a mm funcionalidade em 2 menus.. opinions? Ass:edgar
+			Market::instance()->showClientHistory();
+			break;
 		case 3: //list transactions between 2 days
-			Market::instance()->listTransactions(getDate("First day"), getDate("Last day"));
+			Market::instance()->printTransactions(getDate("First day"), getDate("Last day"));
 			break;
 		case 4: //list daily transactions
-			Market::instance()->listDailyTransactions(getDate("Transaction day\n"));
+			Market::instance()->printTransactions(getDate("Transaction day\n"));
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
@@ -158,19 +157,15 @@ void orderMenu() {
 		case 1: //list all buy orders
 			Market::instance()->listBuyOrders();
 			break;
-		case 2: //list sell orders
+		case 2: //list all sell orders
 			Market::instance()->listSellOrders();
 			break;
 		case 3: 
-			//Getting the info from the user
-
-			cout << TAB << "Adding a new Buy Order...\nStock: ";
-			getline(cin, stock);
+			cout << TAB << "Adding a new Buy Order...\n\n";
+			cout << setw(20) << "Stock: "; getline(cin, stock);
 			trim(stock);
-			cout << "Stock's value: ";
-			cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
-			cout << "Quantity: ";
-			cin >> quantity; cin.ignore();	//Gestao inputs
+			val = getValue<double>("Stock's value: ", 20);
+			quantity = getValue<unsigned int>("Quantity: ", 20);
 
 			newOrder = new BuyOrder(stock, val, quantity, Market::instance()->getCurrentNIF());
 			addOrder(newOrder);
@@ -336,6 +331,6 @@ void addOrder(Order * newOrder)
 	}
 
 	cout << "Transactions generated:\n";
-	while (result.first++ != result.second)
-		cout << *(*result.first);
+	while (result.first != result.second)
+		cout << *(*result.first++);
 }

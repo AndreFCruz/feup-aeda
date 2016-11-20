@@ -76,11 +76,16 @@ public:
 	*/
 	friend istream& operator>>(istream& in, Date& date);
 
-//	friend bool operator<=(const Date& d1, const Date& d2);
+	/**
+	* Overload of Operator <= for class Date.
+	* @param d1 First date
+	* @param d2 Second date
+	* @return Returns a boolean value, true if d1 <= d2
+	*/
+	friend bool operator<=(const Date& d1, const Date& d2);
 
 	/**
-	* Operator < for class Date.
-	* Compares using operator < two dates, passed as arguments.
+	* Overload of Operator < for class Date.
 	* @param d1 First date
 	* @param d2 Second date
 	* @return Returns a boolean value, true if d1 < d2
@@ -88,8 +93,7 @@ public:
 	friend bool operator<(const Date& d1, const Date& d2);
 
 	/**
-	* Operator == for class Date.
-	* Compares using operator == two dates, passed as arguments.
+	* Overload of Operator == for class Date.
 	* @param d1 First date
 	* @param d2 Second date
 	* @return Returns a boolean value, true if d1 equals d2

@@ -61,30 +61,30 @@ unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short in
 
 }
 
-template <class numT>
-numT getValue(string msg, size_t msg_width) {
-	string dummy; numT input;
-	bool fail = false; // fail flag
-	while (true)
-	{
-		setcolor(14);  cout << TAB << setw(msg_width) << msg; setcolor(15); cin >> input;
-
-		if (cin.fail()) {
-			fail = true;
-			cin.clear();
-		}
-
-		getline(cin, dummy);
-		if (dummy.empty())
-			return input;
-		else fail = true;
-
-		if (fail)
-		{
-			setcolor(12); cout << "Invalid input.\a\n\n"; setcolor(15);
-		}
-	}
-}
+//template <class numT>
+//inline numT getValue(string msg, size_t msg_width) {
+//	string dummy; numT input;
+//	bool fail = false; // fail flag
+//	while (true)
+//	{
+//		setcolor(14);  cout << TAB << setw(msg_width) << msg; setcolor(15); cin >> input;
+//
+//		if (cin.fail()) {
+//			fail = true;
+//			cin.clear();
+//		}
+//
+//		getline(cin, dummy);
+//		if (dummy.empty())
+//			return input;
+//		else fail = true;
+//
+//		if (fail)
+//		{
+//			setcolor(12); cout << "Invalid input.\a\n\n"; setcolor(15);
+//		}
+//	}
+//}
 
 Date getDate(string msg) {
 	unsigned short int day, month, year;
@@ -178,27 +178,4 @@ void showTitle(string title, ostream& out) {
 		<< TAB_BIG << string(title.size() + 6, '*')
 		<< endl << endl;
 	setcolor(15);
-}
-
-bool isBetween(Date d, Date d1, Date d2) {
-
-	//teste ao ano da data
-	if (d.get_year() < d1.get_year() || d.get_year() > d2.get_year())
-		return false;
-	else
-		if (d.get_year() > d1.get_year() && d.get_year() < d2.get_year())
-			return true;
-	
-	//teste ao mes da data, sendo o ano igual a pelo menos uma do intervalo
-	if (d.get_month() < d1.get_month() || d.get_month() > d2.get_month())
-		return false;
-	else
-		if (d.get_month() > d1.get_month() && d.get_month() < d2.get_month())
-			return true;
-
-	//teste ao dia da data, sendo tanto o ano e mes igual a pelo menos um dos do intervalo
-	if (d.get_day() < d1.get_day() || d.get_day() > d2.get_day())
-		return false;
-	else
-		return true;
 }

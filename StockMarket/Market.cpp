@@ -179,25 +179,20 @@ vector<Transaction *> Market::clientHistory(Client * c_ptr) const {
 	return result;
 }
 
-void Market::printTransactions(ostream & out) const
-{
+void Market::printTransactions() const {
 	for (Transaction * t : transactions) {
-		out << *t;
+		cout << *t;
 	}
 }
 
-void Market::listTransactions(Date day1, Date day2) {
-
-	for (size_t i = 0; i < transactions.size(); i++) {
-		Date d = transactions.at(i)->getDate();
-		
-		if (isBetween(d, day1, day2))
+void Market::printTransactions(Date day1, Date day2) {
+	for (size_t i = 0; i < transactions.size(); ++i) {
+		if (day1 <= transactions.at(i)->getDate() && transactions.at(i)->getDate() <= day2)
 			cout << transactions.at(i);
 	}
-
 }
 
-void Market::listDailyTransactions(Date d) {
+void Market::printTransactions(Date d) {
 
 	for (size_t i = 0; i < transactions.size(); i++) {
 		if (transactions.at(i)->getDate() == d)

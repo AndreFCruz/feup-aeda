@@ -40,7 +40,30 @@ void setcolor(unsigned int color);
 *	@return Returns a value.
 */
 template <class numT>
-numT getValue(string msg = "", size_t width = 0);
+numT getValue(string msg, size_t msg_width) {
+	string dummy; numT input;
+	bool fail = false; // fail flag
+	while (true)
+	{
+		setcolor(14);  cout << TAB << setw(msg_width) << msg; setcolor(15); cin >> input;
+
+		if (cin.fail()) {
+			fail = true;
+			cin.clear();
+		}
+
+		getline(cin, dummy);
+		if (dummy.empty())
+			return input;
+		else fail = true;
+
+		if (fail)
+		{
+			setcolor(12); cout << "Invalid input.\a\n\n"; setcolor(15);
+		}
+	}
+}
+
 
 /** \fn
 *	Function that tests if a file name is valid.
@@ -48,15 +71,6 @@ numT getValue(string msg = "", size_t width = 0);
 *	@return Returns a boolean, true if the file name is valid.
 */
 bool validFile(const string file);
-
-/** \fn
-*	Function that checks if a date is between 2 other dates.
-*	@param d Date to check if in the middle.
-*	@param d1 Lower bound of the interval date.
-*	@param d2 Upper bound of the interval date.
-*	@return Returns a boolean, true if d is between d1 and d2 (or equal to one of them), false otherwise.
-*/
-bool isBetween(Date d, Date d1, Date d2);
 
 /** \fn
 *	Function that convers a char to upper case. If already in upper case, remains the same.

@@ -2,13 +2,44 @@
 
 
 // Gather initial information for StockMarket Construction
+<<<<<<< HEAD
+
+/** \fn
+*	Function that initializes the program. 
+*	@param clientsFile  A string with the clients file name.
+*	@param transactionsFile  A string with the transactions file name.
+*	@param ordersFile  A string with the orders file name.
+*	@return A boolean, true if the set up was successfull.
+*/
 bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFile);
+>>>>>>> a9f23b1f2b943c2fcf4b4b1c70503d7b769c2aa5
 
 // Menu implementation
+
+/** \fn
+*	Function working as the client editing menu.
+*/
 void clientMenu();
+
+/** \fn
+*	Function working as the transactions editing menu.
+*/
 void transactionMenu();
+
+/** \fn
+*	Function working as the orders editing menu.
+*/
 void orderMenu();
+
+/** \fn
+*	Function working as the starting menu (main menu).
+*/
 void startingMenu();
+<<<<<<< HEAD
+
+/** \fn
+*	Function working as the initializing menu, signing up/in the user.
+*/
 void initialMenu();
 
 /**
@@ -16,3 +47,4 @@ void initialMenu();
 * @param newOrder A pointer to the newly created Order to be handled.
 */
 void addOrder(Order * newOrder);
+>>>>>>> a9f23b1f2b943c2fcf4b4b1c70503d7b769c2aa5

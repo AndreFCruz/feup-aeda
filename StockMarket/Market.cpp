@@ -111,7 +111,7 @@ bool Market::signUp(string name, nif_t nif) {
 	auto p = clients.insert(pair<nif_t, Client *>(nif, newClient));
 	
 	if (false == p.second) { // Clients with the same name can exist, but not with the same NIF
-		cout << endl << TAB << "Account already exists. Are you " << p.first->second->getName() << " ?\n";
+		//cout << endl << TAB << "Account already exists. Are you " << p.first->second->getName() << " ?\n";
 		return false;
 	}
 

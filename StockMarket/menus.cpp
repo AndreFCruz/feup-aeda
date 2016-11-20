@@ -251,11 +251,11 @@ void homeMenu() {
 /******************************************
 * Menu de Inicialização
 ******************************************/
-unsigned short int startingOptions() {
+unsigned short int initialOptions() {
 	unsigned short int option;
 
 	clearScreen();
-	showTitle("Starting Menu");
+	showTitle("Initial Menu");
 	cout << TAB << "1 - Sign In" << endl;
 	cout << TAB << "2 - Sign Up" << endl;
 	cout << TAB << "3 - Exit program" << endl << endl;
@@ -280,7 +280,7 @@ void initialMenu() {
 	nif_t nif;
 	cout << endl;
 	
-	while ((option = startingOptions()))
+	while ((option = initialOptions()))
 		switch (option) {
 		case 1:
 			setcolor(14);
@@ -292,7 +292,7 @@ void initialMenu() {
 			if (Market::instance()->signIn(name, nif)) {
 				cout << endl << TAB_BIG << "Signed In successfully!\n";
 				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
-				startingMenu();
+				homeMenu();
 			}
 			else {
 				cout << endl << TAB_BIG << "Sign In Unsuccessful.\n";

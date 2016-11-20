@@ -51,9 +51,15 @@ public:
 
 	/**
 	* A const member function with no arguments to get the transaction's Stock name.
-	* @return A string, the Stock.
+	* @return A string, the Stock's name.
 	*/
 	string getStock() const;
+
+	/**
+	* A const member function with no arguments to get the transaction's Value Per Stock.
+	* @return A double, the value per stock transactioned.
+	*/
+	double getValue() const;
 
 	/**
 	* A const member function with no arguments to get the transaction's quantity of stock.

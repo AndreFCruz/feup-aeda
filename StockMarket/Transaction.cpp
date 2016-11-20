@@ -43,6 +43,9 @@ string Transaction::getStock() const {
 	return stock;
 }
 
+double Transaction::getValue() const {
+	return value;
+}
 
 nif_t Transaction::getBuyerNIF() const {
 	return buyerNIF;

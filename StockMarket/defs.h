@@ -18,6 +18,6 @@
 #define TAB    "   "
 
 /** \typedef unsigned int nif_t
-*	A type definition for a nif_t which is an unsigned int.
+*	Definition for a type representing a client's NIF.
 */
 typedef unsigned int nif_t;

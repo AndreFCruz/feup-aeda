@@ -134,8 +134,6 @@ public:
 	*/
 	void listDailyTransactions(Date d);
 	
-	//bool placeBuyOrder(Client * buyer, string stock, double value, unsigned quantity);
-	
 	/**
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.
 	* @param o A pointer to the order.

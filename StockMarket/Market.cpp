@@ -145,7 +145,7 @@ void Market::showClientOrders() const {
 	cout << TAB << "\n Client's unfulfilled Orders:\n";
 	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i) {
 		if (unfulfilled_orders[i]->getClientNIF() == currentNIF)
-			unfulfilled_orders[i]->printInfo();
+			cout << i << ". "; unfulfilled_orders[i]->printInfo();
 	}
 }
 
@@ -185,14 +185,21 @@ void Market::printTransactions() const {
 	}
 }
 
-void Market::printTransactions(Date day1, Date day2) {
+void Market::printTransactions(string stock) const {
+	for (Transaction * t : transactions) {
+		if (t->getStock() == stock)
+			cout << *t;
+	}
+}
+
+void Market::printTransactions(Date day1, Date day2) const {
 	for (size_t i = 0; i < transactions.size(); ++i) {
 		if (day1 <= transactions.at(i)->getDate() && transactions.at(i)->getDate() <= day2)
 			cout << *transactions.at(i);
 	}
 }
 
-void Market::printTransactions(Date d) {
+void Market::printTransactions(Date d) const {
 
 	for (size_t i = 0; i < transactions.size(); i++) {
 		if (transactions.at(i)->getDate() == d)

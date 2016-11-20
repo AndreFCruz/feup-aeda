@@ -38,6 +38,11 @@ void Transaction::saveChanges(ofstream & out) const {
 		<< value << " ; " << quantity << " ; " << time_stamp << endl;
 }
 
+string Transaction::getStock() const {
+	return stock;
+}
+
+
 nif_t Transaction::getBuyerNIF() const {
 	return buyerNIF;
 }

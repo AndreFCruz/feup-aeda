@@ -121,17 +121,23 @@ public:
 	void printTransactions() const;
 
 	/**
-	* A member function that prints the transactions between 2 days.
+	* Overload of member function that prints the transactions of a given Stock.
+	* @param stock The Stock's name.
+	*/
+	void printTransactions(string stock) const;
+
+	/**
+	* Overload of member function that prints the transactions between 2 days.
 	* @param day1 The first day of the interval.
 	* @param day2 The last day of the interval.
 	*/
-	void printTransactions(Date day1, Date day2);
+	void printTransactions(Date day1, Date day2) const;
 
 	/**
-	* A member function that prints the daily transactions.
-	* @param d The day whoose transactions will be shown. 
+	* Overload of member function that prints the daily transactions.
+	* @param d The day whose transactions will be shown. 
 	*/
-	void printTransactions(Date d);
+	void printTransactions(Date d) const;
 	
 	/**
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.

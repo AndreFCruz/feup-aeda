@@ -50,6 +50,12 @@ public:
 	Transaction(nif_t buyerNIF, nif_t sellerNIF, string stock, double value, unsigned quantity);
 
 	/**
+	* A const member function with no arguments to get the transaction's Stock name.
+	* @return A string, the Stock.
+	*/
+	string getStock() const;
+
+	/**
 	* A const member function with no arguments to get the transaction's quantity of stock.
 	* @return An unsigned, the quantity.
 	*/

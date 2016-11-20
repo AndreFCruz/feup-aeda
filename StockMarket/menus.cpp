@@ -84,20 +84,21 @@ unsigned short int transactionOptions() {
 	showTitle("Transactions Menu");
 	cout << TAB << "1 - List ALL transactions" << endl;
 	cout << TAB << "2 - List client's transactions" << endl;
-	cout << TAB << "3 - List transactions between 2 days" << endl;
-	cout << TAB << "4 - List daily transactions " << endl;
-	cout << TAB << "5 - Exit sub-menu" << endl << endl;
+	cout << TAB << "3 - List transactions of a specific Stock" << endl;
+	cout << TAB << "4 - List transactions between 2 days" << endl;
+	cout << TAB << "5 - List daily transactions " << endl;
+	cout << TAB << "6 - Exit sub-menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 6, msg);
 
-	if (option == 5)
+	if (option == 6)
 		return false;	// false == 0
 
 	return option;
 }
 
 void transactionMenu() {
-	unsigned short int option; string clientName; Date d;
+	unsigned short int option; string str; Date d;
 
 	while ((option = transactionOptions())) {
 		switch (option) {
@@ -105,14 +106,21 @@ void transactionMenu() {
 			cout << endl;
 			Market::instance()->printTransactions();
 			break;
-		case 2: //list client transactions
+		case 2: //list client's transactions
+			cout << endl;
 			Market::instance()->showClientHistory();
 			break;
-		case 3: //list transactions between 2 days
+		case 3: //list transactions of a specific Stock
+			cout << endl << TAB << setw(10) << "Stock: ";
+			getline(cin, str); trim(str); cout << endl;
+			Market::instance()->printTransactions(str);
+			break;
+		case 4: //list transactions between 2 days
 			d = getDate("First day: "); cout << endl;
 			Market::instance()->printTransactions(d, getDate("Last day: "));
 			break;
-		case 4: //list daily transactions
+		case 5: //list daily transactions
+			cout << endl;
 			Market::instance()->printTransactions(getDate("Transaction day: "));
 			break;
 		}
@@ -312,17 +320,17 @@ void addOrder(Order * newOrder)
 		transactioned += (*it)->getQuantity();
 	}
 	if (0 == transactioned) {
-		cout << "StockMarket was unable to fulfill your Order and was put on hold till compatible orders are found.\n";
+		cout << "StockMarket was unable to fulfill your Order and was put on hold till compatible orders are found.\n\n";
 		return;
 	} else if (transactioned != newOrder->getQuantity()) {
 		cout
 			<< "Your order was partially fullfilled. Waiting for more Buy Orders to completely fullfill it!\n"
-			<< "Transactioned stocks: " << transactioned << ".\n";
+			<< "Transactioned stocks: " << transactioned << ".\n\n\n";
 	} else {
 		cout << "Your order was instantly fullfilled!\n";
 	}
 
-	cout << "Transactions generated:\n";
+	cout << "Transactions generated:\n\n";
 	while (result.first != result.second)
 		cout << *(*(result.first++));
 }

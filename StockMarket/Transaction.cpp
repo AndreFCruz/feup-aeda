@@ -57,7 +57,7 @@ Date Transaction::getDate() const {
 ostream& operator<<(ostream & out, const Transaction & t)
 {
 	//out << "Seller NIF: " << t.sellerNIF << ". Buyer NIF: " << t.buyerNIF << ".\n";
-	out << "Transactioned " << t.quantity << " stocks of " << t.stock << " at " << t.value << "each." << endl
+	out << "Transactioned " << t.quantity << " stocks of " << t.stock << " at " << t.value << " each." << endl
 		<< "Time Stamp: " << t.time_stamp << endl << endl;
 	return out;
 }

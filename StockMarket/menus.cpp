@@ -41,7 +41,6 @@ unsigned short int clientOptions() {
 	return option;
 }
 
-// TODO cin.ignore(INT_MAX, '\n') depois de pedir nif etc (?)
 void clientMenu() {
 	unsigned short int option;
 
@@ -98,7 +97,7 @@ unsigned short int transactionOptions() {
 }
 
 void transactionMenu() {
-	unsigned short int option; string clientName;
+	unsigned short int option; string clientName; Date d;
 
 	while ((option = transactionOptions())) {
 		switch (option) {
@@ -107,14 +106,14 @@ void transactionMenu() {
 			Market::instance()->printTransactions();
 			break;
 		case 2: //list client transactions
-			cout << endl << TAB << "Client name: "; getline(cin, clientName);
 			Market::instance()->showClientHistory();
 			break;
 		case 3: //list transactions between 2 days
-			Market::instance()->printTransactions(getDate("First day"), getDate("Last day"));
+			d = getDate("First day: "); cout << endl;
+			Market::instance()->printTransactions(d, getDate("Last day: "));
 			break;
 		case 4: //list daily transactions
-			Market::instance()->printTransactions(getDate("Transaction day\n"));
+			Market::instance()->printTransactions(getDate("Transaction day: "));
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
@@ -162,7 +161,7 @@ void orderMenu() {
 			break;
 		case 3: 
 			cout << TAB << "Adding a new Buy Order...\n\n";
-			cout << setw(20) << "Stock: "; getline(cin, stock);
+			cout << TAB << setw(20) << "Stock: "; getline(cin, stock);
 			trim(stock);
 			val = getValue<double>("Stock's value: ", 20);
 			quantity = getValue<unsigned int>("Quantity: ", 20);
@@ -171,15 +170,11 @@ void orderMenu() {
 			addOrder(newOrder);
 			break;
 		case 4: 
-			//Getting the info from the user
-
-			cout << TAB << "Adding a new Sell Order...\nStock: ";
-			getline(cin, stock);
+			cout << TAB << "Adding a new Sell Order...\n\n";
+			cout << TAB << setw(20) << "Stock: "; getline(cin, stock);
 			trim(stock);
-			cout << "Stock's value: ";
-			cin >> val; cin.ignore();	//Falta a gestão de inputs errados (ex. a5a6)
-			cout << "Quantity: ";
-			cin >> quantity; cin.ignore();	//Gestao inputs
+			val = getValue<double>("Stock's value: ", 20);
+			quantity = getValue<unsigned int>("Quantity: ", 20);
 
 			newOrder = new SellOrder(stock, val, quantity, Market::instance()->getCurrentNIF());
 			addOrder(newOrder);
@@ -259,6 +254,7 @@ unsigned short int startingOptions() {
 		setcolor(14);
 		cout << TAB << "Thank you for using our software!\n" << TAB << "Developed by Andre Cruz, Edgar Carneiro and Joao Conde\n" << endl;
 		setcolor(15);
+		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 		return false;
 	}
 
@@ -273,28 +269,24 @@ void initialMenu() {
 	while ((option = startingOptions()))
 		switch (option) {
 		case 1:
-			cout << "Name: ";
-			getline(cin, name, '\n');
-			trim(name);
-			cout << "NIF: ";
-			cin >> nif;
+			cout << TAB << setw(10) << "Name: ";
+			getline(cin, name, '\n'); trim(name);
+			nif = getValue<nif_t>("NIF: ", 10);
 
 			if (Market::instance()->signIn(name, nif)) {
-				cout << TAB_BIG << "\nSigned In successfully!\n";
+				cout << endl << TAB_BIG << "Signed In successfully!\n";
 				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 				startingMenu();
 			}
 			else {
-				cout << TAB_BIG << "\nSign In Unsuccessful.\n";
+				cout << endl << TAB_BIG << "Sign In Unsuccessful.\n";
 				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 			}
 			break;
 		case 2:
-			cout << TAB << "Name: ";
-			getline(cin, name, '\n');
-			trim(name);
-			cout << TAB <<"NIF: ";
-			cin >> nif; cin.ignore();
+			cout << TAB << setw(10) << "Name: ";
+			getline(cin, name); trim(name);
+			nif = getValue<nif_t>("NIF: ", 10);
 		
 			try {
 				Market::instance()->signUp(name,nif);
@@ -316,8 +308,8 @@ void addOrder(Order * newOrder)
 
 	bool fullfilled = true;
 	unsigned transactioned = 0;
-	for (; result.first != result.second; ++(result.first)) {
-		transactioned += (*result.first)->getQuantity();
+	for (auto it = result.first; it != result.second; ++it) {
+		transactioned += (*it)->getQuantity();
 	}
 	if (0 == transactioned) {
 		cout << "StockMarket was unable to fulfill your Order and was put on hold till compatible orders are found.\n";
@@ -332,5 +324,5 @@ void addOrder(Order * newOrder)
 
 	cout << "Transactions generated:\n";
 	while (result.first != result.second)
-		cout << *(*result.first++);
+		cout << *(*(result.first++));
 }

@@ -188,7 +188,7 @@ void Market::printTransactions() const {
 void Market::printTransactions(Date day1, Date day2) {
 	for (size_t i = 0; i < transactions.size(); ++i) {
 		if (day1 <= transactions.at(i)->getDate() && transactions.at(i)->getDate() <= day2)
-			cout << transactions.at(i);
+			cout << *transactions.at(i);
 	}
 }
 
@@ -196,7 +196,7 @@ void Market::printTransactions(Date d) {
 
 	for (size_t i = 0; i < transactions.size(); i++) {
 		if (transactions.at(i)->getDate() == d)
-			cout << transactions.at(i);
+			cout << *transactions.at(i);
 	}
 }
 
@@ -220,6 +220,8 @@ pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > Market:
 {
 	typedef vector<Transaction *>::iterator transIt;
 	size_t initialSize = transactions.size();
+	unfulfilled_orders.push_back(ptr);
+
 	for (unsigned i = 0; i < unfulfilled_orders.size(); i++) {
 		Transaction * trans;
 		if ((trans = (*unfulfilled_orders[i])(ptr)) != NULL) {	// Transaction Successful ?
@@ -232,6 +234,7 @@ pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > Market:
 			}
 			if (0 == ptr->getQuantity()) {
 				delete ptr;
+				unfulfilled_orders.pop_back();
 				break;
 			}
 		}

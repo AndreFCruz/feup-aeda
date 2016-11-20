@@ -28,11 +28,10 @@ Date::Date() {
 	this->year = 1970 + current / 31557600;
 
 	this->month = 1;
-	unsigned int s = current % 31557600; // s -> number of seconds in the current year
+	long s = current % 31557600 - 11 * 3600; // s -> number of seconds in the current year. 11*3600 factor GMT + 1
 	for (unsigned i = 0; (s - secondsPerMonth[i]) > 0 && i < 12; s -= secondsPerMonth[i], ++i)
 		month++;
 	// s ~> number of seconds in the current month
-	s -= 11 * 3600;	// Adjust for local time GMT + 1.
 	this->day = 1 + s / (3600 * 24);
 
 	//int hours = (s % (3600 * 24)) / 3600;

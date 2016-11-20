@@ -61,31 +61,6 @@ unsigned short int getUnsignedShortInt(unsigned short int min, unsigned short in
 
 }
 
-//template <class numT>
-//inline numT getValue(string msg, size_t msg_width) {
-//	string dummy; numT input;
-//	bool fail = false; // fail flag
-//	while (true)
-//	{
-//		setcolor(14);  cout << TAB << setw(msg_width) << msg; setcolor(15); cin >> input;
-//
-//		if (cin.fail()) {
-//			fail = true;
-//			cin.clear();
-//		}
-//
-//		getline(cin, dummy);
-//		if (dummy.empty())
-//			return input;
-//		else fail = true;
-//
-//		if (fail)
-//		{
-//			setcolor(12); cout << "Invalid input.\a\n\n"; setcolor(15);
-//		}
-//	}
-//}
-
 Date getDate(string msg) {
 	unsigned short int day, month, year;
 	size_t width = 7;	//width para formatar a mensagem

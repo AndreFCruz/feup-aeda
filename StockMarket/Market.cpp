@@ -65,7 +65,7 @@ Market::Market() : currentNIF(0) {
 	file_in.close();
 
 	// Sort unfulfilled orders by chronological order
-	sort(unfulfilled_orders.begin(), unfulfilled_orders.end(), [](const Order * o1, const Order * o2) {return o1->getDatePlaced < o2->getDatePlaced(); });
+	sort(unfulfilled_orders.begin(), unfulfilled_orders.end(), [](const Order * o1, const Order * o2) {return o1->getDatePlaced() < o2->getDatePlaced(); });
 }
 
 Market::~Market() {

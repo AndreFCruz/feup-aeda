@@ -110,6 +110,9 @@ public:
 
 class SellOrder;
 
+/**
+*  Class used to represent a buy order. Derives from Order.
+*/
 class BuyOrder : public Order
 {
 	friend SellOrder;
@@ -129,7 +132,7 @@ public:
 	* @param stock A string with the stock name.
 	* @param val A double with the value per stock.
 	* @param quantity An unsigned with the stock quantity.
-	* @param bueyrNIF The buyer NIF.
+	* @param buyerNIF The buyer's NIF.
 	*/
 	BuyOrder(string stock, double val, unsigned quantity, nif_t buyerNIF);
 
@@ -153,6 +156,9 @@ public:
 	void saveChanges(ofstream& out) const;
 };
 
+/**
+*  Class used to represent a sell order. Derives from Order.
+*/
 class SellOrder : public Order
 {
 	friend BuyOrder;

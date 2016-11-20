@@ -28,7 +28,7 @@ public:
 
 	/**
 	* A constructor.
-	* The construtor creates a client object, reading the data from the input stream passed as argument.
+	* The construtor creates a Client object, reading the data from the input stream passed as argument.
 	* @param in The input stream to read from in order to build the client object.
 	*/
 	Client(ifstream& in); 
@@ -54,7 +54,8 @@ public:
 	nif_t getNIF() const;
 
 	/**
-	* A const member function that writes the client's info in order to save it.
+	* A const member function that writes the client's info to the output stream.
+	* Generally used to save the client's attributes to a file.
 	* @param out The output stream to write the client's information.
 	*/
 	void saveChanges(ofstream& out) const;
@@ -67,7 +68,17 @@ public:
 	{
 		nif_t nif;
 	public:
+		/**
+		* A constructor.
+		* The construtor creates an InvalidNIF object with the supplied NIF.
+		* @param nif	The nif in question.
+		*/
 		InvalidNIF(nif_t nif) : nif(nif) {}
+
+		/**
+		* A const member function with no arguments to get the object's NIF.
+		* @return A nif_t, the NIF that originated the creation of this object.
+		*/
 		nif_t getNIF() const {
 			return nif;
 		}

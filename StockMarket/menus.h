@@ -2,7 +2,6 @@
 
 
 // Gather initial information for StockMarket Construction
-<<<<<<< HEAD
 
 /** \fn
 *	Function that initializes the program. 
@@ -34,7 +33,6 @@ void orderMenu();
 *	Function working as the starting menu (main menu).
 */
 void startingMenu();
-<<<<<<< HEAD
 
 /** \fn
 *	Function working as the initializing menu, signing up/in the user.

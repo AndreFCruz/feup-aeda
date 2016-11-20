@@ -236,7 +236,7 @@ pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > Market:
 			// Corresponding Buy/Sell Order Fulfilled ?
 			if (unfulfilled_orders[i]->getQuantity() == 0) {
 				delete unfulfilled_orders[i];
-				unfulfilled_orders.erase(unfulfilled_orders.begin() + --i);
+				unfulfilled_orders.erase(unfulfilled_orders.begin() + i--);
 			}
 			if (0 == ptr->getQuantity()) {
 				delete ptr;

@@ -339,14 +339,15 @@ ostream& operator<<(ostream & out, const Market & m) {
 		it++;
 	}
 
+	clearScreen();
 	showTitle("MARKET'S STATISTICS", cout);
-	cout << "Number of clients: " << n_clients << endl
-		<< "Number of transactions: " << n_trans << endl
-		<< "Number of orders: " << n_orders << endl
-		<< "Number of buy orders: " << n_buyOrders << endl
-		<< "Number of sell orders: " << n_sellOrders << endl
-		<< "Average value of transaction: " << average_trans << endl
-		<< "Most transactionned stock: " << most_requested << endl << endl;
+	cout << TAB << "Number of clients: " << n_clients << endl
+		<< TAB << "Number of transactions: " << n_trans << endl
+		<< TAB << "Number of orders: " << n_orders << endl
+		<< TAB << "Number of buy orders: " << n_buyOrders << endl
+		<< TAB << "Number of sell orders: " << n_sellOrders << endl
+		<< TAB << "Average value of transaction: " << average_trans << endl
+		<< TAB << "Most transactioned stock: " << most_requested << endl << endl;
 
 	return out;
 }

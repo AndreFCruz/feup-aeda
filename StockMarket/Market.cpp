@@ -138,6 +138,45 @@ void Market::showClientHistory() const {
 		cout << *t_ptr;
 }
 
+void Market::showClientOrders() const {
+	Client * cli = clients.at(currentNIF);
+
+	cout << TAB << "\n Client's unfulfilled Orders:\n";
+	for (auto o_it = unfulfilled_orders.begin(); o_it != unfulfilled_orders.end(); ++o_it)
+	{
+		if ((*o_it)->getClientNIF() == cli->getNIF())
+			(*o_it)->printInfo();
+	}
+}
+
+bool Market::eraseClientOrder(int choice) {
+	Client * cli = clients.at(currentNIF);
+	vector <Order *> clientOrders;
+
+	for (auto o_it = unfulfilled_orders.begin(); o_it != unfulfilled_orders.end(); ++o_it)
+	{
+		if ((*o_it)->getClientNIF() == cli->getNIF())
+			clientOrders.push_back(*o_it);
+	}
+
+	if ((choice - 1) >= clientOrders.size())
+		return false;
+
+	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i)
+	{
+		if (unfulfilled_orders[i]->getClientNIF() == clientOrders.at(choice - 1)->getClientNIF() && unfulfilled_orders[i]->getDatePlaced() == clientOrders.at(choice - 1)->getDatePlaced()
+			&& unfulfilled_orders[i]->getQuantity() == clientOrders.at(choice - 1)->getQuantity() && unfulfilled_orders[i]->getStock() == clientOrders.at(choice - 1)->getStock()
+			&& unfulfilled_orders[i]->getValue() == clientOrders.at(choice - 1)->getValue()) {	//This if works only because it is impossible to have a S and B order with the same parameters -> they 'd be fulfilled
+					delete unfulfilled_orders[i];
+					unfulfilled_orders.erase(unfulfilled_orders.begin() + i);
+		}
+	}
+
+	ordersChanged = true;
+	return true;
+	
+}
+
 vector<Transaction *> Market::clientHistory(Client * c_ptr) const {
 	vector<Transaction *> result;
 	for (Transaction * t_ptr : transactions) {

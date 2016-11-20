@@ -27,7 +27,7 @@ public:
 	unsigned getQuantity() const;
 	void printInfo() const;
 	
-	//virtual nif_t getClientNIF() = 0;
+	virtual nif_t getClientNIF() const = 0;
 	virtual Transaction * operator()(Order*) = 0;
 	virtual void saveChanges(ofstream&) const;
 
@@ -51,7 +51,7 @@ class BuyOrder : public Order
 public:
 	BuyOrder(ifstream&);
 	BuyOrder(string stock, double val, unsigned quantity, nif_t buyerNIF);
-	//nif_t getClientNIF() const;
+	nif_t getClientNIF() const;
 	Transaction * operator()(Order*);
 	void saveChanges(ofstream&) const;
 };
@@ -64,7 +64,7 @@ class SellOrder : public Order
 public:
 	SellOrder(ifstream&);
 	SellOrder(string stock, double val, unsigned quantity, nif_t sellerNIF);
-	//nif_t getClientNIF() const;
+	nif_t getClientNIF() const;
 	Transaction * operator()(Order*);
 	void saveChanges(ofstream&) const;
 };

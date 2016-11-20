@@ -87,6 +87,18 @@ public:
 	void showClientHistory() const;
 
 	/**
+	* A const member function that displays the client's unfulfilled orders.
+	*/
+	void showClientOrders() const;
+
+	/**
+	* A member function that erases a client's unfulfilled order.
+	* @param The number corresponding to the order to be erased.
+	* @return A boolean, true if deletion of the order was done successfully.
+	*/
+	bool eraseClientOrder(int choice);
+
+	/**
 	* A const member function that displays the buy orders.
 	*/
 	void listBuyOrders() const;

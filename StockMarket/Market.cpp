@@ -63,6 +63,9 @@ Market::Market() : currentNIF(0) {
 		unfulfilled_orders.push_back(temp_o);
 	}
 	file_in.close();
+
+	// Sort unfulfilled orders by chronological order
+	sort(unfulfilled_orders.begin(), unfulfilled_orders.end(), [](const Order * o1, const Order * o2) {return o1->getDatePlaced < o2->getDatePlaced(); });
 }
 
 Market::~Market() {
@@ -139,42 +142,31 @@ void Market::showClientHistory() const {
 }
 
 void Market::showClientOrders() const {
-	Client * cli = clients.at(currentNIF);
-
 	cout << TAB << "\n Client's unfulfilled Orders:\n";
-	for (auto o_it = unfulfilled_orders.begin(); o_it != unfulfilled_orders.end(); ++o_it)
-	{
-		if ((*o_it)->getClientNIF() == cli->getNIF())
-			(*o_it)->printInfo();
+	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i) {
+		if (unfulfilled_orders[i]->getClientNIF() == currentNIF)
+			unfulfilled_orders[i]->printInfo();
 	}
 }
 
-bool Market::eraseClientOrder(int choice) {
-	Client * cli = clients.at(currentNIF);
-	vector <Order *> clientOrders;
+bool Market::eraseClientOrder(unsigned choice) {
+	vector<Order *> clientOrders(unfulfilled_orders.size());
+	auto it = copy_if(unfulfilled_orders.begin(), unfulfilled_orders.end(), clientOrders.begin(), [=](Order * o) { return o->getClientNIF() == currentNIF; });
+	clientOrders.resize(distance(clientOrders.begin(), it));
 
-	for (auto o_it = unfulfilled_orders.begin(); o_it != unfulfilled_orders.end(); ++o_it)
-	{
-		if ((*o_it)->getClientNIF() == cli->getNIF())
-			clientOrders.push_back(*o_it);
-	}
-
-	if ((choice - 1) >= clientOrders.size())
+	if (choice > clientOrders.size())
 		return false;
 
-	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i)
-	{
-		if (unfulfilled_orders[i]->getClientNIF() == clientOrders.at(choice - 1)->getClientNIF() && unfulfilled_orders[i]->getDatePlaced() == clientOrders.at(choice - 1)->getDatePlaced()
-			&& unfulfilled_orders[i]->getQuantity() == clientOrders.at(choice - 1)->getQuantity() && unfulfilled_orders[i]->getStock() == clientOrders.at(choice - 1)->getStock()
-			&& unfulfilled_orders[i]->getValue() == clientOrders.at(choice - 1)->getValue()) {	//This if works only because it is impossible to have a S and B order with the same parameters -> they 'd be fulfilled
-					delete unfulfilled_orders[i];
-					unfulfilled_orders.erase(unfulfilled_orders.begin() + i);
+	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i) {
+		if (unfulfilled_orders[i] == clientOrders[choice - 1]) {
+			delete unfulfilled_orders[i];
+			unfulfilled_orders.erase(unfulfilled_orders.begin() + i);
+			ordersChanged = true;
+			return true;
 		}
 	}
 
-	ordersChanged = true;
-	return true;
-	
+	return false;
 }
 
 vector<Transaction *> Market::clientHistory(Client * c_ptr) const {

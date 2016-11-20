@@ -318,6 +318,7 @@ void initialMenu() {
 /* Generic Helper Function for Handling New Orders */
 void addOrder(Order * newOrder)
 {
+	unsigned originalQuantity = newOrder->getQuantity();
 	auto result = Market::instance()->placeOrder(newOrder);
 
 	bool fullfilled = true;
@@ -328,7 +329,7 @@ void addOrder(Order * newOrder)
 	if (0 == transactioned) {
 		cout << "StockMarket was unable to fulfill your Order and was put on hold till compatible orders are found.\n\n";
 		return;
-	} else if (transactioned != newOrder->getQuantity()) {
+	} else if (transactioned != originalQuantity) {
 		cout
 			<< "Your order was partially fullfilled. Waiting for more Buy Orders to completely fullfill it!\n"
 			<< "Transactioned stocks: " << transactioned << ".\n\n\n";

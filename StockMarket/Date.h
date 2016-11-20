@@ -38,25 +38,25 @@ public:
 	* @param month A unsigned short representing the month
 	* @param year A unsigned short representing the year
 	*/
-	Date(unsigned short day,unsigned short month,unsigned short year);
+	Date(int day, int month, int year);
 	
 	/**
 	* A member function with no arguments to get the date's day.
 	* @return An integer, the date's day
 	*/
-	unsigned short get_day() const;
+	int get_day() const;
 	
 	/**
 	* A member function with no arguments to get the date's month.
 	* @return An integer, the date's month
 	*/
-	unsigned short get_month() const;
+	int get_month() const;
 
 	/**
 	* A member function with no arguments to get the date's year.
 	* @return An integer, the date's year
 	*/
-	unsigned short get_year() const;
+	int get_year() const;
 
 	/**
 	* Operator << for class Date.

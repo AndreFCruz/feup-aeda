@@ -3,7 +3,7 @@
 #include "Date.h"
 
 // Seconds in a given month. Non-leap year
-unsigned int secondsPerMonth[12] = {
+int secondsPerMonth[12] = {
 	3600 * 24 * 31, // january
 	3600 * 24 * 28, // february
 	3600 * 24 * 31,
@@ -25,17 +25,18 @@ Date::Date() {
 	time(&current);
 
 	// Number of seconds in one astronomical year (365.25 days): 31557600
-	this->year = 1970 + current / 31557600;
+	year = 1970 + current / 31557600;
 
-	this->month = 1;
-	long s = current % 31557600 - 11 * 3600; // s -> number of seconds in the current year. 11*3600 factor GMT + 1
-	for (unsigned i = 0; (s - secondsPerMonth[i]) > 0 && i < 12; s -= secondsPerMonth[i], ++i)
+	month = 1;
+	int s = current % 31557600; // s -> number of seconds in the current year
+	for (int i = 0; (s - secondsPerMonth[i]) > 0 && i < 12; s -= secondsPerMonth[i], i++)
 		month++;
-	// s ~> number of seconds in the current month
-	this->day = 1 + s / (3600 * 24);
+	// s -> number of seconds in the current month
 
-	//int hours = (s % (3600 * 24)) / 3600;
-	//int minutes = (s % 3600) / 60;
+	day = 1 + (s - (11 * 3600)) / (3600 * 24);
+
+	//int hours = ((s - (11 * 3600)) % (3600 * 24)) / 3600;
+	//int minutes = ((s % (3600 * 24)) % 3600) / 60;
 }
 
 Date::Date(string data) {
@@ -44,21 +45,21 @@ Date::Date(string data) {
 	str_in >> this->day >> tmp >> this->month >> tmp >> this->year;
 }
 
-Date::Date(unsigned short int day, unsigned short int month, unsigned short int year) {
+Date::Date(int day, int month, int year) {
 	this->day = day;
 	this->month = month;
 	this->year = year;
 }
 
-unsigned short Date::get_day() const {
+int Date::get_day() const {
 	return day;
 }
 
-unsigned short Date::get_month() const {
+int Date::get_month() const {
 	return month;
 }
 
-unsigned short Date::get_year() const {
+int Date::get_year() const {
 	return year;
 }
 

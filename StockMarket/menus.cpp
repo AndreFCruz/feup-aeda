@@ -43,6 +43,7 @@ unsigned short int clientOptions() {
 
 void clientMenu() {
 	unsigned short int option;
+	cout << endl;
 
 	while ((option = clientOptions())) {
 		switch (option) {
@@ -50,9 +51,11 @@ void clientMenu() {
 			Market::instance()->showClientInfo();
 			break;
 		case 2: //Show Client History
+			cout << endl << TAB << "Client's transaction History:\n\n";
 			Market::instance()->showClientHistory();
 			break;
 		case 3:
+			cout << endl << TAB << "Client's unfulfilled Orders:\n";
 			Market::instance()->showClientOrders();
 			break;
 		case 4:
@@ -99,6 +102,7 @@ unsigned short int transactionOptions() {
 
 void transactionMenu() {
 	unsigned short int option; string str; Date d;
+	cout << endl;
 
 	while ((option = transactionOptions())) {
 		switch (option) {
@@ -158,6 +162,7 @@ void orderMenu() {
 	double val;
 	unsigned quantity;
 	Order * newOrder;
+	cout << endl;
 
 	while ((option = orderOptions())) {
 		switch (option) {
@@ -223,7 +228,7 @@ unsigned short int initialOptions() {
 
 void startingMenu() {
 	unsigned int option;
-
+	cout << endl;
 
 	while ((option = initialOptions()))
 		switch (option) {
@@ -273,7 +278,8 @@ void initialMenu() {
 	unsigned int option;
 	string name;
 	nif_t nif;
-
+	cout << endl;
+	
 	while ((option = startingOptions()))
 		switch (option) {
 		case 1:

@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "Order.h"
 #include "utils.h"
 
@@ -39,7 +40,7 @@ void Order::saveChanges(ofstream & out) const {
 }
 
 void Order::printInfo() const {
-	cout << "Stock: " << stock << ". Quantity: " << quantity << ". Price per stock: " << valuePerStock << ". Date placed: " << datePlaced << ".\n";
+	cout << "Stock: " << setw(15) << stock << ". Quantity: " << setw(5) << quantity << ". Price per stock: " << setw(5) << valuePerStock << ". Date placed: " << datePlaced << ".\n";
 }
 /// ///
 

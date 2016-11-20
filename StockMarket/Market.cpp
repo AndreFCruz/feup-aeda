@@ -135,17 +135,16 @@ void Market::showClientInfo() const {
 // Can throw exception, should be handled by higher function
 void Market::showClientHistory() const {
 	Client * cli = clients.at(currentNIF);
-
-	cout << TAB << "\nTransaction History:\n";
 	for (Transaction * t_ptr : clientHistory(cli))
 		cout << *t_ptr;
 }
 
 void Market::showClientOrders() const {
-	cout << TAB << "\n Client's unfulfilled Orders:\n";
-	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i) {
-		if (unfulfilled_orders[i]->getClientNIF() == currentNIF)
-			cout << i << ". "; unfulfilled_orders[i]->printInfo();
+	for (unsigned i = 0, j = 0; i < unfulfilled_orders.size(); ++i) {
+		if (unfulfilled_orders[i]->getClientNIF() == currentNIF) {
+			cout << ++j << ". " << (dynamic_cast<BuyOrder*>(unfulfilled_orders[i]) != NULL ? "Buy Order  -> " : "Sell Order -> ");
+			unfulfilled_orders[i]->printInfo();
+		}
 	}
 }
 

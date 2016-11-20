@@ -291,7 +291,62 @@ void Market::saveChanges() const {
 	}
 }
 
+
 ostream& operator<<(ostream & out, const Market & m) {
-	out << "Place Holder for StockMarket Statistics.\n";
+
+	size_t n_clients = m.clients.size();
+	size_t n_trans = m.transactions.size();
+	size_t n_orders = m.unfulfilled_orders.size();
+	size_t n_buyOrders = 0, n_sellOrders = 0;
+
+	double average_trans = 0, trans_total = 0;
+
+	map<string, int> stock_occur;
+	string most_requested;
+
+	for (size_t i = 0; i < m.unfulfilled_orders.size(); i++) {
+
+		if (dynamic_cast<BuyOrder*>(m.unfulfilled_orders.at(i)) == NULL)
+			n_sellOrders++;
+		else
+			n_buyOrders++;
+	}
+
+
+	for (size_t j = 0; j < m.transactions.size(); j++) {
+		trans_total += m.transactions.at(j)->getQuantity() * m.transactions.at(j)->getValue();
+
+		map<string, int>::iterator it;
+		it = stock_occur.find(m.transactions.at(j)->getStock());
+
+		if (it == stock_occur.end())
+			stock_occur.insert(pair<string, int>(m.transactions.at(j)->getStock(), 1));
+		else {
+			stock_occur[m.transactions.at(j)->getStock()] = stock_occur[m.transactions.at(j)->getStock()] + 1;
+		}
+
+	}
+
+	average_trans = trans_total / n_trans;
+
+	int ocurr = 0;
+	map<string, int>::iterator it;
+	it = stock_occur.begin();
+
+	while (it != stock_occur.end()) {
+		if (it->second > ocurr)
+			most_requested = it->first;
+		it++;
+	}
+
+	showTitle("MARKET'S STATISTICS", cout);
+	cout << "Number of clients: " << n_clients << endl
+		<< "Number of transactions: " << n_trans << endl
+		<< "Number of orders: " << n_orders << endl
+		<< "Number of buy orders: " << n_buyOrders << endl
+		<< "Number of sell orders: " << n_sellOrders << endl
+		<< "Average value of transaction: " << average_trans << endl
+		<< "Most transactionned stock: " << most_requested << endl << endl;
+
 	return out;
 }

@@ -50,9 +50,9 @@ BuyOrder::BuyOrder(ifstream & in) : Order(in) {
 
 BuyOrder::BuyOrder(string stock, double val, unsigned quantity, nif_t buyerNIF) : Order(stock, val, quantity), buyerNIF(buyerNIF) {}
 
-//nif_t BuyOrder::getClientNIF() const {
-//	return buyerNIF;
-//}
+nif_t BuyOrder::getClientNIF() const {
+	return buyerNIF;
+}
 
 Transaction * BuyOrder::operator()(Order* ord) {
 	SellOrder * sellOrd = NULL;
@@ -87,9 +87,9 @@ SellOrder::SellOrder(ifstream & in) : Order(in) {
 
 SellOrder::SellOrder(string stock, double val, unsigned quantity, nif_t sellerNIF) : Order(stock, val, quantity), sellerNIF(sellerNIF) {}
 
-//Client * SellOrder::getClientNIF() const {
-//	return sellerNIF;
-//}
+nif_t SellOrder::getClientNIF() const {
+	return sellerNIF;
+}
 
 Transaction * SellOrder::operator()(Order* ord) {
 	BuyOrder * buyOrd = NULL;

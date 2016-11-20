@@ -21,7 +21,7 @@ Market::Market() : currentNIF(0) {
 	/* Populate Data Structures */
 	// Clients from file
 	file_in.open(clientsFile);
-	file_in >> numberOfObjects;
+	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 	for (unsigned i = 0; i < numberOfObjects; ++i) {
 		Client * temp_c = new Client(file_in);
 		clients.insert(pair<nif_t, Client*>(temp_c->getNIF(), temp_c));
@@ -30,7 +30,7 @@ Market::Market() : currentNIF(0) {
 
 	// Transactions from file
 	file_in.open(transactionsFile);
-	file_in >> numberOfObjects;
+	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 	transactions.reserve(numberOfObjects);
 	for (unsigned i = 0; i < numberOfObjects; ++i) {
 		Transaction * temp_t = new Transaction(file_in);
@@ -44,7 +44,7 @@ Market::Market() : currentNIF(0) {
 	// Unfulfilled Orders from file
 	char c;	// Buy/Sell Char Flag
 	file_in.open(ordersFile);
-	file_in >> numberOfObjects;
+	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 	transactions.reserve(numberOfObjects);
 	for (unsigned i = 0; i < numberOfObjects; ++i) {
 		Order * temp_o;
@@ -63,6 +63,9 @@ Market::Market() : currentNIF(0) {
 		unfulfilled_orders.push_back(temp_o);
 	}
 	file_in.close();
+
+	// Sort unfulfilled orders by chronological order
+	sort(unfulfilled_orders.begin(), unfulfilled_orders.end(), [](const Order * o1, const Order * o2) {return o1->getDatePlaced < o2->getDatePlaced(); });
 }
 
 Market::~Market() {
@@ -105,11 +108,16 @@ void Market::signOut() {
 bool Market::signUp(string name, nif_t nif) {
 	// acrescentar cliente ao map (nif, client*) e mudar currentNIF etc
 	Client * newClient = new Client(name, nif);
-	clients.insert(pair<nif_t, Client *>(nif, newClient));
+	auto p = clients.insert(pair<nif_t, Client *>(nif, newClient));
 	
+	if (false == p.second) { // Clients with the same name can exist, but not with the same NIF
+		cout << endl << TAB << "Account already exists. Are you " << p.first->second->getName() << " ?\n";
+		return false;
+	}
+
 	currentNIF = nif;
 	clientsChanged = true;
-	cout << TAB << "New Client created sucessfully!\n";	// Needs to be done here because of the try catch thing
+	cout << endl << TAB << "New Client created sucessfully!\n";	// Needs to be done here because of the try catch thing
 	return true;
 }
 
@@ -127,11 +135,38 @@ void Market::showClientInfo() const {
 // Can throw exception, should be handled by higher function
 void Market::showClientHistory() const {
 	Client * cli = clients.at(currentNIF);
-	cout << *cli;
 
 	cout << TAB << "\nTransaction History:\n";
 	for (Transaction * t_ptr : clientHistory(cli))
 		cout << *t_ptr;
+}
+
+void Market::showClientOrders() const {
+	cout << TAB << "\n Client's unfulfilled Orders:\n";
+	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i) {
+		if (unfulfilled_orders[i]->getClientNIF() == currentNIF)
+			unfulfilled_orders[i]->printInfo();
+	}
+}
+
+bool Market::eraseClientOrder(unsigned choice) {
+	vector<Order *> clientOrders(unfulfilled_orders.size());
+	auto it = copy_if(unfulfilled_orders.begin(), unfulfilled_orders.end(), clientOrders.begin(), [=](Order * o) { return o->getClientNIF() == currentNIF; });
+	clientOrders.resize(distance(clientOrders.begin(), it));
+
+	if (choice > clientOrders.size())
+		return false;
+
+	for (unsigned i = 0; i < unfulfilled_orders.size(); ++i) {
+		if (unfulfilled_orders[i] == clientOrders[choice - 1]) {
+			delete unfulfilled_orders[i];
+			unfulfilled_orders.erase(unfulfilled_orders.begin() + i);
+			ordersChanged = true;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 vector<Transaction *> Market::clientHistory(Client * c_ptr) const {

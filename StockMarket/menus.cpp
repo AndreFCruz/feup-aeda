@@ -28,12 +28,14 @@ unsigned short int clientOptions() {
 	clearScreen();
 	showTitle("Client Menu");
 	cout << TAB << "1 - Show Information" << endl;
-	cout << TAB << "2 - Show History" << endl;
-	cout << TAB << "3 - Exit menu" << endl << endl;
+	cout << TAB << "2 - Show Transaction History" << endl;
+	cout << TAB << "3 - Show unfulfilled Orders" << endl;
+	cout << TAB << "4 - Delete a unfullfilled Order" << endl;
+	cout << TAB << "5 - Exit menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
-	option = getUnsignedShortInt(1, 3, msg);
+	option = getUnsignedShortInt(1, 5, msg);
 
-	if (option == 3)
+	if (option == 5)
 		return false;	// false == 0
 
 	return option;
@@ -50,6 +52,20 @@ void clientMenu() {
 			break;
 		case 2: //Show Client History
 			Market::instance()->showClientHistory();
+			break;
+		case 3:
+			Market::instance()->showClientOrders();
+			break;
+		case 4:
+			int choice;
+			Market::instance()->showClientOrders();
+			cout << endl << TAB << "Select the Order you wish to erase: (example: 1 for first, 2 for second,...)\n" << TAB << "Your option: ";
+			cin >> choice; cin.ignore();
+
+			if (Market::instance()->eraseClientOrder(choice))
+				cout << TAB << "Order successfully erased!\n\n";
+			else
+				cout << TAB << "Failed to erase Order!\n\n";
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
@@ -199,8 +215,10 @@ unsigned short int initialOptions() {
 	option = getUnsignedShortInt(1, 5, msg);
 	cout << endl << endl;
 
-	if (option == 5) 
+	if (option == 5) {
+		Market::instance()->signOut();
 		return false;
+	}
 
 	return option;
 }
@@ -217,8 +235,11 @@ void startingMenu() {
 			break;
 		case 3: orderMenu();
 			break;
-		case 4: //Show statistics? 
+		case 4:
+			cout << *(Market::instance());
+			cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 			break;
+
 		}
 
 	Market::instance()->saveChanges();
@@ -267,6 +288,10 @@ void initialMenu() {
 				cout << TAB_BIG << "\nSigned In successfully!\n";
 				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 				startingMenu();
+			}
+			else {
+				cout << TAB_BIG << "\nSign In Unsuccessful.\n";
+				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 			}
 			break;
 		case 2:

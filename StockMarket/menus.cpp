@@ -174,8 +174,8 @@ void orderMenu() {
 			break;
 		case 3: 
 			cout << TAB << "Adding a new Buy Order...\n\n";
-			cout << TAB << setw(20) << "Stock: "; getline(cin, stock);
-			trim(stock);
+			setcolor(14); cout << TAB << setw(20) << "Stock: "; setcolor(15);
+			getline(cin, stock); trim(stock);
 			val = getValue<double>("Stock's value: ", 20);
 			quantity = getValue<unsigned int>("Quantity: ", 20);
 
@@ -184,8 +184,8 @@ void orderMenu() {
 			break;
 		case 4: 
 			cout << TAB << "Adding a new Sell Order...\n\n";
-			cout << TAB << setw(20) << "Stock: "; getline(cin, stock);
-			trim(stock);
+			setcolor(14); cout << TAB << setw(20) << "Stock: "; setcolor(15);
+			getline(cin, stock); trim(stock);
 			val = getValue<double>("Stock's value: ", 20);
 			quantity = getValue<unsigned int>("Quantity: ", 20);
 
@@ -204,11 +204,11 @@ void orderMenu() {
 /******************************************
 * Menu Inicial
 ******************************************/
-unsigned short int initialOptions() {
+unsigned short int homeOptions() {
 	unsigned short int option;
 
 	clearScreen();
-	showTitle("Initial Menu");
+	showTitle("Home Menu");
 	cout << TAB << "1 - Manage clients" << endl;
 	cout << TAB << "2 - Manage transactions" << endl;
 	cout << TAB << "3 - Manage orders" << endl;
@@ -226,11 +226,11 @@ unsigned short int initialOptions() {
 	return option;
 }
 
-void startingMenu() {
+void homeMenu() {
 	unsigned int option;
 	cout << endl;
 
-	while ((option = initialOptions()))
+	while ((option = homeOptions()))
 		switch (option) {
 		case 1: clientMenu();
 			break;
@@ -283,7 +283,9 @@ void initialMenu() {
 	while ((option = startingOptions()))
 		switch (option) {
 		case 1:
+			setcolor(14);
 			cout << TAB << setw(10) << "Name: ";
+			setcolor(15);
 			getline(cin, name, '\n'); trim(name);
 			nif = getValue<nif_t>("NIF: ", 10);
 
@@ -326,18 +328,20 @@ void addOrder(Order * newOrder)
 	for (auto it = result.first; it != result.second; ++it) {
 		transactioned += (*it)->getQuantity();
 	}
+
+	cout << endl << TAB;
 	if (0 == transactioned) {
 		cout << "StockMarket was unable to fulfill your Order and was put on hold till compatible orders are found.\n\n";
 		return;
 	} else if (transactioned != originalQuantity) {
 		cout
 			<< "Your order was partially fullfilled. Waiting for more Buy Orders to completely fullfill it!\n"
-			<< "Transactioned stocks: " << transactioned << ".\n\n\n";
+			<< TAB << "Transactioned stocks: " << transactioned << ".\n\n\n";
 	} else {
 		cout << "Your order was instantly fullfilled!\n";
 	}
 
-	cout << "Transactions generated:\n\n";
+	cout << TAB_BIG << "Transactions generated:\n\n";
 	while (result.first != result.second)
-		cout << *(*(result.first++));
+		cout << TAB << *(*(result.first++));
 }

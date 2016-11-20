@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "Transaction.h"
 #include "utils.h"
 #include "defs.h"
@@ -59,10 +60,7 @@ Date Transaction::getDate() const {
 	return time_stamp;
 }
 
-ostream& operator<<(ostream & out, const Transaction & t)
-{
-	//out << "Seller NIF: " << t.sellerNIF << ". Buyer NIF: " << t.buyerNIF << ".\n";
-	out << "Transactioned " << t.quantity << " stocks of " << t.stock << " at " << t.value << " each." << endl
-		<< "Time Stamp: " << t.time_stamp << endl << endl;
+ostream& operator<<(ostream & out, const Transaction & t) {
+	out << t.time_stamp << " -- Transactioned " << setw(3) << t.quantity << " stocks of " << t.stock << " at " << t.value << " each." << endl;
 	return out;
 }

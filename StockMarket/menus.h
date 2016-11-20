@@ -12,7 +12,6 @@
 *	@return A boolean, true if the set up was successfull.
 */
 bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFile);
->>>>>>> a9f23b1f2b943c2fcf4b4b1c70503d7b769c2aa5
 
 // Menu implementation
 
@@ -42,9 +41,8 @@ void startingMenu();
 */
 void initialMenu();
 
-/**
-* Generic helper function that handles a new order.
-* @param newOrder A pointer to the newly created Order to be handled.
+/** \fn
+* 	Generic helper function that handles a new order.
+* 	@param newOrder A pointer to the newly created Order to be handled.
 */
 void addOrder(Order * newOrder);
->>>>>>> a9f23b1f2b943c2fcf4b4b1c70503d7b769c2aa5

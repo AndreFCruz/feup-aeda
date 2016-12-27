@@ -10,9 +10,9 @@ using namespace std;
 class Transaction;	// Forward declaration due to circular includes
 
 /**
-*  A class used to represent a client. 
-*  Each client object has a name and a nif (from the portuguese "Numero de Identificação Fiscal").
-*/
+ *  A class used to represent a client. 
+ *  Each client object has a name and a nif (from the portuguese "Numero de Identificação Fiscal").
+ */
 
 class Client
 {
@@ -22,12 +22,12 @@ class Client
 public:
 
 	/**
-	* A default constructor.
+	* Explicit default constructor.
 	*/
 	Client() = default;
 
 	/**
-	* A constructor.
+	* Constructor from file.
 	* The construtor creates a Client object, reading the data from the input stream passed as argument.
 	* @param in The input stream to read from in order to build the client object.
 	*/

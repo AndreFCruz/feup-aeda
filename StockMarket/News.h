@@ -12,8 +12,11 @@ using namespace std;
 
 class News
 {
-	string newspaper;	/**< string newspaper. The name of the newspaper that  */
-	Date date;
+	string company;		/**< string company. The name of the company mentioned in the news */
+	Date date;			/**< Date date. The date when it was published */
+	string newspaper;	/**< string newspaper. The name of the newspaper that published the news. */
+	unsigned short int classification;	/**< unsigned short int classification. The news' classification,
+										from 0 to 10, indicating whether its good (10) or bad (0) */
 
 public:
 
@@ -21,6 +24,16 @@ public:
 	* Explicit default constructor.
 	*/
 	News() = default;
+
+	/**
+	* Constructor for News object.
+	* The construtor creates a News object, with the data supplied as arguments.
+	* @param company The name of the company mentioned.
+	* @param d The date when the news was published.
+	* @param newspaper The name of the newspaper where the news was published.
+	* @param classification The News' classification, from bad (0) to good (10).
+	*/
+	News(string company, Date d, string newspaper, unsigned short int classification);
 
 	/**
 	* Constructor from file.
@@ -35,6 +48,31 @@ public:
 	* @param out The output stream to write the news' information.
 	*/
 	void saveChanges(ofstream& out) const;
+
+
+	/**
+	* A const member function with no arguments to get the News' Company name.
+	* @return A string, the Company's name.
+	*/
+	string getCompany() const;
+
+	/**
+	* A const member function with no arguments to get the Date the news was published.
+	* @return A Date object, with the information regarding when the news was published.
+	*/
+	Date getDate() const;
+
+	/**
+	* A const member function with no arguments to get the News' Newspaper name.
+	* @return A string, the Newspaper's name.
+	*/
+	string getNewspaper() const;
+
+	/**
+	* A const member function with no arguments to get the News' Classification.
+	* @return An unsigned short int, corresponding to the News classification, from bad (0) to good (10).
+	*/
+	unsigned short int getClassification() const;
 
 	/**
 	* Overload of Operator < for class News.

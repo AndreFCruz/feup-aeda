@@ -7,8 +7,8 @@
 using namespace std;
 
 /**
-*  A class used to represent a date. Each date object contains 3 integers, representing day, month and year.
-*/
+ *  A class used to represent a date. Each date object contains 3 integers, representing day, month and year.
+ */
 
 class Date {
 private:
@@ -99,6 +99,15 @@ public:
 	* @return Returns a boolean value, true if d1 equals d2
 	*/
 	friend bool operator==(const Date& d1, const Date& d2);
+
+
+	/**
+	* Overload of Operator != for class Date.
+	* @param d1 First date
+	* @param d2 Second date
+	* @return Returns a boolean value, true if d1 is not equal to d2
+	*/
+	friend bool operator!=(const Date& d1, const Date& d2);
 };
 
 

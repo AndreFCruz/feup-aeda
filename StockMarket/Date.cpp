@@ -99,16 +99,11 @@ bool operator<(const Date& d1, const Date& d2)
 
 bool operator==(const Date & d1, const Date & d2)
 {
-	if (d1.get_day() != d2.get_day())
-		return false;
+	return d1.day == d2.day && d1.month == d2.month && d1.year == d2.year;
+}
 
-	if (d1.get_month() != d2.get_month())
-		return false;
-
-	if (d1.get_year() != d2.get_year())
-		return false;
-	
-	return true;
+bool operator!=(const Date& d1, const Date& d2) {
+	return ! (d1 == d2);
 }
 
 

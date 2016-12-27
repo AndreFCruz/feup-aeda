@@ -2,9 +2,11 @@
 
 #include <map>
 #include <vector>
+#include <set>
 #include "Client.h"
 #include "Transaction.h"
 #include "Order.h"
+#include "News.h"
 
 using namespace std;
 
@@ -16,7 +18,7 @@ using namespace std;
 class Market
 {
 private:
-	static Market * singleton_instance;  /**< Market pointer. Contains the pointer to the singleton instance of Market. */
+	static Market * singleton_instance;	/**< Market pointer. Contains the pointer to the singleton instance of Market. */
 	nif_t currentNIF;					/**<  nif_t NIF. Saves the NIF of the current user. */
 	
 	/**
@@ -30,9 +32,15 @@ private:
 	*/
 	~Market();	
 
-	map<nif_t, Client *> clients;			/**< Map clients. A map where the key's are clients NIF's and the values are client pointers. Corresponds a NIF and a client. */
+	map<nif_t, Client *> clients;			/**< Map clients. A map where the key's are clients NIF's and the values are client pointers.
+												 Relates a NIF and a client for ease of access. */
 	vector<Transaction *> transactions;		/**< Vector transactions. A vector saving pointers of all Market's transactions. */
 	vector<Order *> unfulfilled_orders;		/**< Vector unfulfilled_orders. A vector saving pointers of all Market's unfulfilled orders. */
+
+	// Data Structures for the 2nd part of the project
+	set<News> news;					/**< Set news. A set, implemented as a Binary Search Tree (BST), of News objects. */
+
+
 
 	string clientsFile;		   /**< string clientsFile. String with the client's file name. */
 	string ordersFile;         /**< string ordersFile. String with the order's file name. */

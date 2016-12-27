@@ -4,19 +4,23 @@
 #include "utils.h"
 
 
-bool initialInfo(string & clientsFile, string & transactionsFile, string & ordersFile) {
+bool initialInfo(string & clientsFile, string & transactionsFile, string & ordersFile, string & newsFile) {
 	cout << TAB_BIG; showTitle("Stock Market");
 	cout << "\n Type the name of the files where information is stored (FileName.txt): \n" << endl;
 	cout << setw(21) << "Clients' file: "; setcolor(14); cin >> clientsFile;
-	setcolor(15); cin.ignore(INT_MAX, '\n');
+	setcolor(15); cin.ignore(INT_MAX, '\n');	// clear the end-of-line character from the cin stream buffer
 
 	cout << setw(21) << "Transactions' file: "; setcolor(14); cin >> transactionsFile;
-	setcolor(15); cin.ignore(INT_MAX, '\n');
+	setcolor(15); cin.ignore(INT_MAX, '\n');	// clear the end-of-line character from the cin stream buffer
 
 	cout << setw(21) << "Orders' file: "; setcolor(14); cin >> ordersFile;
 	setcolor(15); cin.ignore(INT_MAX, '\n');	// clear the end-of-line character from the cin stream buffer
 
-	return (validFile(clientsFile) && validFile(transactionsFile) && validFile(ordersFile) && !cin.fail());
+	cout << setw(21) << "News' file: "; setcolor(14); cin >> newsFile;
+	setcolor(15); cin.ignore(INT_MAX, '\n');	// clear the end-of-line character from the cin stream buffer
+
+	return (validFile(clientsFile) && validFile(transactionsFile) && validFile(ordersFile)
+			&& validFile(newsFile) && !cin.fail());
 }
 
 /******************************************
@@ -26,7 +30,7 @@ unsigned short int clientOptions() {
 	unsigned short int option;
 
 	clearScreen();
-	showTitle("Client Menu");
+	showTitle("Client's Menu");
 	cout << TAB << "1 - Show Information" << endl;
 	cout << TAB << "2 - Show Transaction History" << endl;
 	cout << TAB << "3 - Show unfulfilled Orders" << endl;
@@ -84,7 +88,7 @@ unsigned short int transactionOptions() {
 	unsigned short int option;
 
 	clearScreen();
-	showTitle("Transactions Menu");
+	showTitle("Transactions' Menu");
 	cout << TAB << "1 - List ALL transactions" << endl;
 	cout << TAB << "2 - List client's transactions" << endl;
 	cout << TAB << "3 - List transactions of a specific Stock" << endl;
@@ -141,7 +145,7 @@ unsigned short int orderOptions() {
 	unsigned short int option;
 
 	clearScreen();
-	showTitle("Orders Menu");
+	showTitle("Orders' Menu");
 	cout << TAB << "1 - List ALL buy orders" << endl;
 	cout << TAB << "2 - List ALL sell orders" << endl;
 	cout << TAB << "3 - Add buy order" << endl;
@@ -209,9 +213,9 @@ unsigned short int homeOptions() {
 
 	clearScreen();
 	showTitle("Home Menu");
-	cout << TAB << "1 - Manage clients" << endl;
-	cout << TAB << "2 - Manage transactions" << endl;
-	cout << TAB << "3 - Manage orders" << endl;
+	cout << TAB << "1 - Client's Menu" << endl;
+	cout << TAB << "2 - Transactions' Menu" << endl;
+	cout << TAB << "3 - Orders' Menu" << endl;
 	cout << TAB << "4 - Statistic Information" << endl;
 	cout << TAB << "5 - Sign Out" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
@@ -256,14 +260,16 @@ unsigned short int initialOptions() {
 
 	clearScreen();
 	showTitle("Initial Menu");
-	cout << TAB << "1 - Sign In" << endl;
-	cout << TAB << "2 - Sign Up" << endl;
-	cout << TAB << "3 - Exit program" << endl << endl;
+	cout << TAB << "1 - Sign In as Client" << endl;
+	cout << TAB << "2 - Sign Up as Client" << endl;
+	cout << TAB << "3 - Sign In as Manager" << endl; // TODO . Só adicionei para te lembrares
+	cout << TAB << "4 - Sign Up as Manager" << endl; // TODO
+	cout << TAB << "5 - Exit program" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
-	option = getUnsignedShortInt(1, 3, msg);
+	option = getUnsignedShortInt(1, 5, msg);
 	cout << endl << endl;
 
-	if (option == 3) {
+	if (option == 5) {
 		setcolor(14);
 		cout << TAB << "Thank you for using our software!\n" << TAB << "Developed by Andre Cruz, Edgar Carneiro and Joao Conde\n" << endl;
 		setcolor(15);
@@ -311,6 +317,12 @@ void initialMenu() {
 				cout << TAB <<"\nInvalidNIF: " << e.getNIF() << endl;
 			}
 			cout << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');
+			break;
+		case 3:	// Sign In as Manager
+
+			break;
+		case 4: // Sign Up as Manager
+
 			break;
 		}
 

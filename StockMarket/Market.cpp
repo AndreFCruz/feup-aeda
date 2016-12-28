@@ -69,12 +69,11 @@ Market::Market() : currentNIF(0) {
 
 	numberOfObjects = 1;
 	// Load News fom file
-	file_in.open(newsFile); cout << (file_in.is_open() && file_in.good() ? "YES!" : "NOPE") << endl;
+	file_in.open(newsFile);
 	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 
 	for (unsigned i = 0; i < numberOfObjects; ++i) {
-		News tmp(file_in);
-		news.insert(tmp);
+		news.insert(News(file_in));
 	}
 	file_in.close();
 
@@ -234,8 +233,9 @@ void Market::showSellOrders() const {
 }
 
 void Market::showNews() const {
+	size_t i = 0;
 	for (News n : news) {
-		cout << n;
+		cout << ++i << ". " << n;
 	}
 }
 
@@ -258,6 +258,44 @@ void Market::showNews(Date d) const {
 		if (n.getDate() == d)
 			cout << n;
 	}
+}
+
+bool Market::addNews(string company, Date d, string newspaper, unsigned short int classification) {
+	News tmp(company, d, newspaper, classification);
+	auto ret = news.insert(tmp);
+	if (ret.second)
+		newsChanged = true;
+
+	return ret.second;
+}
+
+bool Market::eraseNews(unsigned idx) {
+	unsigned current = 0;
+	for (auto it = news.begin(); it != news.end(); ++it) {
+		if (idx == current++) {
+			news.erase(it);
+			newsChanged = true;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Market::changeNewsClass(unsigned idx, unsigned num) {
+	unsigned current = 0;
+	for (auto it = news.begin(); it != news.end(); ++it) {
+		if (idx == current++) {
+			News tmp = *it;
+			news.erase(it);
+			tmp.setClassification(num);
+			news.insert(tmp);
+			newsChanged = true;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 

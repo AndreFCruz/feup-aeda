@@ -75,6 +75,12 @@ public:
 	unsigned short int getClassification() const;
 
 	/**
+	* A member function with no arguments to set the News' Classification.
+	* @param An unsigned short int, corresponding to the News classification, from bad (0) to good (10).
+	*/
+	void setClassification(unsigned short int c);
+
+	/**
 	* Overload of Output Operator << for class News.
 	* Prints the News' information in a human friendly way.
 	* @param out The outstream to write to.

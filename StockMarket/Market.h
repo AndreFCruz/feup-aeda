@@ -173,6 +173,32 @@ public:
 	* @param d The day whose news will be shown.
 	*/
 	void showNews(Date d) const;
+
+	/**
+	* A member function that creates a News object with the given parameters,
+	* and adds it to the attribute BST.
+	* @param company The name of the company mentioned in the News.
+	* @param d The date the news was published.
+	* @param newspaper The name of the newspaper it was published in.
+	* @param classification The News' classification (from 0 to 10).
+	* @return A bool indicating whether the insert was successful.
+	*/
+	bool addNews(string company, Date d, string newspaper, unsigned short int classification);
+
+	/**
+	* A member function that erases a given News by its index in an iteration through the BST.
+	* @param The index corresponding to the News to be erased.
+	* @return A boolean, true if deletion was successful.
+	*/
+	bool eraseNews(unsigned idx);
+
+	/**
+	* A member function that changes a given News classification by its index in an iteration through the BST.
+	* @param idx The index corresponding to the News to be erased.
+	* @param num The new classification.
+	* @return A boolean, true if change was successful.
+	*/
+	bool changeNewsClass(unsigned idx, unsigned num);
 	
 	/**
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.
@@ -183,7 +209,7 @@ public:
 	/**
 	*	A const member function that saves ALL information to the files.
 	*/
-	void saveChanges() const;	
+	void saveChanges() const;
 
 	/**
 	* Overload of Operator << for class Market.

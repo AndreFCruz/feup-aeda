@@ -49,10 +49,13 @@ unsigned short int News::getClassification() const {
 	return this->classification;
 }
 
+void News::setClassification(unsigned short int c) {
+	this->classification = c;
+}
 
 ostream& operator<<(ostream& out, const News& n) {
-	out << setw(15) << n.company << ". Date Published: " << n.date << ". Newspaper: "
-		<< setw(15) << n.newspaper << ". Classification:" << n.classification << endl;
+	out << setw(20) << n.company << ". Date Published: " << n.date << ". Classification: "
+		<< setw(2) << n.classification << ". Newspaper: " << setw(20) << n.newspaper << endl;
 	return out;
 }
 

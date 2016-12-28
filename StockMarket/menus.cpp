@@ -207,12 +207,15 @@ unsigned short int newsOptions() {
 	cout << TAB << "2 - List News of a specific Company" << endl;
 	cout << TAB << "3 - List News published on a specific day" << endl;
 	cout << TAB << "4 - List News published on a time interval" << endl;
-	cout << TAB << "5 - Exit sub-menu" << endl << endl;
+	cout << TAB << "5 - Add a News" << endl;
+	cout << TAB << "6 - Erase a News" << endl;	// Morally questionable...
+	cout << TAB << "7 - Change a News' Classification" << endl;
+	cout << TAB << "8 - Exit sub-menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
-	option = getUnsignedShortInt(1, 5, msg);
+	option = getUnsignedShortInt(1, 8, msg);
 	cout << endl << endl;
 
-	if (option == 5) {
+	if (option == 8) {
 		Market::instance()->signOut();
 		return false;
 	}
@@ -222,7 +225,9 @@ unsigned short int newsOptions() {
 
 void newsMenu() {
 	unsigned short int option;
-	string str;
+	unsigned short int idx, classification; // Varied usage regarding input from user
+	string str;	// Varied usage regarding input from user
+	string newspaper;
 	Date d;
 
 	while ((option = newsOptions())) {
@@ -242,6 +247,46 @@ void newsMenu() {
 		case 4:	// list news on time interval
 			d = getDate("First day: "); cout << endl;
 			Market::instance()->showNews(d, getDate("Last day: "));
+			break;
+		case 5:	// add a news
+			//company
+			cout << TAB << "Adding a News...\n\n";
+			setcolor(14); cout << TAB << setw(20) << "Company: "; setcolor(15);
+			getline(cin, str); trim(str);
+
+			//date
+			d = getDate("\nNews' publishing date: "); cout << endl;
+
+			//newspaper
+			setcolor(14); cout << TAB << setw(20) << "Newspaper: "; setcolor(15);
+			getline(cin, newspaper); trim(newspaper);
+
+			//classification
+			classification = getValue<unsigned short int>("\nClassification: ", 20);
+
+			cout << "\n\t" << (Market::instance()->addNews(str, d, newspaper, classification) ? "Success!" : "Unsuccessful...") << endl;
+
+			break;
+
+		case 6:	// erase a news -- mandatory by project specification, altough morally questionable...
+			Market::instance()->showNews();
+
+			cout << endl << endl;
+			idx = getValue<unsigned short int>("Index to erase: ", 20);
+
+			cout << "\n\t" << (Market::instance()->eraseNews(idx - 1) ? "Success!" : "Unsuccessful...") << endl;
+
+			break;
+		case 7: // change a news' classification -- mandatory by project specification, altough morally questionable...
+			Market::instance()->showNews();
+
+			cout << endl << endl;
+			idx = getValue<unsigned short int>("Index to change: ", 20);
+
+			cout << endl;
+			classification = getValue<unsigned short int>("New Classification: ", 20);
+
+			cout << "\n\t" << (Market::instance()->changeNewsClass(idx - 1, classification) ? "Success!" : "Unsuccessful...") << endl;
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
@@ -311,7 +356,7 @@ unsigned short int initialOptions() {
 	cout << TAB << "1 - Sign In as Client" << endl;
 	cout << TAB << "2 - Sign Up as Client" << endl;
 	cout << TAB << "3 - Sign In as Manager" << endl; // TODO . Só adicionei para te lembrares
-	cout << TAB << "4 - Sign Up as Manager" << endl; // TODO
+	cout << TAB << "4 - Sign Up as Manager" << endl; // TODO ?
 	cout << TAB << "5 - Exit program" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 5, msg);

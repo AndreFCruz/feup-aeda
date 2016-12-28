@@ -70,9 +70,8 @@ Market::Market() : currentNIF(0) {
 	numberOfObjects = 1;
 	// Load News fom file
 	file_in.open(newsFile); cout << (file_in.is_open() && file_in.good() ? "YES!" : "NOPE") << endl;
-//	file_in >> numberOfObjects; file_in.ignore(3, '\n');
-	getline(file_in, line); file_in.ignore(3, '\n');
-	numberOfObjects = stoi(line);
+	file_in >> numberOfObjects; file_in.ignore(3, '\n');
+
 	for (unsigned i = 0; i < numberOfObjects; ++i) {
 		News tmp(file_in);
 		news.insert(tmp);

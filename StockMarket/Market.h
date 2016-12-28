@@ -42,12 +42,15 @@ private:
 
 
 
-	string clientsFile;		   /**< string clientsFile. String with the client's file name. */
-	string ordersFile;         /**< string ordersFile. String with the order's file name. */
-	string transactionsFile;   /**< string transactionsFile. String with the transaction's file name. */
-	bool clientsChanged;	   /**<	bool clientsChanged. Boolean set to true if any changes done to the clients during execution. */	
-	bool transactionsChanged;  /**< bool transactionsChanged. Boolean set to true if any changes done to the transactions during execution. */
-	bool ordersChanged;		   /**< bool ordersChanged. Boolean set to true if any changes done to the orders during execution. */
+	string clientsFile;			/**< string clientsFile. String with the clients' file name. */
+	string ordersFile;			/**< string ordersFile. String with the orders' file name. */
+	string transactionsFile;	/**< string transactionsFile. String with the transactions' file name. */
+	string newsFile;			/**< string newsFile. String with the news' file name. */
+
+	bool clientsChanged;	   /**<	bool clientsChanged. Boolean set to true if any changes were made to the clients during execution. */	
+	bool transactionsChanged;  /**< bool transactionsChanged. Boolean set to true if any changes were made to the transactions during execution. */
+	bool ordersChanged;		   /**< bool ordersChanged. Boolean set to true if any changes were made to the orders during execution. */
+	bool newsChanged;		   /**< bool newsChanged. Boolean set to true if any changes were made to the news during execution. */
 
 public:
 

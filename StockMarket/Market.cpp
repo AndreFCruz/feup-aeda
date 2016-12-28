@@ -12,14 +12,14 @@ Market::Market() : currentNIF(0) {
 	unsigned numberOfObjects;
 	ordersChanged = transactionsChanged = clientsChanged = false;
 
-	while (!initialInfo(clientsFile, transactionsFile, ordersFile)) {
+	while (!initialInfo(clientsFile, transactionsFile, ordersFile, newsFile)) {
 		cout << "\nInvalid StockMarket Initialization ! Carefully type the information required! \a\n\n";
 		cout << TAB << "\n Press ENTER to retry..."; cin.ignore(INT_MAX, '\n');
 		clearScreen();
 	}
 
 	/* Populate Data Structures */
-	// Clients from file
+	// Load Clients from file
 	file_in.open(clientsFile);
 	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 	for (unsigned i = 0; i < numberOfObjects; ++i) {
@@ -28,7 +28,7 @@ Market::Market() : currentNIF(0) {
 	}
 	file_in.close();
 
-	// Transactions from file
+	// Load Transactions from file
 	file_in.open(transactionsFile);
 	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 	transactions.reserve(numberOfObjects);
@@ -41,8 +41,8 @@ Market::Market() : currentNIF(0) {
 	// Sort transactions by chronological order
 	sort(transactions.begin(), transactions.end(), [](const Transaction * t1, const Transaction * t2) {return t1->getDate() < t2->getDate(); });
 
-	// Unfulfilled Orders from file
-	char c;	// Buy/Sell Char Flag
+	// Load Orders from file
+	char c;	// Buy/Sell Char
 	file_in.open(ordersFile);
 	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 	transactions.reserve(numberOfObjects);
@@ -57,7 +57,7 @@ Market::Market() : currentNIF(0) {
 			temp_o = new SellOrder(file_in);
 			break;
 		default:
-			cerr << "Invalid Order Identifier in File \"" << ordersFile << "\".\n";
+			cerr << "Invalid Order Identifier in File \"" << ordersFile << "\": " << c << ".\n";
 			break;
 		}
 		unfulfilled_orders.push_back(temp_o);
@@ -66,6 +66,17 @@ Market::Market() : currentNIF(0) {
 
 	// Sort unfulfilled orders by chronological order
 	sort(unfulfilled_orders.begin(), unfulfilled_orders.end(), [](const Order * o1, const Order * o2) {return o1->getDatePlaced() < o2->getDatePlaced(); });
+
+	numberOfObjects = 1;
+	// Load News fom file
+	file_in.open(newsFile); cout << (file_in.is_open() ? "YES!" : "NOPE") << endl;
+	file_in >> numberOfObjects; file_in.ignore(3, '\n');
+	for (unsigned i = 0; i < numberOfObjects; ++i) {
+		News tmp(file_in);
+		news.insert(tmp);
+	}
+	file_in.close();
+
 }
 
 Market::~Market() {
@@ -314,6 +325,17 @@ void Market::saveChanges() const {
 
 		for (Order * ptr : unfulfilled_orders)
 			ptr->saveChanges(out);
+
+		out.close();
+	}
+
+	// Save News if Changed
+	if (newsChanged) {
+		out.open(newsFile);
+		out << news.size() << endl;
+
+		for (News n : news)
+			n.saveChanges(out);
 
 		out.close();
 	}

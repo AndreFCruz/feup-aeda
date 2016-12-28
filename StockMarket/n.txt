@@ -1,6 +1,7 @@
-﻿5
+﻿6
 IBM ; 14/11/2016 ; Publico ; 3
 Apple ; 14/11/2016 ; Der Spiegel ; 8
 Corticeira Amorim ; 17/11/2016 ; Jornal de Noticias ; 10
-Corticeira Amorim ; 17/11/2016 ; Publico ; 9
+Corticeira Amorim ; 17/11/2016 ; Publico ; 7
 Alphabet ; 18/11/2016 ; Expresso ; 8
+Corticeira Amorim ; 19/11/2016 ; Publico ; 9

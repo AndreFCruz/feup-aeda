@@ -53,6 +53,7 @@ unsigned short int News::getClassification() const {
 ostream& operator<<(ostream& out, const News& n) {
 	out << setw(15) << n.company << ". Date Published: " << n.date << ". Newspaper: "
 		<< setw(15) << n.newspaper << ". Classification:" << n.classification << endl;
+	return out;
 }
 
 bool operator<(const News & n1, const News & n2) {

@@ -25,7 +25,7 @@ Date::Date() {
 	time(&current);
 
 	// Number of seconds in one astronomical year (365.25 days): 31557600
-	year = 1970 + current / 31557600;
+	year = 1970 + (unsigned int) current / 31557600;
 
 	month = 1;
 	int s = current % 31557600; // s -> number of seconds in the current year

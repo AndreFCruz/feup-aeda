@@ -91,6 +91,6 @@ public:
 * Prints the specified Client (2nd argument) to the outstream passed as 1st argument.
 * @param out The outstream to write to.
 * @param c The client to be written.
-* @return Returns the output stream to allow chainning
+* @return Returns the output stream to allow chaining
 */
 ostream& operator<<(ostream& out, const Client& c);

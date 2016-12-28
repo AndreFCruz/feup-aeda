@@ -65,7 +65,7 @@ public:
 	unsigned getQuantity() const;
 
 	/**
-	* A const member function that prints the order information.
+	* A const member function that prints the order's information to the standard output stream (cout).
 	*/
 	void printInfo() const;
 

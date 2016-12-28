@@ -24,7 +24,7 @@ bool initialInfo(string & clientsFile, string & transactionsFile, string & order
 }
 
 /******************************************
- * Gestao de Clientes
+ * CLIENTS' MENU
  ******************************************/
 unsigned short int clientOptions() {
 	unsigned short int option;
@@ -47,7 +47,6 @@ unsigned short int clientOptions() {
 
 void clientMenu() {
 	unsigned short int option;
-	cout << endl;
 
 	while ((option = clientOptions())) {
 		switch (option) {
@@ -76,13 +75,11 @@ void clientMenu() {
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 	}
-
-	Market::instance()->saveChanges();
 }
 
 
 /******************************************
-* Gestao de Transacoes
+* TRANSACTIONS' MENU
 ******************************************/
 unsigned short int transactionOptions() {
 	unsigned short int option;
@@ -106,13 +103,12 @@ unsigned short int transactionOptions() {
 
 void transactionMenu() {
 	unsigned short int option; string str; Date d;
-	cout << endl;
 
 	while ((option = transactionOptions())) {
 		switch (option) {
 		case 1: //list all transactions
 			cout << endl;
-			Market::instance()->printTransactions();
+			Market::instance()->showTransactions();
 			break;
 		case 2: //list client's transactions
 			cout << endl;
@@ -121,25 +117,23 @@ void transactionMenu() {
 		case 3: //list transactions of a specific Stock
 			cout << endl << TAB << setw(10) << "Stock: ";
 			getline(cin, str); trim(str); cout << endl;
-			Market::instance()->printTransactions(str);
+			Market::instance()->showTransactions(str);
 			break;
 		case 4: //list transactions between 2 days
 			d = getDate("First day: "); cout << endl;
-			Market::instance()->printTransactions(d, getDate("Last day: "));
+			Market::instance()->showTransactions(d, getDate("Last day: "));
 			break;
 		case 5: //list daily transactions
 			cout << endl;
-			Market::instance()->printTransactions(getDate("Transaction day: "));
+			Market::instance()->showTransactions(getDate("Transaction day: "));
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 	}
-
-	Market::instance()->saveChanges();
 }
 
 /******************************************
-* Gestao de Ordens
+* ORDERS' MENU
 ******************************************/
 unsigned short int orderOptions() {
 	unsigned short int option;
@@ -166,15 +160,14 @@ void orderMenu() {
 	double val;
 	unsigned quantity;
 	Order * newOrder;
-	cout << endl;
 
 	while ((option = orderOptions())) {
 		switch (option) {
 		case 1: //list all buy orders
-			Market::instance()->listBuyOrders();
+			Market::instance()->showBuyOrders();
 			break;
 		case 2: //list all sell orders
-			Market::instance()->listSellOrders();
+			Market::instance()->showSellOrders();
 			break;
 		case 3: 
 			cout << TAB << "Adding a new Buy Order...\n\n";
@@ -199,25 +192,22 @@ void orderMenu() {
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 	}
-
-	Market::instance()->saveChanges();
 }
 
 
-
 /******************************************
-* Menu Inicial
+* NEWS' MENU
 ******************************************/
-unsigned short int homeOptions() {
+unsigned short int newsOptions() {
 	unsigned short int option;
 
 	clearScreen();
-	showTitle("Home Menu");
-	cout << TAB << "1 - Client's Menu" << endl;
-	cout << TAB << "2 - Transactions' Menu" << endl;
-	cout << TAB << "3 - Orders' Menu" << endl;
-	cout << TAB << "4 - Statistic Information" << endl;
-	cout << TAB << "5 - Sign Out" << endl << endl;
+	showTitle("News' Menu");
+	cout << TAB << "1 - List all News" << endl;
+	cout << TAB << "2 - List News of a specific Company" << endl;
+	cout << TAB << "3 - List News published on a specific day" << endl;
+	cout << TAB << "4 - List News published on a time interval" << endl;
+	cout << TAB << "5 - Exit sub-menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 5, msg);
 	cout << endl << endl;
@@ -230,26 +220,84 @@ unsigned short int homeOptions() {
 	return option;
 }
 
+void newsMenu() {
+	unsigned short int option;
+	string str;
+	Date d;
+
+	while ((option = newsOptions())) {
+		switch (option) {
+		case 1: // list all news
+			Market::instance()->showNews();
+			break;
+		case 2:	// list news of specific company
+			cout << endl << TAB << setw(10) << "Company: ";
+			getline(cin, str); trim(str); cout << endl;
+			Market::instance()->showNews(str);
+			break;
+		case 3: // list news on specific day
+			d = getDate("News' publishing date: "); cout << endl;
+			Market::instance()->showNews(d);
+			break;
+		case 4:	// list news on time interval
+			d = getDate("First day: "); cout << endl;
+			Market::instance()->showNews(d, getDate("Last day: "));
+			break;
+		}
+		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
+	}
+}
+
+
+/******************************************
+* HOME MENU
+******************************************/
+unsigned short int homeOptions() {
+	unsigned short int option;
+
+	clearScreen();
+	showTitle("Home Menu");
+	cout << TAB << "1 - Client's Menu" << endl;
+	cout << TAB << "2 - Transactions' Menu" << endl;
+	cout << TAB << "3 - Orders' Menu" << endl;
+	cout << TAB << "4 - News' Menu" << endl;
+	cout << TAB << "5 - Statistic Information" << endl;
+	cout << TAB << "6 - Sign Out" << endl << endl;
+	string msg = TAB; msg += "Your option: ";
+	option = getUnsignedShortInt(1, 6, msg);
+	cout << endl << endl;
+
+	if (option == 6) {
+		Market::instance()->signOut();
+		return false;
+	}
+
+	return option;
+}
+
 void homeMenu() {
 	unsigned int option;
-	cout << endl;
 
 	while ((option = homeOptions()))
 		switch (option) {
-		case 1: clientMenu();
+		case 1:
+			clientMenu();
 			break;
-		case 2: transactionMenu();
+		case 2:
+			transactionMenu();
 			break;
-		case 3: orderMenu();
+		case 3:
+			orderMenu();
 			break;
 		case 4:
+			newsMenu();
+			break;
+		case 5:
 			cout << *(Market::instance());
 			cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 			break;
 
 		}
-
-	Market::instance()->saveChanges();
 }
 
 /******************************************
@@ -270,6 +318,7 @@ unsigned short int initialOptions() {
 	cout << endl << endl;
 
 	if (option == 5) {
+		Market::instance()->saveChanges();
 		setcolor(14);
 		cout << TAB << "Thank you for using our software!\n" << TAB << "Developed by Andre Cruz, Edgar Carneiro and Joao Conde\n" << endl;
 		setcolor(15);
@@ -325,8 +374,6 @@ void initialMenu() {
 
 			break;
 		}
-
-	Market::instance()->saveChanges();
 }
 
 /* Generic Helper Function for Handling New Orders */

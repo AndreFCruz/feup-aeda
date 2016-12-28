@@ -5,9 +5,10 @@
 
 /** \fn
 *	Function that initializes the program. 
-*	@param clientsFile  A string with the clients file name.
-*	@param transactionsFile  A string with the transactions file name.
-*	@param ordersFile  A string with the orders file name.
+*	@param clientsFile  A string with the clients' file name.
+*	@param transactionsFile  A string with the transactions' file name.
+*	@param ordersFile  A string with the orders' file name.
+*	@param newsFile  A string with the news' file name.
 *	@return A boolean, true if the set up was successfull.
 */
 bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFile, string &newsFile);
@@ -15,24 +16,29 @@ bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFi
 // Menu implementation
 
 /** \fn
-*	Function working as the client editing menu.
+*	Function working as the client's settings menu.
 */
 void clientMenu();
 
 /** \fn
-*	Function working as the transactions editing menu.
+*	Function working as the transactions' editing menu.
 */
 void transactionMenu();
 
 /** \fn
-*	Function working as the orders editing menu.
+*	Function working as the orders' editing menu.
 */
 void orderMenu();
 
 /** \fn
-*	Function working as the starting menu (main menu).
+*	Function working as the news' editing menu.
 */
-void startingMenu();
+void newsMenu();
+
+/** \fn
+*	Function working as the Client's home menu (main menu).
+*/
+void homeMenu();
 
 /** \fn
 *	Function working as the initializing menu, signing up/in the user.

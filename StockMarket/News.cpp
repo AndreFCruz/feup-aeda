@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "News.h"
 #include "utils.h"
 
@@ -46,6 +47,12 @@ string News::getNewspaper() const {
 
 unsigned short int News::getClassification() const {
 	return this->classification;
+}
+
+
+ostream& operator<<(ostream& out, const News& n) {
+	out << setw(15) << n.company << ". Date Published: " << n.date << ". Newspaper: "
+		<< setw(15) << n.newspaper << ". Classification:" << n.classification << endl;
 }
 
 bool operator<(const News & n1, const News & n2) {

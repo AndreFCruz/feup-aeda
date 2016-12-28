@@ -63,7 +63,7 @@ public:
 	* Prints the specified Date as 2nd argument in the outstream passed as 1st argument.
 	* @param out The outstream to write to.
 	* @param date The date to be written.
-	* @return Returns the output stream to allow chainning
+	* @return Returns the output stream to allow chaining
 	*/
 	friend ostream& operator<<(ostream& out, const Date & date);
 
@@ -72,7 +72,7 @@ public:
 	* Reads the dare from the input stream to change de date object.
 	* @param in Input stream where to read the date from
 	* @param date Date object to be changed
-	* @return Returns the input stream to allow chainning
+	* @return Returns the input stream to allow chaining
 	*/
 	friend istream& operator>>(istream& in, Date& date);
 

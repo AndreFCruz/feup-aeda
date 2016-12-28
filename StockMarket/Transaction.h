@@ -91,14 +91,12 @@ public:
 	*/
 	void saveChanges(ofstream& out) const;
 
-	friend ostream& operator<<(ostream&, const Transaction&);
+	/**
+	* Overload of Operator << for class Transaction.
+	* Prints the transaction in a human friendly way.
+	* @param out The outstream to write to.
+	* @param t The transaction to be written.
+	* @return Returns the output stream to allow chaining
+	*/
+	friend ostream& operator<<(ostream& out, const Transaction& t);
 };
-
-/**
-* Overload of Operator << for class Transaction.
-* Prints the transaction in a human friendly way.
-* @param out The outstream to write to.
-* @param t The transaction to be written.
-* @return Returns the output stream to allow chainning
-*/
-ostream& operator<<(ostream& out, const Transaction& t);

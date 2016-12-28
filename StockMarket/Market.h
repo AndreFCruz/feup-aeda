@@ -107,14 +107,14 @@ public:
 	bool eraseClientOrder(unsigned choice);
 
 	/**
-	* A const member function that displays the buy orders.
+	* A const member function that lists the buy orders.
 	*/
-	void listBuyOrders() const;
+	void showBuyOrders() const;
 
 	/**
-	* A const member function that displays the sell orders.
+	* A const member function that lists the sell orders.
 	*/
-	void listSellOrders() const;
+	void showSellOrders() const;
 
 	/**
 	* A const member function used to get the client's history of transactions.
@@ -124,28 +124,52 @@ public:
 	vector<Transaction*> clientHistory(Client * c) const;
 
 	/**
-	* A const member function that prints the transactions to the COUT output stream.
+	* A const member function that prints all transactions to the COUT output stream.
 	*/
-	void printTransactions() const;
+	void showTransactions() const;
 
 	/**
 	* Overload of member function that prints the transactions of a given Stock.
 	* @param stock The Stock's name.
 	*/
-	void printTransactions(string stock) const;
+	void showTransactions(string stock) const;
 
 	/**
-	* Overload of member function that prints the transactions between 2 days.
+	* Overload of member function that lists the transactions between 2 days.
 	* @param day1 The first day of the interval.
 	* @param day2 The last day of the interval.
 	*/
-	void printTransactions(Date day1, Date day2) const;
+	void showTransactions(Date day1, Date day2) const;
 
 	/**
-	* Overload of member function that prints the daily transactions.
+	* Overload of member function that lists the transactions of a given day.
 	* @param d The day whose transactions will be shown. 
 	*/
-	void printTransactions(Date d) const;
+	void showTransactions(Date d) const;
+
+	/**
+	* A const member function that prints all News to the COUT output stream.
+	*/
+	void showNews() const;
+
+	/**
+	* Overload of member function that prints all News of a given Company.
+	* @param company The Company's name.
+	*/
+	void showNews(string company) const;
+
+	/**
+	* Overload of member function that lists the News between 2 days.
+	* @param day1 The first day of the interval.
+	* @param day2 The last day of the interval.
+	*/
+	void showNews(Date day1, Date day2) const;
+
+	/**
+	* Overload of member function that lists the News of a given day.
+	* @param d The day whose news will be shown.
+	*/
+	void showNews(Date d) const;
 	
 	/**
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.
@@ -163,7 +187,7 @@ public:
 	* Prints the Market statistics.
 	* @param out The outstream to write to.
 	* @param m The Market.
-	* @return Returns the output stream to allow chainning
+	* @return Returns the output stream to allow chaining
 	*/
 	friend ostream& operator<<(ostream & out, const Market & m);
 };

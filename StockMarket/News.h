@@ -75,6 +75,15 @@ public:
 	unsigned short int getClassification() const;
 
 	/**
+	* Overload of Output Operator << for class News.
+	* Prints the News' information in a human friendly way.
+	* @param out The outstream to write to.
+	* @param n The News to be written.
+	* @return Returns the output stream to allow chaining
+	*/
+	friend ostream& operator<<(ostream& out, const News& n);
+
+	/**
 	* Overload of Operator < for class News.
 	* @param d1 First News
 	* @param d2 Second News

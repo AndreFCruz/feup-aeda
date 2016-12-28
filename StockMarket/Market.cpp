@@ -103,6 +103,7 @@ bool Market::signIn(string name, nif_t nif) {
 
 void Market::signOut() {
 	currentNIF = 0;
+	this->saveChanges(); // Save Changes on Sign Out
 }
 
 bool Market::signUp(string name, nif_t nif) {
@@ -178,27 +179,27 @@ vector<Transaction *> Market::clientHistory(Client * c_ptr) const {
 	return result;
 }
 
-void Market::printTransactions() const {
+void Market::showTransactions() const {
 	for (Transaction * t : transactions) {
 		cout << *t;
 	}
 }
 
-void Market::printTransactions(string stock) const {
+void Market::showTransactions(string stock) const {
 	for (Transaction * t : transactions) {
 		if (t->getStock() == stock)
 			cout << *t;
 	}
 }
 
-void Market::printTransactions(Date day1, Date day2) const {
+void Market::showTransactions(Date day1, Date day2) const {
 	for (size_t i = 0; i < transactions.size(); ++i) {
 		if (day1 <= transactions.at(i)->getDate() && transactions.at(i)->getDate() <= day2)
 			cout << *transactions.at(i);
 	}
 }
 
-void Market::printTransactions(Date d) const {
+void Market::showTransactions(Date d) const {
 
 	for (size_t i = 0; i < transactions.size(); i++) {
 		if (transactions.at(i)->getDate() == d)
@@ -206,17 +207,44 @@ void Market::printTransactions(Date d) const {
 	}
 }
 
-void Market::listBuyOrders() const {
+void Market::showBuyOrders() const {
 	for (Order * ptr : unfulfilled_orders) {
 		if (dynamic_cast<BuyOrder*>(ptr) != NULL)
 			ptr->printInfo();
 	}
 }
 
-void Market::listSellOrders() const {
+void Market::showSellOrders() const {
 	for (Order * ptr : unfulfilled_orders) {
 		if (dynamic_cast<SellOrder*>(ptr) != NULL)
 			ptr->printInfo();
+	}
+}
+
+void Market::showNews() const {
+	for (News n : news) {
+		cout << n;
+	}
+}
+
+void Market::showNews(string company) const {
+	for (News n : news) {
+		if (n.getCompany() == company)
+			cout << n;
+	}
+}
+
+void Market::showNews(Date d1, Date d2) const {
+	for (News n : news) {
+		if (d1 < n.getDate() && n.getDate() < d2)
+			cout << n;
+	}
+}
+
+void Market::showNews(Date d) const {
+	for (News n : news) {
+		if (n.getDate() == d)
+			cout << n;
 	}
 }
 

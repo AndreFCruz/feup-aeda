@@ -24,6 +24,7 @@
     <ClInclude Include="defs.h" />
     <ClInclude Include="Market.h" />
     <ClInclude Include="menus.h" />
+    <ClInclude Include="News.h" />
     <ClInclude Include="Order.h" />
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="utils.h" />
@@ -34,12 +35,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Market.cpp" />
     <ClCompile Include="menus.cpp" />
+    <ClCompile Include="News.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="c.txt" />
+    <Text Include="n.txt" />
     <Text Include="o.txt" />
     <Text Include="t.txt" />
   </ItemGroup>

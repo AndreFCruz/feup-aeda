@@ -3,10 +3,12 @@
 #include <map>
 #include <vector>
 #include <set>
+#include <queue>
 #include "Client.h"
 #include "Transaction.h"
 #include "Order.h"
 #include "News.h"
+#include "Manager.h"
 
 using namespace std;
 
@@ -17,9 +19,11 @@ using namespace std;
 
 class Market
 {
+	friend class Manager;
 private:
 	static Market * singleton_instance;	/**< Market pointer. Contains the pointer to the singleton instance of Market. */
-	nif_t currentNIF;					/**<  nif_t NIF. Saves the NIF of the current user. */
+	nif_t currentNIF;					/**<  nif_t NIF. Saves the NIF of the current client. */
+	string currentManager;				/**<  nif_t NIF. Saves the NIF of the current manager. */
 	
 	/**
 	* A default constructor.
@@ -38,19 +42,21 @@ private:
 	vector<Order *> unfulfilled_orders;		/**< Vector unfulfilled_orders. A vector saving pointers of all Market's unfulfilled orders. */
 
 	// Data Structures for the 2nd part of the project
-	set<News> news;					/**< Set news. A set, implemented as a Binary Search Tree (BST), of News objects. */
-
+	set<News> news;							/**< Set news. A set, implemented as a Binary Search Tree (BST), of News objects. */
+	priority_queue<Manager> managers;		/**< Priority Queue managers. A priority queue of manager objects. */
 
 
 	string clientsFile;			/**< string clientsFile. String with the clients' file name. */
 	string ordersFile;			/**< string ordersFile. String with the orders' file name. */
 	string transactionsFile;	/**< string transactionsFile. String with the transactions' file name. */
 	string newsFile;			/**< string newsFile. String with the news' file name. */
+	string managersFile;		/**< string managersFile. String with the managers' file name. */
 
 	bool clientsChanged;	   /**<	bool clientsChanged. Boolean set to true if any changes were made to the clients during execution. */	
 	bool transactionsChanged;  /**< bool transactionsChanged. Boolean set to true if any changes were made to the transactions during execution. */
 	bool ordersChanged;		   /**< bool ordersChanged. Boolean set to true if any changes were made to the orders during execution. */
 	bool newsChanged;		   /**< bool newsChanged. Boolean set to true if any changes were made to the news during execution. */
+	bool managersChanged;	   /**< bool managersChanged. Boolean set to true if any changes were made to the managers during execution. */
 
 public:
 
@@ -82,10 +88,37 @@ public:
 	bool signUp(string name, nif_t nif);
 
 	/**
-	* A member function that returns the current user's NIF.
-	* @return The current user's nif.
+	* A member function that signs in the manager.
+	* @param name Name of the manager/user
+	* @param pass  Password of the manager/user
+	* @return A boolean, true if signing in was done successfully.
+	*/
+	bool signInManager(string name, string pass);
+
+	/**
+	* A member function that signs out the user.
+	*/
+	void signOutManager();
+
+	/**
+	* A member function that signs up the user.
+	* @param name Name of the manager/user
+	* @param pass  Password of the manager/user
+	* @return A boolean, true if signing up was done successfully.
+	*/
+	bool signUpManager(string name, string pass);
+
+	/**
+	* A member function that returns the current client's NIF.
+	* @return The current client's nif.
 	*/
 	nif_t getCurrentNIF() const;
+
+	/**
+	* A member function that returns the current manager's NIF.
+	* @return The current manager's nif.
+	*/
+	string getCurrentManager() const;
 
 	/**
 	* A const member function that displays the client's information.

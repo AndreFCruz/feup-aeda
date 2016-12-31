@@ -91,8 +91,8 @@ public:
 
 	/**
 	* Overload of Operator < for class News.
-	* @param d1 First News
-	* @param d2 Second News
+	* @param n1 First News
+	* @param n2 Second News
 	* @return Returns a boolean value, true if n1 < n2
 	*/
 	friend bool operator<(const News & n1, const News & n2);

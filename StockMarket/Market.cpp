@@ -10,9 +10,9 @@ Market* Market::singleton_instance = NULL;
 Market::Market() : currentNIF(0) {
 	ifstream file_in; string line;
 	unsigned numberOfObjects;
-	ordersChanged = transactionsChanged = clientsChanged = false;
+	ordersChanged = transactionsChanged = clientsChanged = managersChanged = false;
 
-	while (!initialInfo(clientsFile, transactionsFile, ordersFile, newsFile)) {
+	while (!initialInfo(clientsFile, transactionsFile, ordersFile, newsFile, managersFile)) {
 		cout << "\nInvalid StockMarket Initialization ! Carefully type the information required! \a\n\n";
 		cout << TAB << "\n Press ENTER to retry..."; cin.ignore(INT_MAX, '\n');
 		clearScreen();
@@ -77,6 +77,14 @@ Market::Market() : currentNIF(0) {
 	}
 	file_in.close();
 
+	//Load Managers from file
+	file_in.open(managersFile);
+	file_in >> numberOfObjects; file_in.ignore(3, '\n');
+
+	for (unsigned i = 0; i < numberOfObjects; ++i) {
+		managers.push(Manager(file_in));
+	}
+	file_in.close();
 }
 
 Market::~Market() {
@@ -93,6 +101,8 @@ Market::~Market() {
 	// Delete Orders from Memory
 	for (Order * o : unfulfilled_orders)
 		delete o;
+
+	//TODO: Libertar memoria dos pointers atraves de pops e pushs
 }
 
 Market* Market::instance() {
@@ -133,8 +143,70 @@ bool Market::signUp(string name, nif_t nif) {
 	return true;
 }
 
+//Manager Loading Options
+bool Market::signInManager(string name, string pass) {
+	vector<Manager> mHelper;
+	bool flag = false;
+	
+	//Tacking all elements of the priority queue
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	for (auto it = mHelper.begin(); it != mHelper.end(); ++it) {
+		if ((it->getName() == name) && (it->getPassword() == pass)) {
+			currentManager = name;
+			flag = true;
+		}
+	}
+
+	//Re-Populating the priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+
+	return flag;
+}
+
+void Market::signOutManager() {
+	currentManager = "";
+	this->saveChanges(); // Save Changes on Sign Out
+}
+
+bool Market::signUpManager(string name, string pass) {
+	vector<Manager> mHelper;
+	bool flag = true;
+
+	//Tacking all elements of the priority queue
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	for (auto it = mHelper.begin(); it != mHelper.end(); ++it) {
+		if (it->getName() == name)
+			flag = false;
+		}
+	if (flag) {
+		mHelper.push_back(Manager(name, pass));
+		currentManager = name;
+		managersChanged = true;
+		cout << endl << TAB << "New Manager created sucessfully!\n";	// Needs to be done here because of the try catch thing
+	}
+
+	//Re-Populating the priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+
+	return flag;
+}
+
 nif_t Market::getCurrentNIF() const {
 	return currentNIF;
+}
+
+string Market::getCurrentManager() const {
+	return currentManager;
 }
 
 // Can throw exception, should be handled by higher function

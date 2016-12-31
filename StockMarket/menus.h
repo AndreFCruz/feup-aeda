@@ -9,9 +9,10 @@
 *	@param transactionsFile  A string with the transactions' file name.
 *	@param ordersFile  A string with the orders' file name.
 *	@param newsFile  A string with the news' file name.
+*	@param managersFile  A string with the managers' file name.
 *	@return A boolean, true if the set up was successfull.
 */
-bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFile, string &newsFile);
+bool initialInfo(string &clientsFile, string &transactionsFile, string &ordersFile, string &newsFile, string &managersFile);
 
 // Menu implementation
 

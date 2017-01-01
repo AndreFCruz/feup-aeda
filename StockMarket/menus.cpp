@@ -379,7 +379,7 @@ unsigned short int initialOptions() {
 
 void initialMenu() {
 	unsigned int option;
-	string name;
+	string name, pass;
 	nif_t nif;
 	cout << endl;
 	
@@ -416,10 +416,39 @@ void initialMenu() {
 			cout << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 			break;
 		case 3:	// Sign In as Manager
+			setcolor(14);
+			cout << TAB << setw(10) << "Name: ";
+			setcolor(15);
+			getline(cin, name, '\n'); trim(name);
+			setcolor(14);
+			cout << TAB << setw(10) << "Password: ";
+			setcolor(15);
+			getline(cin, pass, '\n'); trim(pass);
 
+			if (Market::instance()->signInManager(name, pass)) {
+				cout << endl << TAB_BIG << "Signed In successfully!\n";
+				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
+				managerMenu();
+			}
+			else {
+				cout << endl << TAB_BIG << "Sign In Unsuccessful.\n";
+				cout << endl << TAB_BIG << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
+			}
 			break;
 		case 4: // Sign Up as Manager
+			cout << TAB << setw(10) << "Name: ";
+			getline(cin, name); trim(name);
+			
+			cout << TAB << setw(10) << "Password: ";
+			getline(cin, pass); trim(pass);
 
+			try {
+				Market::instance()->signUpManager(name, pass);
+			}
+			catch (Manager::InvalidPassword & e) {
+				cout << TAB << "\nInvalid Password: " << e.getPassword() << ". Must use, at least, 6 characters." << endl;
+			}
+			cout << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 			break;
 		}
 }
@@ -451,4 +480,54 @@ void addOrder(Order * newOrder)
 	cout << TAB_BIG << "Transactions generated:\n\n";
 	while (result.first != result.second)
 		cout << TAB << *(*(result.first++));
+}
+
+/******************************************
+* MANAGER'S MENU
+******************************************/
+unsigned short int managerOptions() {
+	unsigned short int option;
+
+	clearScreen();
+	showTitle("Manager Menu");
+	cout << TAB << "1 - List your own information" << endl;
+	cout << TAB << "2 - See other Manager's info" << endl;
+	cout << TAB << "3 - Change your password" << endl;
+	cout << TAB << "4 - Sign Out" << endl << endl;
+	string msg = TAB; msg += "Your option: ";
+	option = getUnsignedShortInt(1, 4, msg);
+	cout << endl << endl;
+
+	if (option == 4) {
+		Market::instance()->signOutManager();
+		return false;
+	}
+
+	return option;
+}
+
+void managerMenu() {
+	unsigned int option;
+	string newpass;
+	cout << endl;
+
+	while ((option = managerOptions()))
+		switch (option) {
+		case 1:
+			Market::instance()->showManagers();
+			break;
+		case 2:
+			Market::instance()->showOwnManager();
+			break;
+		case 3:
+			cout << TAB << setw(10) << "New Password: ";
+			getline(cin, newpass); trim(newpass);
+			Market::instance()->ChangeManagerPassword(newpass);
+			break;
+		case 4:
+			Market::instance()->deleteOwnManager();
+			break;
+		}
+
+	cout << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 }

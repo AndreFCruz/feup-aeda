@@ -51,3 +51,8 @@ void initialMenu();
 * 	@param newOrder A pointer to the newly created Order to be handled.
 */
 void addOrder(Order * newOrder);
+
+/** \fn
+* 	Function workking as the Manager's menu editing menu.
+*/
+void managerMenu();

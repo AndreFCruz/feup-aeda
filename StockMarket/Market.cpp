@@ -139,6 +139,17 @@ bool Market::signUp(string name, nif_t nif) {
 
 	currentNIF = nif;
 	clientsChanged = true;
+
+	//Associating the client to a manager
+	if (!managers.empty()) {
+		Manager mHelper = managers.top();
+		managers.pop();
+
+		//Updating Manager
+		mHelper.getClients().push_back(newClient);
+		managers.push(mHelper);
+	}
+
 	cout << endl << TAB << "New Client created sucessfully!\n";	// Needs to be done here because of the try catch thing
 	return true;
 }
@@ -176,6 +187,7 @@ void Market::signOutManager() {
 bool Market::signUpManager(string name, string pass) {
 	vector<Manager> mHelper;
 	bool flag = true;
+	trim(pass);
 
 	//Tacking all elements of the priority queue
 	while (!managers.empty()) {
@@ -186,7 +198,7 @@ bool Market::signUpManager(string name, string pass) {
 	for (auto it = mHelper.begin(); it != mHelper.end(); ++it) {
 		if (it->getName() == name)
 			flag = false;
-		}
+	}
 	if (flag) {
 		mHelper.push_back(Manager(name, pass));
 		currentManager = name;
@@ -197,6 +209,8 @@ bool Market::signUpManager(string name, string pass) {
 	//Re-Populating the priority queue
 	for (unsigned i = 0; i < mHelper.size(); ++i)
 		managers.push(mHelper.at(i));
+
+	//Re distribuir managers
 
 	return flag;
 }
@@ -370,6 +384,120 @@ bool Market::changeNewsClass(unsigned idx, unsigned num) {
 	return false;
 }
 
+void Market::showManagers() {
+
+	//Accessing all priority queue members
+	vector <Manager> mHelper;
+
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		cout << ++i << ". " << mHelper.at(i);
+
+	//Re Populating priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+	
+}
+
+void Market::showOwnManager() {
+
+	//Accessing all priority queue members
+	vector <Manager> mHelper;
+
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	for (unsigned i = 0; i < mHelper.size(); ++i) {
+		if (mHelper.at(i).getName() == currentManager) {
+			cout << "Manager name: " << mHelper.at(i).getName() << endl;
+			cout << "Password: " << mHelper.at(i).getPassword() << endl;
+			cout << "List of Clients:" << endl;
+			
+			//Printing clients' NIFs
+			for (unsigned j = 0; j < mHelper.at(i).getClients().size(); ++j)
+				cout << TAB << "- " << mHelper.at(i).getClients().at(j)->getNIF() << endl;
+		}
+	}
+
+	//Re Populating priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+}
+
+void Market::ChangeManagerPassword(string newpass) {
+	//Accessing all priority queue members
+	vector <Manager> mHelper;
+
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	for (unsigned i = 0; i < mHelper.size(); ++i) {
+		if (mHelper.at(i).getName() == currentManager) {
+			mHelper.at(i).setPassword(newpass);
+		}
+	}
+
+	//Re Populating priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+}
+
+void Market::deleteOwnManager() {
+	//Accessing all priority queue members
+	vector <Manager> mHelper;
+
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	for (unsigned i = 0; i < mHelper.size(); ++i) {
+		if (mHelper.at(i).getName() == currentManager)
+			mHelper.erase(mHelper.begin() + i);
+	}
+
+	//Re Populating priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+
+
+	Market::instance()->redistributeManagers();
+}
+
+void Market::redistributeManagers() {
+	//Accessing all priority queue members
+	vector <Manager> mHelper;
+
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	//Clean all the Clients - Manager Associations
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		mHelper.at(i).getClients().clear();
+
+	unsigned i = 1;
+	for (auto it = clients.begin(); it != clients.end(); ++it) {
+		mHelper.at(i-1).getClients().push_back(it->second);
+		if (i = mHelper.size())
+			i = 0;
+		++i;
+	}
+
+	//Re Populating priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+	
+}
 
 // Returns pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator >
 pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > Market::placeOrder(Order * ptr)
@@ -404,7 +532,7 @@ pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > Market:
 	return pair<transIt, transIt> (transactions.end(), transactions.end());
 }
 
-void Market::saveChanges() const {
+void Market::saveChanges() {
 	ofstream out;
 
 	// Save Clients if Changed
@@ -449,6 +577,27 @@ void Market::saveChanges() const {
 			n.saveChanges(out);
 
 		out.close();
+	}
+
+	//Save Managers if Changed 
+	if (managersChanged) {
+		out.open(managersFile);
+		out << managers.size() << endl;
+
+		//Accessing all priority queue members
+		vector <Manager> mHelper;
+
+		while (!managers.empty()) {
+			mHelper.push_back(managers.top());
+			managers.pop();
+		}
+
+		for (Manager m : mHelper)
+			m.saveChanges(out);
+
+		//Re Populating priority queue
+		for (unsigned i = 0; i < mHelper.size(); ++i)
+			managers.push(mHelper.at(i));
 	}
 }
 

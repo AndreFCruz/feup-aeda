@@ -232,6 +232,32 @@ public:
 	* @return A boolean, true if change was successful.
 	*/
 	bool changeNewsClass(unsigned idx, unsigned num);
+
+	/**
+	* A member function that prints all Managers to the COUT output stream.
+	*/
+	void showManagers();
+
+	/**
+	* A member function that prints all information about the signed in Manager.
+	*/
+	void showOwnManager();
+
+	/**
+	* A member function that prints all information about the current Manager.
+	* @param newpass The new password for the Manager account.
+	*/
+	void ChangeManagerPassword(string newpass);
+
+	/**
+	* A member function that erases the current Manager.
+	*/
+	void deleteOwnManager();
+
+	/**
+	* A member function that redistributes all Managers over the clients.
+	*/
+	void redistributeManagers();
 	
 	/**
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.
@@ -240,9 +266,9 @@ public:
 	pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > placeOrder(Order * o);	// Abstracts of Buy/Sell type
 	
 	/**
-	*	A const member function that saves ALL information to the files.
+	*	A member function that saves ALL information to the files.
 	*/
-	void saveChanges() const;
+	void saveChanges();
 
 	/**
 	* Overload of Operator << for class Market.

@@ -3,8 +3,14 @@
 #include "utils.h"
 
 
-Manager::Manager(string name, string password) :
-	name(name), password(password) {};
+Manager::Manager(string name, string password) : name(name) {
+	trim(password);
+
+	if (password.size() < 6)
+		throw InvalidPassword(password);
+	else
+		this->password = password;
+};
 
 Manager::Manager(ifstream& in) {
 	string s;
@@ -49,13 +55,17 @@ Manager::Manager(ifstream& in) {
 void Manager::saveChanges(ofstream& out) const {
 	out << name << " ; " << password << " ; ";
 	
-	//All Clients but the last one
-	for (unsigned i = 0; i < clients.size()-1; ++i) {
-		out << clients.at(i)->getNIF() << ", ";
-	}
+	if (clients.size() != 0 ) {
+		//All Clients but the last one
+		for (unsigned i = 0; i < clients.size() - 1; ++i) {
+			out << clients.at(i)->getNIF() << ", ";
+		}
 
-	//Last Client
-	out << clients.at(clients.size() - 1)->getNIF() << ";" << endl;
+		//Last Client
+		out << clients.at(clients.size() - 1)->getNIF() << ";" << endl;
+	}
+	else
+		out << ";" << endl;
 }
 
 string Manager::getName() const {
@@ -65,12 +75,20 @@ string Manager::getName() const {
 string Manager::getPassword() const {
 	return this->password;
 }
-vector <Client *> Manager::getClients() const {
+
+vector <Client *> Manager::getClients() {
 	return this->clients;
 }
 
 unsigned Manager::getNumberClients() const {
 	return (unsigned) this->clients.size();
+}
+
+void Manager::setPassword( string newpass) {
+	if (newpass.size() < 6)
+		throw InvalidPassword(newpass);
+	else
+		this->password = newpass;
 }
 
 ostream& operator<<(ostream& out, const Manager& manager) {
@@ -79,11 +97,11 @@ ostream& operator<<(ostream& out, const Manager& manager) {
 }
 
 bool operator<(const Manager & m1, const Manager & m2) {
-	if (m1.getClients().size() < m2.getClients().size())
+	if (m1.clients.size() < m2.clients.size())
 		return true;
-	else if (m1.getClients().size() > m2.getClients().size())
+	else if (m1.clients.size() > m2.clients.size())
 		return false;
-	else if (m1.getClients().size() == m2.getClients().size()) {
+	else if (m1.clients.size() == m2.clients.size()) {
 		if (m1.getName() < m2.getName())
 			return true;
 	}

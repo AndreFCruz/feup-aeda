@@ -87,16 +87,22 @@ public:
 	string getPassword() const;
 
 	/**
-	* A const member function with no arguments to get Manager's clients.
+	* A member function with no arguments to get Manager's clients.
 	* @return A vector of pointers to Clients, the Manager's clients.
 	*/
-	vector <Client *> getClients() const;
+	vector <Client *> getClients();
 
 	/**
 	* A const member function with no arguments to get the Manager's number of clients.
 	* @return A unsgined, the Manager's number of clients.
 	*/
 	unsigned getNumberClients() const;
+
+	/**
+	* A member function to change the Manager's password.
+	* @param newpass, the Manager's new password.
+	*/
+	void setPassword(string newpass);
 
 	/**
 	* Overload of Output Operator << for class Manager.

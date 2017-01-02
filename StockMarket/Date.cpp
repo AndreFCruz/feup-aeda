@@ -129,5 +129,5 @@ int rdn(const Date & d1) {
 }
 
 int dateDifference(const Date & d1, const Date & d2) {
-	return rdn(d1) - rdn(d2);
+	return rdn(d2) - rdn(d1);
 }

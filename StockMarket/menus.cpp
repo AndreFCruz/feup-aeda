@@ -87,35 +87,34 @@ void clientMenu() {
 			Market::instance()->showInactiveClients();
 			break;
 		case 7: // Change address
-			if (Market::instance()->isInactiveClient()) {
-				cout << "Your status is: ative client. Therefore you cannot change your address.\n";
-				continue;
+			if (Market::instance()->isActiveClient()) {
+				cout << endl << TAB << "Your status is: ative client. Therefore you cannot change your address.\n";
 			}
+			else {
+				cout << TAB << setw(10) << "New address: ";
+				getline(cin, str); trim(str);
 
-			cout << TAB << setw(10) << "New address: ";
-			getline(cin, str); trim(str);
-
-			if (Market::instance()->changeAddress(str))
-				cout << "Changed Address Successfully!\n";
-			else
-				cout << "Could not perform operation...\n";
+				if (Market::instance()->changeAddress(str))
+					cout << endl << TAB << "Changed Address Successfully!\n";
+				else
+					cout << endl << TAB << "Could not perform operation...\n";
+			}
 
 			break;
 		case 8:	// Change contact
-			if (Market::instance()->isInactiveClient()) {
-				cout << "Your status is: ative client. Therefore you cannot change your contact.\n";
-				continue;
+			if (Market::instance()->isActiveClient()) {
+				cout << endl << TAB << "Your status is: ative client. Therefore you cannot change your contact.\n";
+			}
+			else {
+				cout << TAB << setw(10) << "New contact information: ";
+				getline(cin, str); trim(str);
+
+				if (Market::instance()->changeContact(str))
+					cout << endl << TAB << "Changed Contact Successfully!\n";
+				else
+					cout << endl << TAB << "Could not perform operation...\n";
 			}
 
-			cout << TAB << setw(10) << "New contact information: ";
-			getline(cin, str); trim(str);
-
-			if (Market::instance()->changeContact(str))
-				cout << "Changed Contact Successfully!\n";
-			else
-				cout << "Could not perform operation...\n";
-
-			break;
 			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');

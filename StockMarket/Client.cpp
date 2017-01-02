@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "Client.h"
 #include "utils.h"
 
@@ -34,6 +35,10 @@ string Client::getContact() const {
 	return contact;
 }
 
+string Client::getAddress() const {
+	return address;
+}
+
 bool Client::setAddress(string address) {
 	if (address.empty())
 		return false;
@@ -55,6 +60,6 @@ void Client::saveChanges(ofstream & out) const {
 }
 
 ostream& operator<<(ostream & out, const Client & cli) {
-	return out << "Client's name: " << cli.getName() << ". Client's NIF: " << cli.getNIF()
-		<< ". Client's Contact: " << cli.getContact() << endl;
+	return out << "Client's name: " << setw(15) << cli.getName() << ". Client's NIF: "
+		<< cli.getNIF() << ". Client's Contact: " << cli.getContact() << endl;
 }

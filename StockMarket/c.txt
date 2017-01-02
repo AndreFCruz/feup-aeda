@@ -1,9 +1,9 @@
 10
-Alice ; 100100100 ; Rua Afonso Henriques, 12 ; alice@gmail.com ;
+Alice ; 100100100 ; Rua D. Henrique, 47 ; alice@gmail.com ;
 Emidio ; 121212121 ; Rua Dr Emidio, 124 ; emidio@gmail.com ;
 Andre Cruz ; 123123123 ; Rua Afonso III, 12 ; andrecruzzz@gmail.com ;
 Bowie ; 123456091 ; Hall of Fame, Hollywood, 43 ; bowie@gmail.com ;
-Andre Cruz ; 123456789 ; Rua Afonso II, 121 ; um_outro_andre@hotmail.com ;
+Andre Cruz ; 123456789 ; Rua Afonso II, 121 ; andreandre@sapo.pt ;
 Vidal ; 191919191 ; Rua D. Dinis, 10 ; vidal@fe.up.pt ;
 Teste ; 222222222 ; Rua Afonso Henriques, 13 ; teste@telepac.pt ;
 Ana Lucia ; 333333333 ; Rua Afonso Henriques, 22 ; ana@gmail.com ;

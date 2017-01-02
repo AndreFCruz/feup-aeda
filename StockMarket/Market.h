@@ -221,10 +221,10 @@ public:
 	void showInactiveClients() const;
 
 	/**
-	* Checks whether currently logged in client is considered inactive.
-	* @return true if client is in the Hash inactive_clients, false otherwise.
+	* Checks whether currently logged in client is considered active.
+	* @return true if client is not in the Hash inactive_clients, false otherwise.
 	*/
-	bool isInactiveClient() const;
+	bool isActiveClient() const;
 
 	/**
 	* A member function that changes the current client's address, if he is considered inactive.

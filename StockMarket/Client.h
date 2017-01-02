@@ -57,6 +57,12 @@ public:
 	string getContact() const;
 
 	/**
+	* A const member function with no arguments to get the client's address.
+	* @return A string, the client's current address information.
+	*/
+	string getAddress() const;
+
+	/**
 	* A const member function with no arguments to get the client's NIF.
 	* @return A nif_t, the client's NIF.
 	*/
@@ -130,7 +136,7 @@ struct clientPtrHash
 	*/
 	int operator() (const Client * cli) const
 	{
-		return cli->getNIF();
+		return (int) cli->getNIF();
 	}
 
 	/**
@@ -141,6 +147,6 @@ struct clientPtrHash
 	*/
 	bool operator() (const Client * cli1, const Client * cli2) const
 	{
-		return cli1 != cli2; // Two client's are distinct if their pointers are distinct
+		return cli1 == cli2; // Two client's are distinct if their pointers are distinct
 	}
 };

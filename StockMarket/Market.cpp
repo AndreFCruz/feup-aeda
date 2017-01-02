@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iomanip>
 #include "Market.h"
 #include "defs.h"
 #include "menus.h"
@@ -91,7 +92,7 @@ Market::Market() : currentNIF(0) {
 }
 
 Market::~Market() {
-	// Warning: Do Not delete from files
+	inactive_clients.clear();
 
 	// Delete Clients from Memory
 	for (auto p : clients)
@@ -117,7 +118,13 @@ void Market::checkInactiveClients() {
 
 	// Pupulate Hash Table
 	for (auto p : clients) {
-		inactive_clients.insert(p.second);
+		auto ret = inactive_clients.insert(p.second);
+		if (ret.second) {
+			cout << "Client: " << p.second->getName() << " -- ";
+		}
+		else {
+			cout << "\nUPS-" << p.second->getName() << ". Other client: " << (*(ret.first))->getName() << endl;;
+		}
 	}
 
 	Date current;
@@ -147,18 +154,14 @@ void Market::checkInactiveClients() {
 	}
 }
 
-bool Market::isInactiveClient() const {
+bool Market::isActiveClient() const {
 	auto p = clients.find(currentNIF);
-	if (p == clients.end()) {	// Client does not exist -- Should not Happen
-		cout << "CURRENT CLIENT DOES NOT EXIST -- ERROR\n";
-		return false;
-	}
 
-	return (inactive_clients.find(p->second) != inactive_clients.end());
+	return (inactive_clients.find(p->second) == inactive_clients.end());
 }
 
 bool Market::changeAddress(string address) {
-	if (!isInactiveClient())
+	if (isActiveClient())
 		return false;
 
 	auto p = clients.find(currentNIF);
@@ -166,13 +169,13 @@ bool Market::changeAddress(string address) {
 		cout << "CURRENT CLIENT DOES NOT EXIST -- ERROR\n";
 		return false;
 	}
-
+	clientsChanged = true;
 	p->second->setAddress(address);
 	return true;
 }
 
 bool Market::changeContact(string contact) {
-	if (!isInactiveClient())
+	if (isActiveClient())
 		return false;
 
 	auto p = clients.find(currentNIF);
@@ -180,7 +183,7 @@ bool Market::changeContact(string contact) {
 		cout << "CURRENT CLIENT DOES NOT EXIST -- ERROR\n";
 		return false;
 	}
-
+	clientsChanged = true;
 	p->second->setContact(contact);
 	return true;
 }
@@ -312,6 +315,7 @@ void Market::showClientInfo() const {
 	Client * cli = clients.at(currentNIF);
 
 	cout << *cli << endl;
+	cout << "Current Address: " << cli->getAddress() << endl;
 }
 
 // Can throw exception, should be handled by higher function
@@ -431,8 +435,9 @@ void Market::showNews(Date d) const {
 }
 
 void Market::showInactiveClients() const {
+	unsigned i = 0;
 	for (auto it : inactive_clients) {
-		cout << *it;
+		cout << ++i << ". " << setw(15) << it->getName() << ". Contact: " << it->getContact() << endl;
 	}
 }
 

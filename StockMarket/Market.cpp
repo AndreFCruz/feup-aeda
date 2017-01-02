@@ -85,6 +85,9 @@ Market::Market() : currentNIF(0) {
 		managers.push(Manager(file_in, clients));
 	}
 	file_in.close();
+
+	// Check Inactive Clients
+	checkInactiveClients();
 }
 
 Market::~Market() {
@@ -110,6 +113,78 @@ Market* Market::instance() {
 	return singleton_instance;
 }
 
+void Market::checkInactiveClients() {
+
+	// Pupulate Hash Table
+	for (auto p : clients) {
+		inactive_clients.insert(p.second);
+	}
+
+	Date current;
+	/* Remove active clients */
+	// Check Transactions
+	for (Transaction * t : transactions) {
+		int diff = dateDifference(t->getDate(), current);
+		if ( diff < DAYS_INACTIVE ) {
+			auto p = clients.find(t->getBuyerNIF());
+			if (p != clients.end())
+				inactive_clients.erase(p->second);
+
+			p = clients.find(t->getSellerNIF());
+			if (p != clients.end())
+				inactive_clients.erase(p->second);
+		}
+	}
+
+	// Check Orders
+	for (Order * o : unfulfilled_orders) {
+		int diff = dateDifference(o->getDatePlaced(), current);
+		if (diff < DAYS_INACTIVE) {
+			auto p = clients.find(o->getClientNIF());
+			if (p != clients.end())
+				inactive_clients.erase(p->second);
+		}
+	}
+}
+
+bool Market::isInactiveClient() const {
+	auto p = clients.find(currentNIF);
+	if (p == clients.end()) {	// Client does not exist -- Should not Happen
+		cout << "CURRENT CLIENT DOES NOT EXIST -- ERROR\n";
+		return false;
+	}
+
+	return (inactive_clients.find(p->second) != inactive_clients.end());
+}
+
+bool Market::changeAddress(string address) {
+	if (!isInactiveClient())
+		return false;
+
+	auto p = clients.find(currentNIF);
+	if (p == clients.end()) {	// Client does not exist -- Should not Happen
+		cout << "CURRENT CLIENT DOES NOT EXIST -- ERROR\n";
+		return false;
+	}
+
+	p->second->setAddress(address);
+	return true;
+}
+
+bool Market::changeContact(string contact) {
+	if (!isInactiveClient())
+		return false;
+
+	auto p = clients.find(currentNIF);
+	if (p == clients.end()) {	// Client does not exist -- Should not Happen
+		cout << "CURRENT CLIENT DOES NOT EXIST -- ERROR\n";
+		return false;
+	}
+
+	p->second->setContact(contact);
+	return true;
+}
+
 bool Market::signIn(string name, nif_t nif) {
 	for (auto it = clients.begin(); it != clients.end(); ++it) {
 		if ((it->first == nif) && ((it->second)->getName() == name)) {
@@ -125,15 +200,16 @@ void Market::signOut() {
 	this->saveChanges(); // Save Changes on Sign Out
 }
 
-bool Market::signUp(string name, nif_t nif) {
+bool Market::signUp(string name, nif_t nif, string address, string contact) {
 	// acrescentar cliente ao map (nif, client*) e mudar currentNIF etc
-	Client * newClient = new Client(name, nif);
+	Client * newClient = new Client(name, nif, address, contact);
 	auto p = clients.insert(pair<nif_t, Client *>(nif, newClient));
 	
-	if (false == p.second) { // Clients with the same name can exist, but not with the same NIF
-		//cout << endl << TAB << "Account already exists. Are you " << p.first->second->getName() << " ?\n";
+	if (false == p.second)	// Clients with the same name can exist, but not with the same NIF
 		return false;
-	}
+
+	// Add new client to inactive_clients
+	inactive_clients.insert(newClient);
 
 	currentNIF = nif;
 	clientsChanged = true;
@@ -354,6 +430,12 @@ void Market::showNews(Date d) const {
 	}
 }
 
+void Market::showInactiveClients() const {
+	for (auto it : inactive_clients) {
+		cout << *it;
+	}
+}
+
 bool Market::addNews(string company, Date d, string newspaper, unsigned short int classification) {
 	News tmp(company, d, newspaper, classification);
 	auto ret = news.insert(tmp);
@@ -543,6 +625,11 @@ Manager Market::getClientManager(){
 // Returns pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator >
 pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator > Market::placeOrder(Order * ptr)
 {
+	// Remove Client from Inactive Clients
+	auto p = clients.find(ptr->getClientNIF());
+	if (p != clients.end())
+		inactive_clients.erase(p->second);
+
 	typedef vector<Transaction *>::iterator transIt;
 	size_t initialSize = transactions.size();
 	unfulfilled_orders.push_back(ptr);

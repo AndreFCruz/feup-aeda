@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <set>
+#include <unordered_set>
 #include <queue>
 #include "Client.h"
 #include "Transaction.h"
@@ -12,6 +13,7 @@
 
 using namespace std;
 
+#define DAYS_INACTIVE	20	/**< Time interval, in days, from which clients are considered inactive. */
 
 /**
 *  Singleton Class to implement most of the logic behind the StockMarket
@@ -44,7 +46,7 @@ private:
 	// Data Structures for the 2nd part of the project
 	set<News> news;							/**< Set news. A set, implemented as a Binary Search Tree (BST), of News objects. */
 	priority_queue<Manager> managers;		/**< Priority Queue managers. A priority queue of manager objects. */
-
+	unordered_set<Client *, clientPtrHash, clientPtrHash> inactive_clients;	/**< Hash Table inactive_clients. Stores the clients that are inactive for more than 1 month */
 
 	string clientsFile;			/**< string clientsFile. String with the clients' file name. */
 	string ordersFile;			/**< string ordersFile. String with the orders' file name. */
@@ -58,8 +60,12 @@ private:
 	bool newsChanged;		   /**< bool newsChanged. Boolean set to true if any changes were made to the news during execution. */
 	bool managersChanged;	   /**< bool managersChanged. Boolean set to true if any changes were made to the managers during execution. */
 
-public:
+	/**
+	* A private method that iterates through the clients BST and stores all inactive clients in a Hash Table.
+	*/
+	void checkInactiveClients();
 
+public:
 	/**
 	* A member function returning the one and only instace of Market (creates it if one doesn't exist).
 	* @return A pointer to the singleton instance of Market.
@@ -81,11 +87,13 @@ public:
 
 	/**
 	* A member function that signs up the user.
-	* @param name Name of the client/user
-	* @param nif  NIF othe client/user
+	* @param name	The client's name.
+	* @param nif	The client's NIF.
+	* @param address	The client's address.
+	* @param contact	The client's contact information.
 	* @return A boolean, true if signing up was done successfully.
 	*/
-	bool signUp(string name, nif_t nif);
+	bool signUp(string name, nif_t nif, string address, string contact);
 
 	/**
 	* A member function that signs in the manager.
@@ -208,6 +216,31 @@ public:
 	void showNews(Date d) const;
 
 	/**
+	* Shows the current list of inactive clients.
+	*/
+	void showInactiveClients() const;
+
+	/**
+	* Checks whether currently logged in client is considered inactive.
+	* @return true if client is in the Hash inactive_clients, false otherwise.
+	*/
+	bool isInactiveClient() const;
+
+	/**
+	* A member function that changes the current client's address, if he is considered inactive.
+	* @param address The new address.
+	* @return A boolean, true if change was successful.
+	*/
+	bool changeAddress(string address);
+
+	/**
+	* A member function that changes the current client's contact information, if he is considered inactive.
+	* @param contact The new contact information.
+	* @return A boolean, true if change was successful.
+	*/
+	bool changeContact(string contact);
+
+	/**
 	* A member function that creates a News object with the given parameters,
 	* and adds it to the attribute BST.
 	* @param company The name of the company mentioned in the News.
@@ -261,7 +294,7 @@ public:
 	void redistributeManagers();
 
 	/**
-	* A member function that returns the information about the Manager of the current Client.
+	* A member function that returns the current client's Manager.
 	*/
 	Manager getClientManager();
 	

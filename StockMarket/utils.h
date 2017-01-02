@@ -97,6 +97,3 @@ void showTitle(string title, ostream& out = cout);
 *	@return Returns a Date object.
 */
 Date getDate(string msg = "");
-
-
-

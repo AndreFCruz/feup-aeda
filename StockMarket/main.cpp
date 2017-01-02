@@ -7,9 +7,11 @@
 
 int main()
 {
-	Market::instance();
+	Market::instance();	// Will call constructor automatically
 
-	initialMenu();
+	initialMenu();		// Initiate Menu
+
+	Market::instance()->saveChanges();	// Save Eventual Changes to Files
 
 	return EXIT_SUCCESS;
 }

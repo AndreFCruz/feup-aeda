@@ -108,6 +108,12 @@ public:
 	* @return Returns a boolean value, true if d1 is not equal to d2
 	*/
 	friend bool operator!=(const Date& d1, const Date& d2);
+
+	/**
+	* Function to calculate difference between two dates, in days.
+	* @param d1 First date
+	* @param d2 Second date
+	* @return Returns the difference in days.
+	*/
+	friend int dateDifference(const Date & d1, const Date & d2);
 };
-
-

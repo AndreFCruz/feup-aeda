@@ -1,7 +1,7 @@
 #include "Client.h"
 #include "utils.h"
 
-Client::Client(string name, nif_t nif) : name(name)
+Client::Client(string name, nif_t nif, string address, string contact) : name(name), address(address), contact(contact)
 {
 	if (to_string(nif).size() == 9)	// NIF is valid ?
 		this->nif = nif;
@@ -32,6 +32,22 @@ nif_t Client::getNIF() const {
 
 string Client::getContact() const {
 	return contact;
+}
+
+bool Client::setAddress(string address) {
+	if (address.empty())
+		return false;
+
+	this->address = address;
+	return true;
+}
+
+bool Client::setContact(string contact) {
+	if (contact.empty())
+		return false;
+
+	this->contact = contact;
+	return true;
 }
 
 void Client::saveChanges(ofstream & out) const {

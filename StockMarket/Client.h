@@ -13,7 +13,6 @@ class Transaction;	// Forward declaration due to circular includes
  *  A class used to represent a client. 
  *  Each client object has a name and a nif (from the portuguese "Numero de Identificação Fiscal").
  */
-
 class Client
 {
 	string name;	/**< string name. The client's name. */
@@ -38,10 +37,12 @@ public:
 	/**
 	* A constructor.
 	* The construtor creates a client object with the data passed as arguments.
-	* @param name The client's name.
-	* @param nif  The client's NIF. 
+	* @param name	The client's name.
+	* @param nif	The client's NIF.
+	* @param address	The client's address.
+	* @param contact	The client's contact information.
 	*/
-	Client(string name, nif_t nif);
+	Client(string name, nif_t nif, string address, string contact);
 
 	/**
 	* A const member function with no arguments to get the client's name.
@@ -60,6 +61,20 @@ public:
 	* @return A nif_t, the client's NIF.
 	*/
 	nif_t getNIF() const;
+
+	/**
+	* Changes the client's address.
+	* @param address The new address.
+	* @return A boolean, true if change was successful.
+	*/
+	bool setAddress(string address);
+
+	/**
+	* Changes the client's contact information.
+	* @param contact The new contact information.
+	* @return A boolean, true if change was successful.
+	*/
+	bool setContact(string contact);
 
 	/**
 	* A const member function that writes the client's info to the output stream.
@@ -95,10 +110,37 @@ public:
 
 
 /**
-* Overload of Operator << for class Client.
-* Prints the specified Client (2nd argument) to the outstream passed as 1st argument.
-* @param out The outstream to write to.
-* @param c The client to be written.
-* @return Returns the output stream to allow chaining
-*/
+ * Overload of Operator << for class Client.
+ * Prints the specified Client (2nd argument) to the outstream passed as 1st argument.
+ * @param out The outstream to write to.
+ * @param c The client to be written.
+ * @return Returns the output stream to allow chaining
+ */
 ostream& operator<<(ostream& out, const Client& c);
+
+/**
+ * A structure to encapsulate the Hash and Comparison functions of Client Pointers.
+ */
+struct clientPtrHash
+{
+	/**
+	* Hash Function for Client*
+	* @param cli Pointer to a Client object.
+	* @return hash value.
+	*/
+	int operator() (const Client * cli) const
+	{
+		return cli->getNIF();
+	}
+
+	/**
+	* Comparison Function for Client*
+	* @param cli1 Pointer to a Client object.
+	* @param cli1 Pointer to a Client object.
+	* @return true if Clients pointed by cli1 and cli2 are the same, false otherwise.
+	*/
+	bool operator() (const Client * cli1, const Client * cli2) const
+	{
+		return cli1 != cli2; // Two client's are distinct if their pointers are distinct
+	}
+};

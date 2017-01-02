@@ -119,3 +119,15 @@ istream& operator>>(istream& in, Date& date) {
 
 	return in;
 }
+
+// Helper for algorithm to find difference in days between two dates
+int rdn(const Date & d1) {
+	int d = d1.get_day(), m = d1.get_month(), y = d1.get_year();
+	if (m < 3)
+		y--, m += 12;
+	return 365 * y + y / 4 - y / 100 + y / 400 + (153 * m - 457) / 5 + d - 306;
+}
+
+int dateDifference(const Date & d1, const Date & d2) {
+	return rdn(d1) - rdn(d2);
+}

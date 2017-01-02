@@ -39,11 +39,14 @@ unsigned short int clientOptions() {
 	cout << TAB << "3 - Show unfulfilled Orders" << endl;
 	cout << TAB << "4 - Delete a unfullfilled Order" << endl;
 	cout << TAB << "5 - View manager information" << endl;
-	cout << TAB << "6 - Exit menu" << endl << endl;
+	cout << TAB << "6 - Show Inactive Clients" << endl;
+	cout << TAB << "7 - Change address information (for inactive clients)" << endl;
+	cout << TAB << "8 - Change contact information (for inactive clients)" << endl;
+	cout << TAB << "9 - Exit menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
-	option = getUnsignedShortInt(1, 6, msg);
+	option = getUnsignedShortInt(1, 9, msg);
 
-	if (option == 6)
+	if (option == 9)
 		return false;	// false == 0
 
 	return option;
@@ -51,6 +54,7 @@ unsigned short int clientOptions() {
 
 void clientMenu() {
 	unsigned short int option;
+	string str;
 
 	while ((option = clientOptions())) {
 		switch (option) {
@@ -78,6 +82,41 @@ void clientMenu() {
 			break;
 		case 5:
 			cout << " Name:" << Market::instance()->getClientManager();
+			break;
+		case 6:
+			Market::instance()->showInactiveClients();
+			break;
+		case 7: // Change address
+			if (Market::instance()->isInactiveClient()) {
+				cout << "Your status is: ative client. Therefore you cannot change your address.\n";
+				continue;
+			}
+
+			cout << TAB << setw(10) << "New address: ";
+			getline(cin, str); trim(str);
+
+			if (Market::instance()->changeAddress(str))
+				cout << "Changed Address Successfully!\n";
+			else
+				cout << "Could not perform operation...\n";
+
+			break;
+		case 8:	// Change contact
+			if (Market::instance()->isInactiveClient()) {
+				cout << "Your status is: ative client. Therefore you cannot change your contact.\n";
+				continue;
+			}
+
+			cout << TAB << setw(10) << "New contact information: ";
+			getline(cin, str); trim(str);
+
+			if (Market::instance()->changeContact(str))
+				cout << "Changed Contact Successfully!\n";
+			else
+				cout << "Could not perform operation...\n";
+
+			break;
+			break;
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 	}
@@ -382,7 +421,7 @@ unsigned short int initialOptions() {
 
 void initialMenu() {
 	unsigned int option;
-	string name, pass;
+	string name, pass, address, contact;
 	nif_t nif;
 	cout << endl;
 	
@@ -409,9 +448,15 @@ void initialMenu() {
 			cout << TAB << setw(10) << "Name: ";
 			getline(cin, name); trim(name);
 			nif = getValue<nif_t>("NIF: ", 10);
+
+			cout << TAB << setw(10) << "Address: ";
+			getline(cin, address); trim(address);
+
+			cout << TAB << setw(10) << "Contact: ";
+			getline(cin, contact); trim(contact);
 		
 			try {
-				Market::instance()->signUp(name,nif);
+				Market::instance()->signUp(name,nif, address, contact);
 			}
 			catch (Client::InvalidNIF & e) {
 				cout << TAB <<"\nInvalidNIF: " << e.getNIF() << endl;
@@ -528,7 +573,7 @@ void managerMenu() {
 			cout << TAB << setw(10) << "New Password: ";
 			getline(cin, newpass); trim(newpass);
 
-			//Checking if Password is 
+			//Checking if Password is valid
 			try {
 				Market::instance()->ChangeManagerPassword(newpass);
 			}

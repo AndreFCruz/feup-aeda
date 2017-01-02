@@ -38,11 +38,12 @@ unsigned short int clientOptions() {
 	cout << TAB << "2 - Show Transaction History" << endl;
 	cout << TAB << "3 - Show unfulfilled Orders" << endl;
 	cout << TAB << "4 - Delete a unfullfilled Order" << endl;
-	cout << TAB << "5 - Exit menu" << endl << endl;
+	cout << TAB << "5 - View manager information" << endl;
+	cout << TAB << "6 - Exit menu" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
-	option = getUnsignedShortInt(1, 5, msg);
+	option = getUnsignedShortInt(1, 6, msg);
 
-	if (option == 5)
+	if (option == 6)
 		return false;	// false == 0
 
 	return option;
@@ -75,6 +76,8 @@ void clientMenu() {
 			else
 				cout << TAB << "Failed to erase Order!\n\n";
 			break;
+		case 5:
+			cout << " Name:" << Market::instance()->getClientManager();
 		}
 		cout << endl << TAB << "Press ENTER to continue..."; cin.ignore(INT_MAX, '\n');
 	}
@@ -444,6 +447,7 @@ void initialMenu() {
 
 			try {
 				Market::instance()->signUpManager(name, pass);
+				Market::instance()->redistributeManagers();
 			}
 			catch (Manager::InvalidPassword & e) {
 				cout << TAB << "\nInvalid Password: " << e.getPassword() << ". Must use, at least, 6 characters." << endl;
@@ -493,12 +497,13 @@ unsigned short int managerOptions() {
 	cout << TAB << "1 - List your own information" << endl;
 	cout << TAB << "2 - See other Manager's info" << endl;
 	cout << TAB << "3 - Change your password" << endl;
-	cout << TAB << "4 - Sign Out" << endl << endl;
+	cout << TAB << "4 - Delete your Manager Account" << endl;
+	cout << TAB << "5 - Sign Out" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
-	option = getUnsignedShortInt(1, 4, msg);
+	option = getUnsignedShortInt(1, 5, msg);
 	cout << endl << endl;
 
-	if (option == 4) {
+	if (option == 5) {
 		Market::instance()->signOutManager();
 		return false;
 	}
@@ -511,23 +516,33 @@ void managerMenu() {
 	string newpass;
 	cout << endl;
 
-	while ((option = managerOptions()))
+	while ((option = managerOptions())) {
 		switch (option) {
 		case 1:
-			Market::instance()->showManagers();
+			Market::instance()->showOwnManager();
 			break;
 		case 2:
-			Market::instance()->showOwnManager();
+			Market::instance()->showManagers();
 			break;
 		case 3:
 			cout << TAB << setw(10) << "New Password: ";
 			getline(cin, newpass); trim(newpass);
-			Market::instance()->ChangeManagerPassword(newpass);
+
+			//Checking if Password is 
+			try {
+				Market::instance()->ChangeManagerPassword(newpass);
+			}
+			catch (Manager::InvalidPassword & e) {
+				cout << TAB << "\nInvalid Password: " << e.getPassword() << ". Must use, at least, 6 characters." << endl;
+			}
+			
 			break;
 		case 4:
 			Market::instance()->deleteOwnManager();
+			Market::instance()->redistributeManagers();
 			break;
 		}
 
-	cout << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');
+		cout << TAB << "\nPress ENTER to continue..."; cin.ignore(INT_MAX, '\n');
+	}
 }

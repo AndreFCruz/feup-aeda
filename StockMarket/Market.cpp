@@ -82,7 +82,7 @@ Market::Market() : currentNIF(0) {
 	file_in >> numberOfObjects; file_in.ignore(3, '\n');
 
 	for (unsigned i = 0; i < numberOfObjects; ++i) {
-		managers.push(Manager(file_in));
+		managers.push(Manager(file_in, clients));
 	}
 	file_in.close();
 }
@@ -101,8 +101,6 @@ Market::~Market() {
 	// Delete Orders from Memory
 	for (Order * o : unfulfilled_orders)
 		delete o;
-
-	//TODO: Libertar memoria dos pointers atraves de pops e pushs
 }
 
 Market* Market::instance() {
@@ -146,7 +144,7 @@ bool Market::signUp(string name, nif_t nif) {
 		managers.pop();
 
 		//Updating Manager
-		mHelper.getClients().push_back(newClient);
+		mHelper.addClient(newClient);
 		managers.push(mHelper);
 	}
 
@@ -195,6 +193,11 @@ bool Market::signUpManager(string name, string pass) {
 		managers.pop();
 	}
 
+	//Security Protocol, because throw may happen
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+
+
 	for (auto it = mHelper.begin(); it != mHelper.end(); ++it) {
 		if (it->getName() == name)
 			flag = false;
@@ -206,12 +209,15 @@ bool Market::signUpManager(string name, string pass) {
 		cout << endl << TAB << "New Manager created sucessfully!\n";	// Needs to be done here because of the try catch thing
 	}
 
+	//Need to repeat here because exception may have been thrown
+	while (!managers.empty())
+		managers.pop();
+
 	//Re-Populating the priority queue
 	for (unsigned i = 0; i < mHelper.size(); ++i)
 		managers.push(mHelper.at(i));
 
-	//Re distribuir managers
-
+	cout << endl << TAB << "Manager Name was already taken. Choose other, please.\n";
 	return flag;
 }
 
@@ -385,7 +391,6 @@ bool Market::changeNewsClass(unsigned idx, unsigned num) {
 }
 
 void Market::showManagers() {
-
 	//Accessing all priority queue members
 	vector <Manager> mHelper;
 
@@ -395,7 +400,7 @@ void Market::showManagers() {
 	}
 
 	for (unsigned i = 0; i < mHelper.size(); ++i)
-		cout << ++i << ". " << mHelper.at(i);
+		cout << i+1 << ". " << mHelper.at(i);
 
 	//Re Populating priority queue
 	for (unsigned i = 0; i < mHelper.size(); ++i)
@@ -415,9 +420,9 @@ void Market::showOwnManager() {
 
 	for (unsigned i = 0; i < mHelper.size(); ++i) {
 		if (mHelper.at(i).getName() == currentManager) {
-			cout << "Manager name: " << mHelper.at(i).getName() << endl;
-			cout << "Password: " << mHelper.at(i).getPassword() << endl;
-			cout << "List of Clients:" << endl;
+			cout << " Manager name: " << mHelper.at(i).getName() << endl;
+			cout << " Password: " << mHelper.at(i).getPassword() << endl;
+			cout << " List of Clients:" << endl;
 			
 			//Printing clients' NIFs
 			for (unsigned j = 0; j < mHelper.at(i).getClients().size(); ++j)
@@ -439,13 +444,21 @@ void Market::ChangeManagerPassword(string newpass) {
 		managers.pop();
 	}
 
+	//Need to this here because ah exception may be thrown
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+
 	for (unsigned i = 0; i < mHelper.size(); ++i) {
 		if (mHelper.at(i).getName() == currentManager) {
 			mHelper.at(i).setPassword(newpass);
 		}
 	}
 
-	//Re Populating priority queue
+	//Re Populating the priority queue
+	while (!managers.empty()) {
+		managers.pop();
+	}
+
 	for (unsigned i = 0; i < mHelper.size(); ++i)
 		managers.push(mHelper.at(i));
 }
@@ -460,16 +473,15 @@ void Market::deleteOwnManager() {
 	}
 
 	for (unsigned i = 0; i < mHelper.size(); ++i) {
-		if (mHelper.at(i).getName() == currentManager)
+		if (mHelper.at(i).getName() == currentManager) {
 			mHelper.erase(mHelper.begin() + i);
+			cout << TAB << "Manager successfully erased!\n";
+		}
 	}
 
 	//Re Populating priority queue
 	for (unsigned i = 0; i < mHelper.size(); ++i)
 		managers.push(mHelper.at(i));
-
-
-	Market::instance()->redistributeManagers();
 }
 
 void Market::redistributeManagers() {
@@ -483,12 +495,12 @@ void Market::redistributeManagers() {
 
 	//Clean all the Clients - Manager Associations
 	for (unsigned i = 0; i < mHelper.size(); ++i)
-		mHelper.at(i).getClients().clear();
+		mHelper.at(i).eraseClients();
 
 	unsigned i = 1;
 	for (auto it = clients.begin(); it != clients.end(); ++it) {
-		mHelper.at(i-1).getClients().push_back(it->second);
-		if (i = mHelper.size())
+		mHelper.at(i-1).addClient(it->second);
+		if (i == mHelper.size())
 			i = 0;
 		++i;
 	}
@@ -497,6 +509,30 @@ void Market::redistributeManagers() {
 	for (unsigned i = 0; i < mHelper.size(); ++i)
 		managers.push(mHelper.at(i));
 	
+}
+
+Manager Market::getClientManager(){
+	//Accessing all priority queue members
+	vector <Manager> mHelper;
+	Manager m;
+
+	while (!managers.empty()) {
+		mHelper.push_back(managers.top());
+		managers.pop();
+	}
+
+	for (unsigned i = 0; i < mHelper.size(); ++i) {
+		for (unsigned j = 0; j < mHelper.at(i).getClients().size(); ++j) {
+			if (mHelper.at(i).getClients().at(j)->getNIF() == currentNIF)
+				m = mHelper.at(i);
+		}	
+	}
+
+	//Re Populating priority queue
+	for (unsigned i = 0; i < mHelper.size(); ++i)
+		managers.push(mHelper.at(i));
+
+	return m;
 }
 
 // Returns pair< vector<Transaction *>::iterator, vector<Transaction *>::iterator >

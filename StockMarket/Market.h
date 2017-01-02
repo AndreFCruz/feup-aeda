@@ -258,6 +258,11 @@ public:
 	* A member function that redistributes all Managers over the clients.
 	*/
 	void redistributeManagers();
+
+	/**
+	* A member function that returns the information about the Manager of the current Client.
+	*/
+	Manager getClientManager();
 	
 	/**
 	* A member function that adds an order to the unfulfilledOrders vector. Can be from Sell or Buy type.

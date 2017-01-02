@@ -40,8 +40,9 @@ public:
 	* Constructor from file.
 	* The construtor creates a Client object, reading the data from the input stream passed as argument.
 	* @param in The input stream to read from in order to build the client object.
+	* @param clients The map containing the relation between the NIFs and the clients' pointers.
 	*/
-	Manager(ifstream& in);
+	Manager(ifstream& in, map<nif_t, Client *> clients);
 
 	/**
 	* A const member function that writes the Manager's info to the output stream,
@@ -87,10 +88,10 @@ public:
 	string getPassword() const;
 
 	/**
-	* A member function with no arguments to get Manager's clients.
+	* A const member function with no arguments to get Manager's clients.
 	* @return A vector of pointers to Clients, the Manager's clients.
 	*/
-	vector <Client *> getClients();
+	vector <Client *> getClients() const;
 
 	/**
 	* A const member function with no arguments to get the Manager's number of clients.
@@ -103,6 +104,17 @@ public:
 	* @param newpass, the Manager's new password.
 	*/
 	void setPassword(string newpass);
+
+	/**
+	* A member function to add a Client to the Manager's Clients.
+	* @param newCli, a pointer to new Client.
+	*/
+	void addClient(Client * newCli);
+
+	/**
+	* A member function to erase all Clients of a Manager.
+	*/
+	void eraseClients();
 
 	/**
 	* Overload of Output Operator << for class Manager.

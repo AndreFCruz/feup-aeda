@@ -12,7 +12,7 @@ Manager::Manager(string name, string password) : name(name) {
 		this->password = password;
 };
 
-Manager::Manager(ifstream& in) {
+Manager::Manager(ifstream& in, map<nif_t, Client *> clients) {
 	string s;
 	string helper;
 
@@ -35,9 +35,9 @@ Manager::Manager(ifstream& in) {
 		trim(helper);
 
 		//Extracting the client out of the NIF
-		for (auto it = Market::instance()->clients.begin(); it != Market::instance()->clients.end(); ++it) {
-			if (it->first == (nif_t)stoi(helper))
-				clients.push_back(it->second);
+		for (auto it = clients.begin(); it != clients.end(); ++it) {
+			if (it->first == (nif_t) stoi(helper))
+				this->clients.push_back(it->second);
 		}
 
 		s.erase(0, s.find(',') + 1);
@@ -46,9 +46,9 @@ Manager::Manager(ifstream& in) {
 	//Getting the last client
 	trim(s);
 
-	for (auto it = Market::instance()->clients.begin(); it != Market::instance()->clients.end(); ++it) {
+	for (auto it = clients.begin(); it != clients.end(); ++it) {
 		if (it->first == (nif_t)stoi(helper))
-			clients.push_back(it->second);
+			this->clients.push_back(it->second);
 	}
 }
 
@@ -76,7 +76,7 @@ string Manager::getPassword() const {
 	return this->password;
 }
 
-vector <Client *> Manager::getClients() {
+vector <Client *> Manager::getClients() const {
 	return this->clients;
 }
 
@@ -84,26 +84,34 @@ unsigned Manager::getNumberClients() const {
 	return (unsigned) this->clients.size();
 }
 
-void Manager::setPassword( string newpass) {
+void Manager::setPassword(string newpass) {
 	if (newpass.size() < 6)
 		throw InvalidPassword(newpass);
 	else
 		this->password = newpass;
 }
 
+void Manager::addClient(Client * newcli) {
+	this->clients.push_back(newcli);
+}
+
+void Manager::eraseClients() {
+	this->clients.clear();
+}
+
 ostream& operator<<(ostream& out, const Manager& manager) {
-	out << setw(20) << manager.name << ". Number of Clients: " << setw(3) << manager.getNumberClients() << endl;
+	out << setw(15) << manager.name << ". Number of Clients: " << setw(3) << manager.getNumberClients() << endl;
 	return out;
 }
 
 bool operator<(const Manager & m1, const Manager & m2) {
 	if (m1.clients.size() < m2.clients.size())
-		return true;
-	else if (m1.clients.size() > m2.clients.size())
 		return false;
+	else if (m1.clients.size() > m2.clients.size())
+		return true;
 	else if (m1.clients.size() == m2.clients.size()) {
 		if (m1.getName() < m2.getName())
-			return true;
+			return false;
 	}
-	return false;
+	return true;
 }

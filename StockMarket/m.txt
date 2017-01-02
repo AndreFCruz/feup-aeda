@@ -1,4 +1,5 @@
-3
-Edgar ; algoritmo ; 100100100, 123456789, 333333333;
-Jorge Mendes ; ronaldo ; 121212121, 191919191, 999333444;
-Pinto da Costa ; fcporto ; 123123123, 222222222, 999888777;
+4
+Edgar ; algoritmo ; 121212121, 222222222;
+Jorge Mendes ; password123 ; 123123123, 333333333;
+Pinto da Costa ; fcporto ; 123456789, 999333444;
+Andre Cruz ; palavrapasse ; 100100100, 191919191, 999888777;

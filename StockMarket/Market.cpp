@@ -157,7 +157,7 @@ bool Market::signInManager(string name, string pass) {
 	vector<Manager> mHelper;
 	bool flag = false;
 	
-	//Tacking all elements of the priority queue
+	//Populating helper vector
 	while (!managers.empty()) {
 		mHelper.push_back(managers.top());
 		managers.pop();
@@ -187,7 +187,7 @@ bool Market::signUpManager(string name, string pass) {
 	bool flag = true;
 	trim(pass);
 
-	//Tacking all elements of the priority queue
+	//Populating helper vector
 	while (!managers.empty()) {
 		mHelper.push_back(managers.top());
 		managers.pop();
@@ -208,6 +208,9 @@ bool Market::signUpManager(string name, string pass) {
 		managersChanged = true;
 		cout << endl << TAB << "New Manager created sucessfully!\n";	// Needs to be done here because of the try catch thing
 	}
+	else {
+		cout << endl << TAB << "Manager UserName was already taken. Choose another, please.\n";
+	}
 
 	//Need to repeat here because exception may have been thrown
 	while (!managers.empty())
@@ -217,7 +220,6 @@ bool Market::signUpManager(string name, string pass) {
 	for (unsigned i = 0; i < mHelper.size(); ++i)
 		managers.push(mHelper.at(i));
 
-	cout << endl << TAB << "Manager Name was already taken. Choose other, please.\n";
 	return flag;
 }
 
@@ -400,7 +402,7 @@ void Market::showManagers() {
 	}
 
 	for (unsigned i = 0; i < mHelper.size(); ++i)
-		cout << i+1 << ". " << mHelper.at(i);
+		cout << i + 1 << ". " << mHelper.at(i);
 
 	//Re Populating priority queue
 	for (unsigned i = 0; i < mHelper.size(); ++i)
@@ -422,7 +424,7 @@ void Market::showOwnManager() {
 		if (mHelper.at(i).getName() == currentManager) {
 			cout << " Manager name: " << mHelper.at(i).getName() << endl;
 			cout << " Password: " << mHelper.at(i).getPassword() << endl;
-			cout << " List of Clients:" << endl;
+			cout << " List of Clients (by NIF):" << endl;
 			
 			//Printing clients' NIFs
 			for (unsigned j = 0; j < mHelper.at(i).getClients().size(); ++j)
@@ -463,9 +465,10 @@ void Market::ChangeManagerPassword(string newpass) {
 		managers.push(mHelper.at(i));
 }
 
-void Market::deleteOwnManager() {
+bool Market::deleteOwnManager() {
 	//Accessing all priority queue members
 	vector <Manager> mHelper;
+	bool success = false;
 
 	while (!managers.empty()) {
 		mHelper.push_back(managers.top());
@@ -475,13 +478,15 @@ void Market::deleteOwnManager() {
 	for (unsigned i = 0; i < mHelper.size(); ++i) {
 		if (mHelper.at(i).getName() == currentManager) {
 			mHelper.erase(mHelper.begin() + i);
-			cout << TAB << "Manager successfully erased!\n";
+			success = true;
 		}
 	}
 
 	//Re Populating priority queue
 	for (unsigned i = 0; i < mHelper.size(); ++i)
 		managers.push(mHelper.at(i));
+
+	return success;
 }
 
 void Market::redistributeManagers() {

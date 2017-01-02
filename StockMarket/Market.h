@@ -23,7 +23,7 @@ class Market
 private:
 	static Market * singleton_instance;	/**< Market pointer. Contains the pointer to the singleton instance of Market. */
 	nif_t currentNIF;					/**<  nif_t NIF. Saves the NIF of the current client. */
-	string currentManager;				/**<  nif_t NIF. Saves the NIF of the current manager. */
+	string currentManager;				/**<  nif_t NIF. Saves the "username" of the current manager. */
 	
 	/**
 	* A default constructor.
@@ -89,8 +89,8 @@ public:
 
 	/**
 	* A member function that signs in the manager.
-	* @param name Name of the manager/user
-	* @param pass  Password of the manager/user
+	* @param name Username of the manager/user
+	* @param pass Password of the manager/user
 	* @return A boolean, true if signing in was done successfully.
 	*/
 	bool signInManager(string name, string pass);
@@ -251,8 +251,9 @@ public:
 
 	/**
 	* A member function that erases the current Manager.
+	* @return Bool corresponding to whether delete was successful.
 	*/
-	void deleteOwnManager();
+	bool deleteOwnManager();
 
 	/**
 	* A member function that redistributes all Managers over the clients.

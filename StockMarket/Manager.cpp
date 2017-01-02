@@ -50,6 +50,8 @@ Manager::Manager(ifstream& in, map<nif_t, Client *> clients) {
 		if (it->first == (nif_t)stoi(helper))
 			this->clients.push_back(it->second);
 	}
+
+	in.ignore(5, '\n');
 }
 
 void Manager::saveChanges(ofstream& out) const {
@@ -100,7 +102,7 @@ void Manager::eraseClients() {
 }
 
 ostream& operator<<(ostream& out, const Manager& manager) {
-	out << setw(15) << manager.name << ". Number of Clients: " << setw(3) << manager.getNumberClients() << endl;
+	out << setw(20) << manager.name << ". Number of Clients: " << setw(3) << manager.getNumberClients() << endl;
 	return out;
 }
 

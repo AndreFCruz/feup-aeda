@@ -361,8 +361,8 @@ unsigned short int initialOptions() {
 	showTitle("Initial Menu");
 	cout << TAB << "1 - Sign In as Client" << endl;
 	cout << TAB << "2 - Sign Up as Client" << endl;
-	cout << TAB << "3 - Sign In as Manager" << endl; // TODO . Só adicionei para te lembrares
-	cout << TAB << "4 - Sign Up as Manager" << endl; // TODO ?
+	cout << TAB << "3 - Sign In as Manager" << endl;
+	cout << TAB << "4 - Sign Up as Manager" << endl;
 	cout << TAB << "5 - Exit program" << endl << endl;
 	string msg = TAB; msg += "Your option: ";
 	option = getUnsignedShortInt(1, 5, msg);
@@ -538,7 +538,11 @@ void managerMenu() {
 			
 			break;
 		case 4:
-			Market::instance()->deleteOwnManager();
+			if (Market::instance()->deleteOwnManager())
+				cout << TAB << "Manager successfully erased!\n";
+			else
+				cout << TAB << "Manager deletion failed.\n";
+
 			Market::instance()->redistributeManagers();
 			break;
 		}

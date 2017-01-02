@@ -1,10 +1,10 @@
 9
-Alice ; 100100100
-Emidio ; 121212121
-Andre Cruz ; 123123123
-Andre Cruz ; 123456789
-Vidal ; 191919191
-Teste ; 222222222
-Ana Lucia ; 333333333
-Bubacar Manel ; 999333444
-Ines Carneiro ; 999888777
+Alice ; 100100100 ; Rua Afonso Henriques, 12 ; alice@gmail.com ;
+Emidio ; 121212121 ; Rua Dr Emidio, 124 ; emidio@gmail.com ;
+Andre Cruz ; 123123123 ; Rua Afonso III, 12 ; andrecruzzz@gmail.com ;
+Andre Cruz ; 123456789 ; Rua Afonso II, 121 ; um_outro_andre@hotmail.com ;
+Vidal ; 191919191 ; Rua D. Dinis, 10 ; vidal@fe.up.pt ;
+Teste ; 222222222 ; Rua Afonso Henriques, 13 ; teste@telepac.pt ;
+Ana Lucia ; 333333333 ; Rua Afonso Henriques, 22 ; ana@gmail.com ;
+Bubacar Manel ; 999333444 ; Rua D. Dinis, 32 ; manel@gmail.com ;
+Ines Carneiro ; 999888777 ; Rua Zeca Afonso, 16 ; ines@gmail.com ;

@@ -18,6 +18,8 @@ class Client
 {
 	string name;	/**< string name. The client's name. */
 	nif_t nif;		/**< nif_t nif. The client's NIF. */
+	string address;	/**< string address. The client's address. */
+	string contact;	/**< string contact. The client's contact information. */
 
 public:
 
@@ -46,6 +48,12 @@ public:
 	* @return A string, the client's name.
 	*/
 	string getName() const;
+
+	/**
+	* A const member function with no arguments to get the client's contact information.
+	* @return A string, the client's contact information.
+	*/
+	string getContact() const;
 
 	/**
 	* A const member function with no arguments to get the client's NIF.

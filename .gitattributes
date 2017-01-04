@@ -66,5 +66,5 @@
 ####################
 # Documentation Path
 
-Doxygen Documentation/* linguist-documentation
+Doxygen\ Documentation/* linguist-documentation
 docs/formatter.rb linguist-documentation=false

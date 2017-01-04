@@ -61,3 +61,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+
+####################
+# Documentation Path
+
+project-docs/* linguist-documentation
+docs/formatter.rb linguist-documentation=false

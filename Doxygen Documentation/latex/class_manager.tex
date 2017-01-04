@@ -1,0 +1,200 @@
+\hypertarget{class_manager}{}\section{Manager Class Reference}
+\label{class_manager}\index{Manager@{Manager}}
+
+
+{\ttfamily \#include $<$Manager.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_manager_1_1_invalid_password}{Invalid\+Password}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}{Manager} ()=default
+\item 
+\hyperlink{class_manager_ac2426e5aece723685d3f9fcf5db3874d}{Manager} (string name, string password)
+\item 
+\hyperlink{class_manager_ab76e4433a39dda934759acd696aecaea}{Manager} (ifstream \&in, map$<$ nif\+\_\+t, \hyperlink{class_client}{Client} $\ast$$>$ clients)
+\item 
+void \hyperlink{class_manager_ab9bd1c1c60122f3db0fca93fc4313833}{save\+Changes} (ofstream \&out) const
+\item 
+string \hyperlink{class_manager_ae351774d9435b59ece5d1287e9056a02}{get\+Name} () const
+\item 
+string \hyperlink{class_manager_a0e51eb07257a109072b7d0c9740915f3}{get\+Password} () const
+\item 
+vector$<$ \hyperlink{class_client}{Client} $\ast$ $>$ \hyperlink{class_manager_ac72967b5719ee6f9461923bedc8d47b7}{get\+Clients} () const
+\item 
+unsigned \hyperlink{class_manager_a7cbdf1fa72bc7a42be54d69ca121bc24}{get\+Number\+Clients} () const
+\item 
+void \hyperlink{class_manager_a19e98a7209d6218c960eb278ccbaf6cb}{set\+Password} (string newpass)
+\item 
+void \hyperlink{class_manager_a2c4d1978af9e2f99b4aa787973ce2c49}{add\+Client} (\hyperlink{class_client}{Client} $\ast$new\+Cli)
+\item 
+void \hyperlink{class_manager_ae0cc7db4e0550368657fe7c2d7d397ef}{erase\+Clients} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_manager_aa5bf719dafd06d7f39a7c5f34421336d}{operator$<$$<$} (ostream \&out, const \hyperlink{class_manager}{Manager} \&manager)
+\item 
+bool \hyperlink{class_manager_a99e92cb4ec06950c06aaa800e538b6fd}{operator$<$} (const \hyperlink{class_manager}{Manager} \&m1, const \hyperlink{class_manager}{Manager} \&m2)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class used to represent a \hyperlink{class_manager}{Manager}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}{}\label{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0} 
+\index{Manager@{Manager}!Manager@{Manager}}
+\index{Manager@{Manager}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{Manager()}{Manager()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Manager\+::\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Explicit default constructor. \hypertarget{class_manager_ac2426e5aece723685d3f9fcf5db3874d}{}\label{class_manager_ac2426e5aece723685d3f9fcf5db3874d} 
+\index{Manager@{Manager}!Manager@{Manager}}
+\index{Manager@{Manager}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{Manager()}{Manager()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Manager\+::\+Manager (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{string}]{password }\end{DoxyParamCaption})}
+
+Constructor for \hyperlink{class_manager}{Manager} object. The construtor creates a \hyperlink{class_manager}{Manager} object, with the data supplied as arguments. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the \hyperlink{class_manager}{Manager}. \\
+\hline
+{\em password} & The password of the \hyperlink{class_manager}{Manager} account. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_manager_ab76e4433a39dda934759acd696aecaea}{}\label{class_manager_ab76e4433a39dda934759acd696aecaea} 
+\index{Manager@{Manager}!Manager@{Manager}}
+\index{Manager@{Manager}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{Manager()}{Manager()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Manager\+::\+Manager (\begin{DoxyParamCaption}\item[{ifstream \&}]{in,  }\item[{map$<$ nif\+\_\+t, \hyperlink{class_client}{Client} $\ast$$>$}]{clients }\end{DoxyParamCaption})}
+
+Constructor from file. The construtor creates a \hyperlink{class_client}{Client} object, reading the data from the input stream passed as argument. 
+\begin{DoxyParams}{Parameters}
+{\em in} & The input stream to read from in order to build the client object. \\
+\hline
+{\em clients} & The map containing the relation between the N\+I\+Fs and the clients\textquotesingle{} pointers. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_manager_a2c4d1978af9e2f99b4aa787973ce2c49}{}\label{class_manager_a2c4d1978af9e2f99b4aa787973ce2c49} 
+\index{Manager@{Manager}!add\+Client@{add\+Client}}
+\index{add\+Client@{add\+Client}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{add\+Client()}{addClient()}}
+{\footnotesize\ttfamily void Manager\+::add\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{class_client}{Client} $\ast$}]{new\+Cli }\end{DoxyParamCaption})}
+
+A member function to add a \hyperlink{class_client}{Client} to the \hyperlink{class_manager}{Manager}\textquotesingle{}s Clients. 
+\begin{DoxyParams}{Parameters}
+{\em new\+Cli,a} & pointer to new \hyperlink{class_client}{Client}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_manager_ae0cc7db4e0550368657fe7c2d7d397ef}{}\label{class_manager_ae0cc7db4e0550368657fe7c2d7d397ef} 
+\index{Manager@{Manager}!erase\+Clients@{erase\+Clients}}
+\index{erase\+Clients@{erase\+Clients}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{erase\+Clients()}{eraseClients()}}
+{\footnotesize\ttfamily void Manager\+::erase\+Clients (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function to erase all Clients of a \hyperlink{class_manager}{Manager}. \hypertarget{class_manager_ac72967b5719ee6f9461923bedc8d47b7}{}\label{class_manager_ac72967b5719ee6f9461923bedc8d47b7} 
+\index{Manager@{Manager}!get\+Clients@{get\+Clients}}
+\index{get\+Clients@{get\+Clients}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{get\+Clients()}{getClients()}}
+{\footnotesize\ttfamily vector$<$ \hyperlink{class_client}{Client} $\ast$ $>$ Manager\+::get\+Clients (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get \hyperlink{class_manager}{Manager}\textquotesingle{}s clients. \begin{DoxyReturn}{Returns}
+A vector of pointers to Clients, the \hyperlink{class_manager}{Manager}\textquotesingle{}s clients. 
+\end{DoxyReturn}
+\hypertarget{class_manager_ae351774d9435b59ece5d1287e9056a02}{}\label{class_manager_ae351774d9435b59ece5d1287e9056a02} 
+\index{Manager@{Manager}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{get\+Name()}{getName()}}
+{\footnotesize\ttfamily string Manager\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the \hyperlink{class_manager}{Manager}\textquotesingle{}s name. \begin{DoxyReturn}{Returns}
+A string, the \hyperlink{class_manager}{Manager}\textquotesingle{}s name. 
+\end{DoxyReturn}
+\hypertarget{class_manager_a7cbdf1fa72bc7a42be54d69ca121bc24}{}\label{class_manager_a7cbdf1fa72bc7a42be54d69ca121bc24} 
+\index{Manager@{Manager}!get\+Number\+Clients@{get\+Number\+Clients}}
+\index{get\+Number\+Clients@{get\+Number\+Clients}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{get\+Number\+Clients()}{getNumberClients()}}
+{\footnotesize\ttfamily unsigned Manager\+::get\+Number\+Clients (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the \hyperlink{class_manager}{Manager}\textquotesingle{}s number of clients. \begin{DoxyReturn}{Returns}
+A unsgined, the \hyperlink{class_manager}{Manager}\textquotesingle{}s number of clients. 
+\end{DoxyReturn}
+\hypertarget{class_manager_a0e51eb07257a109072b7d0c9740915f3}{}\label{class_manager_a0e51eb07257a109072b7d0c9740915f3} 
+\index{Manager@{Manager}!get\+Password@{get\+Password}}
+\index{get\+Password@{get\+Password}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{get\+Password()}{getPassword()}}
+{\footnotesize\ttfamily string Manager\+::get\+Password (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the \hyperlink{class_manager}{Manager}\textquotesingle{}s password. Used for Sign in purposes. \begin{DoxyReturn}{Returns}
+A string, the \hyperlink{class_manager}{Manager}\textquotesingle{}s password. 
+\end{DoxyReturn}
+\hypertarget{class_manager_ab9bd1c1c60122f3db0fca93fc4313833}{}\label{class_manager_ab9bd1c1c60122f3db0fca93fc4313833} 
+\index{Manager@{Manager}!save\+Changes@{save\+Changes}}
+\index{save\+Changes@{save\+Changes}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{save\+Changes()}{saveChanges()}}
+{\footnotesize\ttfamily void Manager\+::save\+Changes (\begin{DoxyParamCaption}\item[{ofstream \&}]{out }\end{DoxyParamCaption}) const}
+
+A const member function that writes the \hyperlink{class_manager}{Manager}\textquotesingle{}s info to the output stream, used to save the \hyperlink{class_manager}{Manager}\textquotesingle{}s attributes. 
+\begin{DoxyParams}{Parameters}
+{\em out} & The output stream to write the \hyperlink{class_manager}{Manager}\textquotesingle{}s information. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_manager_a19e98a7209d6218c960eb278ccbaf6cb}{}\label{class_manager_a19e98a7209d6218c960eb278ccbaf6cb} 
+\index{Manager@{Manager}!set\+Password@{set\+Password}}
+\index{set\+Password@{set\+Password}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{set\+Password()}{setPassword()}}
+{\footnotesize\ttfamily void Manager\+::set\+Password (\begin{DoxyParamCaption}\item[{string}]{newpass }\end{DoxyParamCaption})}
+
+A member function to change the \hyperlink{class_manager}{Manager}\textquotesingle{}s password. 
+\begin{DoxyParams}{Parameters}
+{\em newpass,the} & \hyperlink{class_manager}{Manager}\textquotesingle{}s new password. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_manager_a99e92cb4ec06950c06aaa800e538b6fd}{}\label{class_manager_a99e92cb4ec06950c06aaa800e538b6fd} 
+\index{Manager@{Manager}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{operator$<$}{operator<}}
+{\footnotesize\ttfamily bool operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{class_manager}{Manager} \&}]{m1,  }\item[{const \hyperlink{class_manager}{Manager} \&}]{m2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Overload of Operator $<$ for class \hyperlink{class_manager}{Manager}. 
+\begin{DoxyParams}{Parameters}
+{\em m1} & First \hyperlink{class_manager}{Manager}. \\
+\hline
+{\em m2} & Second \hyperlink{class_manager}{Manager}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a boolean value, true if m1 $<$ m2. 
+\end{DoxyReturn}
+\hypertarget{class_manager_aa5bf719dafd06d7f39a7c5f34421336d}{}\label{class_manager_aa5bf719dafd06d7f39a7c5f34421336d} 
+\index{Manager@{Manager}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Manager@{Manager}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{out,  }\item[{const \hyperlink{class_manager}{Manager} \&}]{manager }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Overload of Output Operator $<$$<$ for class \hyperlink{class_manager}{Manager}. Prints the \hyperlink{class_manager}{Manager}\textquotesingle{}s information in a human friendly way. 
+\begin{DoxyParams}{Parameters}
+{\em out} & The outstream to write to. \\
+\hline
+{\em manager} & The \hyperlink{class_manager}{Manager} to be written. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the output stream to allow chaining. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Manager.\+h\item 
+Manager.\+cpp\end{DoxyCompactItemize}

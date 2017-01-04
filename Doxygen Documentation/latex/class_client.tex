@@ -1,0 +1,158 @@
+\hypertarget{class_client}{}\section{Client Class Reference}
+\label{class_client}\index{Client@{Client}}
+
+
+{\ttfamily \#include $<$Client.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_client_1_1_invalid_n_i_f}{Invalid\+N\+IF}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_client_ac13ad1e98c47db57ce0823dc735261cd}{Client} ()=default
+\item 
+\hyperlink{class_client_a978037b72169d091a54867507ecd38ed}{Client} (ifstream \&in)
+\item 
+\hyperlink{class_client_a6e10627d296d1fb74f092935784356e3}{Client} (string name, nif\+\_\+t nif, string address, string contact)
+\item 
+string \hyperlink{class_client_a5c473ba52d7678744edec9e51052c947}{get\+Name} () const
+\item 
+string \hyperlink{class_client_ac78e5756e7151f9bdfc2662dd4cab207}{get\+Contact} () const
+\item 
+string \hyperlink{class_client_afdf2c15b5ef6f4069786077717702a3f}{get\+Address} () const
+\item 
+nif\+\_\+t \hyperlink{class_client_a2f9bc46f381dcbd0f35929f54dabad59}{get\+N\+IF} () const
+\item 
+bool \hyperlink{class_client_ac55e135fde79306fd9892edf9d4a3d3c}{set\+Address} (string address)
+\item 
+bool \hyperlink{class_client_a8ea7024b571a3145a3de24fc526790ae}{set\+Contact} (string contact)
+\item 
+void \hyperlink{class_client_a3bd7a77458497b3b863b7c7515d76e68}{save\+Changes} (ofstream \&out) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class used to represent a client. Each client object has a name and a nif (from the portuguese \char`\"{}\+Numero de Identificação Fiscal\char`\"{}). 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_client_ac13ad1e98c47db57ce0823dc735261cd}{}\label{class_client_ac13ad1e98c47db57ce0823dc735261cd} 
+\index{Client@{Client}!Client@{Client}}
+\index{Client@{Client}!Client@{Client}}
+\subsubsection{\texorpdfstring{Client()}{Client()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Explicit default constructor. \hypertarget{class_client_a978037b72169d091a54867507ecd38ed}{}\label{class_client_a978037b72169d091a54867507ecd38ed} 
+\index{Client@{Client}!Client@{Client}}
+\index{Client@{Client}!Client@{Client}}
+\subsubsection{\texorpdfstring{Client()}{Client()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}\item[{ifstream \&}]{in }\end{DoxyParamCaption})}
+
+Constructor from file. The construtor creates a \hyperlink{class_client}{Client} object, reading the data from the input stream passed as argument. 
+\begin{DoxyParams}{Parameters}
+{\em in} & The input stream to read from in order to build the client object. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_client_a6e10627d296d1fb74f092935784356e3}{}\label{class_client_a6e10627d296d1fb74f092935784356e3} 
+\index{Client@{Client}!Client@{Client}}
+\index{Client@{Client}!Client@{Client}}
+\subsubsection{\texorpdfstring{Client()}{Client()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{nif\+\_\+t}]{nif,  }\item[{string}]{address,  }\item[{string}]{contact }\end{DoxyParamCaption})}
+
+A constructor. The construtor creates a client object with the data passed as arguments. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The client\textquotesingle{}s name. \\
+\hline
+{\em nif} & The client\textquotesingle{}s N\+IF. \\
+\hline
+{\em address} & The client\textquotesingle{}s address. \\
+\hline
+{\em contact} & The client\textquotesingle{}s contact information. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_client_afdf2c15b5ef6f4069786077717702a3f}{}\label{class_client_afdf2c15b5ef6f4069786077717702a3f} 
+\index{Client@{Client}!get\+Address@{get\+Address}}
+\index{get\+Address@{get\+Address}!Client@{Client}}
+\subsubsection{\texorpdfstring{get\+Address()}{getAddress()}}
+{\footnotesize\ttfamily string Client\+::get\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the client\textquotesingle{}s address. \begin{DoxyReturn}{Returns}
+A string, the client\textquotesingle{}s current address information. 
+\end{DoxyReturn}
+\hypertarget{class_client_ac78e5756e7151f9bdfc2662dd4cab207}{}\label{class_client_ac78e5756e7151f9bdfc2662dd4cab207} 
+\index{Client@{Client}!get\+Contact@{get\+Contact}}
+\index{get\+Contact@{get\+Contact}!Client@{Client}}
+\subsubsection{\texorpdfstring{get\+Contact()}{getContact()}}
+{\footnotesize\ttfamily string Client\+::get\+Contact (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the client\textquotesingle{}s contact information. \begin{DoxyReturn}{Returns}
+A string, the client\textquotesingle{}s contact information. 
+\end{DoxyReturn}
+\hypertarget{class_client_a5c473ba52d7678744edec9e51052c947}{}\label{class_client_a5c473ba52d7678744edec9e51052c947} 
+\index{Client@{Client}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Client@{Client}}
+\subsubsection{\texorpdfstring{get\+Name()}{getName()}}
+{\footnotesize\ttfamily string Client\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the client\textquotesingle{}s name. \begin{DoxyReturn}{Returns}
+A string, the client\textquotesingle{}s name. 
+\end{DoxyReturn}
+\hypertarget{class_client_a2f9bc46f381dcbd0f35929f54dabad59}{}\label{class_client_a2f9bc46f381dcbd0f35929f54dabad59} 
+\index{Client@{Client}!get\+N\+IF@{get\+N\+IF}}
+\index{get\+N\+IF@{get\+N\+IF}!Client@{Client}}
+\subsubsection{\texorpdfstring{get\+N\+I\+F()}{getNIF()}}
+{\footnotesize\ttfamily nif\+\_\+t Client\+::get\+N\+IF (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the client\textquotesingle{}s N\+IF. \begin{DoxyReturn}{Returns}
+A nif\+\_\+t, the client\textquotesingle{}s N\+IF. 
+\end{DoxyReturn}
+\hypertarget{class_client_a3bd7a77458497b3b863b7c7515d76e68}{}\label{class_client_a3bd7a77458497b3b863b7c7515d76e68} 
+\index{Client@{Client}!save\+Changes@{save\+Changes}}
+\index{save\+Changes@{save\+Changes}!Client@{Client}}
+\subsubsection{\texorpdfstring{save\+Changes()}{saveChanges()}}
+{\footnotesize\ttfamily void Client\+::save\+Changes (\begin{DoxyParamCaption}\item[{ofstream \&}]{out }\end{DoxyParamCaption}) const}
+
+A const member function that writes the client\textquotesingle{}s info to the output stream. Generally used to save the client\textquotesingle{}s attributes to a file. 
+\begin{DoxyParams}{Parameters}
+{\em out} & The output stream to write the client\textquotesingle{}s information. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_client_ac55e135fde79306fd9892edf9d4a3d3c}{}\label{class_client_ac55e135fde79306fd9892edf9d4a3d3c} 
+\index{Client@{Client}!set\+Address@{set\+Address}}
+\index{set\+Address@{set\+Address}!Client@{Client}}
+\subsubsection{\texorpdfstring{set\+Address()}{setAddress()}}
+{\footnotesize\ttfamily bool Client\+::set\+Address (\begin{DoxyParamCaption}\item[{string}]{address }\end{DoxyParamCaption})}
+
+Changes the client\textquotesingle{}s address. 
+\begin{DoxyParams}{Parameters}
+{\em address} & The new address. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if change was successful. 
+\end{DoxyReturn}
+\hypertarget{class_client_a8ea7024b571a3145a3de24fc526790ae}{}\label{class_client_a8ea7024b571a3145a3de24fc526790ae} 
+\index{Client@{Client}!set\+Contact@{set\+Contact}}
+\index{set\+Contact@{set\+Contact}!Client@{Client}}
+\subsubsection{\texorpdfstring{set\+Contact()}{setContact()}}
+{\footnotesize\ttfamily bool Client\+::set\+Contact (\begin{DoxyParamCaption}\item[{string}]{contact }\end{DoxyParamCaption})}
+
+Changes the client\textquotesingle{}s contact information. 
+\begin{DoxyParams}{Parameters}
+{\em contact} & The new contact information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if change was successful. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Client.\+h\item 
+Client.\+cpp\end{DoxyCompactItemize}

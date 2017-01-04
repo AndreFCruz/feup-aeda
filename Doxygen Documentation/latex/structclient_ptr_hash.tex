@@ -1,0 +1,54 @@
+\hypertarget{structclient_ptr_hash}{}\section{client\+Ptr\+Hash Struct Reference}
+\label{structclient_ptr_hash}\index{client\+Ptr\+Hash@{client\+Ptr\+Hash}}
+
+
+{\ttfamily \#include $<$Client.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structclient_ptr_hash_ac49312a0983336d28135483f5e2c4f5c}{operator()} (const \hyperlink{class_client}{Client} $\ast$cli) const
+\item 
+bool \hyperlink{structclient_ptr_hash_adb7164b667757ee8091c7b7337b1be2b}{operator()} (const \hyperlink{class_client}{Client} $\ast$cli1, const \hyperlink{class_client}{Client} $\ast$cli2) const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A structure to encapsulate the Hash and Comparison functions of \hyperlink{class_client}{Client} Pointers. 
+
+\subsection{Member Function Documentation}
+\hypertarget{structclient_ptr_hash_ac49312a0983336d28135483f5e2c4f5c}{}\label{structclient_ptr_hash_ac49312a0983336d28135483f5e2c4f5c} 
+\index{client\+Ptr\+Hash@{client\+Ptr\+Hash}!operator()@{operator()}}
+\index{operator()@{operator()}!client\+Ptr\+Hash@{client\+Ptr\+Hash}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily int client\+Ptr\+Hash\+::operator() (\begin{DoxyParamCaption}\item[{const \hyperlink{class_client}{Client} $\ast$}]{cli }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Hash Function for Client$\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em cli} & Pointer to a \hyperlink{class_client}{Client} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+hash value. 
+\end{DoxyReturn}
+\hypertarget{structclient_ptr_hash_adb7164b667757ee8091c7b7337b1be2b}{}\label{structclient_ptr_hash_adb7164b667757ee8091c7b7337b1be2b} 
+\index{client\+Ptr\+Hash@{client\+Ptr\+Hash}!operator()@{operator()}}
+\index{operator()@{operator()}!client\+Ptr\+Hash@{client\+Ptr\+Hash}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool client\+Ptr\+Hash\+::operator() (\begin{DoxyParamCaption}\item[{const \hyperlink{class_client}{Client} $\ast$}]{cli1,  }\item[{const \hyperlink{class_client}{Client} $\ast$}]{cli2 }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Comparison Function for Client$\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em cli1} & Pointer to a \hyperlink{class_client}{Client} object. \\
+\hline
+{\em cli1} & Pointer to a \hyperlink{class_client}{Client} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if Clients pointed by cli1 and cli2 are the same, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Client.\+h\end{DoxyCompactItemize}

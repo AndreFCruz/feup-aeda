@@ -1,0 +1,176 @@
+\hypertarget{class_news}{}\section{News Class Reference}
+\label{class_news}\index{News@{News}}
+
+
+{\ttfamily \#include $<$News.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_news_aa82f7305493ddd4a7e66709b64514564}{News} ()=default
+\item 
+\hyperlink{class_news_aa8fb1803abb881755646e465e540aeb2}{News} (string company, \hyperlink{class_date}{Date} d, string newspaper, unsigned short int classification)
+\item 
+\hyperlink{class_news_a3f45f75b0acaab82815942af625cc28b}{News} (ifstream \&in)
+\item 
+void \hyperlink{class_news_a138d8508a5b0f9e42ea7e1b45e109a64}{save\+Changes} (ofstream \&out) const
+\item 
+string \hyperlink{class_news_aa95b12d89e76616f0fbfd34d4d6bfab6}{get\+Company} () const
+\item 
+\hyperlink{class_date}{Date} \hyperlink{class_news_ac0970d5b32fede42e29a3b326113cda0}{get\+Date} () const
+\item 
+string \hyperlink{class_news_af94abb955ce219bce13bb3169df25826}{get\+Newspaper} () const
+\item 
+unsigned short int \hyperlink{class_news_a8a4ee8e5da2485868cd8b25105d55299}{get\+Classification} () const
+\item 
+void \hyperlink{class_news_adc82fcf213f23b2598a26d59a697d651}{set\+Classification} (unsigned short int c)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_news_a9440c22f12d6ed3e7c1026dd53e8da61}{operator$<$$<$} (ostream \&out, const \hyperlink{class_news}{News} \&n)
+\item 
+bool \hyperlink{class_news_acca70bd436d0fa5aef509c188a8195a4}{operator$<$} (const \hyperlink{class_news}{News} \&n1, const \hyperlink{class_news}{News} \&n2)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class used to represent a \hyperlink{class_news}{News}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_news_aa82f7305493ddd4a7e66709b64514564}{}\label{class_news_aa82f7305493ddd4a7e66709b64514564} 
+\index{News@{News}!News@{News}}
+\index{News@{News}!News@{News}}
+\subsubsection{\texorpdfstring{News()}{News()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily News\+::\+News (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Explicit default constructor. \hypertarget{class_news_aa8fb1803abb881755646e465e540aeb2}{}\label{class_news_aa8fb1803abb881755646e465e540aeb2} 
+\index{News@{News}!News@{News}}
+\index{News@{News}!News@{News}}
+\subsubsection{\texorpdfstring{News()}{News()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily News\+::\+News (\begin{DoxyParamCaption}\item[{string}]{company,  }\item[{\hyperlink{class_date}{Date}}]{d,  }\item[{string}]{newspaper,  }\item[{unsigned short int}]{classification }\end{DoxyParamCaption})}
+
+Constructor for \hyperlink{class_news}{News} object. The construtor creates a \hyperlink{class_news}{News} object, with the data supplied as arguments. 
+\begin{DoxyParams}{Parameters}
+{\em company} & The name of the company mentioned. \\
+\hline
+{\em d} & The date when the news was published. \\
+\hline
+{\em newspaper} & The name of the newspaper where the news was published. \\
+\hline
+{\em classification} & The \hyperlink{class_news}{News}\textquotesingle{} classification, from bad (0) to good (10). \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_news_a3f45f75b0acaab82815942af625cc28b}{}\label{class_news_a3f45f75b0acaab82815942af625cc28b} 
+\index{News@{News}!News@{News}}
+\index{News@{News}!News@{News}}
+\subsubsection{\texorpdfstring{News()}{News()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily News\+::\+News (\begin{DoxyParamCaption}\item[{ifstream \&}]{in }\end{DoxyParamCaption})}
+
+Constructor from file. The construtor creates a \hyperlink{class_news}{News} object, reading the data from the input stream passed as argument. 
+\begin{DoxyParams}{Parameters}
+{\em in} & The input stream to read from in order to build the client object. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_news_a8a4ee8e5da2485868cd8b25105d55299}{}\label{class_news_a8a4ee8e5da2485868cd8b25105d55299} 
+\index{News@{News}!get\+Classification@{get\+Classification}}
+\index{get\+Classification@{get\+Classification}!News@{News}}
+\subsubsection{\texorpdfstring{get\+Classification()}{getClassification()}}
+{\footnotesize\ttfamily unsigned short int News\+::get\+Classification (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the \hyperlink{class_news}{News}\textquotesingle{} Classification. \begin{DoxyReturn}{Returns}
+An unsigned short int, corresponding to the \hyperlink{class_news}{News} classification, from bad (0) to good (10). 
+\end{DoxyReturn}
+\hypertarget{class_news_aa95b12d89e76616f0fbfd34d4d6bfab6}{}\label{class_news_aa95b12d89e76616f0fbfd34d4d6bfab6} 
+\index{News@{News}!get\+Company@{get\+Company}}
+\index{get\+Company@{get\+Company}!News@{News}}
+\subsubsection{\texorpdfstring{get\+Company()}{getCompany()}}
+{\footnotesize\ttfamily string News\+::get\+Company (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the \hyperlink{class_news}{News}\textquotesingle{} Company name. \begin{DoxyReturn}{Returns}
+A string, the Company\textquotesingle{}s name. 
+\end{DoxyReturn}
+\hypertarget{class_news_ac0970d5b32fede42e29a3b326113cda0}{}\label{class_news_ac0970d5b32fede42e29a3b326113cda0} 
+\index{News@{News}!get\+Date@{get\+Date}}
+\index{get\+Date@{get\+Date}!News@{News}}
+\subsubsection{\texorpdfstring{get\+Date()}{getDate()}}
+{\footnotesize\ttfamily \hyperlink{class_date}{Date} News\+::get\+Date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the \hyperlink{class_date}{Date} the news was published. \begin{DoxyReturn}{Returns}
+A \hyperlink{class_date}{Date} object, with the information regarding when the news was published. 
+\end{DoxyReturn}
+\hypertarget{class_news_af94abb955ce219bce13bb3169df25826}{}\label{class_news_af94abb955ce219bce13bb3169df25826} 
+\index{News@{News}!get\+Newspaper@{get\+Newspaper}}
+\index{get\+Newspaper@{get\+Newspaper}!News@{News}}
+\subsubsection{\texorpdfstring{get\+Newspaper()}{getNewspaper()}}
+{\footnotesize\ttfamily string News\+::get\+Newspaper (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function with no arguments to get the \hyperlink{class_news}{News}\textquotesingle{} Newspaper name. \begin{DoxyReturn}{Returns}
+A string, the Newspaper\textquotesingle{}s name. 
+\end{DoxyReturn}
+\hypertarget{class_news_a138d8508a5b0f9e42ea7e1b45e109a64}{}\label{class_news_a138d8508a5b0f9e42ea7e1b45e109a64} 
+\index{News@{News}!save\+Changes@{save\+Changes}}
+\index{save\+Changes@{save\+Changes}!News@{News}}
+\subsubsection{\texorpdfstring{save\+Changes()}{saveChanges()}}
+{\footnotesize\ttfamily void News\+::save\+Changes (\begin{DoxyParamCaption}\item[{ofstream \&}]{out }\end{DoxyParamCaption}) const}
+
+A const member function that writes the news\textquotesingle{} info to the output stream, used to save the news\textquotesingle{} attributes. 
+\begin{DoxyParams}{Parameters}
+{\em out} & The output stream to write the news\textquotesingle{} information. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_news_adc82fcf213f23b2598a26d59a697d651}{}\label{class_news_adc82fcf213f23b2598a26d59a697d651} 
+\index{News@{News}!set\+Classification@{set\+Classification}}
+\index{set\+Classification@{set\+Classification}!News@{News}}
+\subsubsection{\texorpdfstring{set\+Classification()}{setClassification()}}
+{\footnotesize\ttfamily void News\+::set\+Classification (\begin{DoxyParamCaption}\item[{unsigned short int}]{c }\end{DoxyParamCaption})}
+
+A member function with no arguments to set the \hyperlink{class_news}{News}\textquotesingle{} Classification. 
+\begin{DoxyParams}{Parameters}
+{\em An} & unsigned short int, corresponding to the \hyperlink{class_news}{News} classification, from bad (0) to good (10). \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_news_acca70bd436d0fa5aef509c188a8195a4}{}\label{class_news_acca70bd436d0fa5aef509c188a8195a4} 
+\index{News@{News}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!News@{News}}
+\subsubsection{\texorpdfstring{operator$<$}{operator<}}
+{\footnotesize\ttfamily bool operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{class_news}{News} \&}]{n1,  }\item[{const \hyperlink{class_news}{News} \&}]{n2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Overload of Operator $<$ for class \hyperlink{class_news}{News}. 
+\begin{DoxyParams}{Parameters}
+{\em n1} & First \hyperlink{class_news}{News} \\
+\hline
+{\em n2} & Second \hyperlink{class_news}{News} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a boolean value, true if n1 $<$ n2 
+\end{DoxyReturn}
+\hypertarget{class_news_a9440c22f12d6ed3e7c1026dd53e8da61}{}\label{class_news_a9440c22f12d6ed3e7c1026dd53e8da61} 
+\index{News@{News}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!News@{News}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{out,  }\item[{const \hyperlink{class_news}{News} \&}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Overload of Output Operator $<$$<$ for class \hyperlink{class_news}{News}. Prints the \hyperlink{class_news}{News}\textquotesingle{} information in a human friendly way. 
+\begin{DoxyParams}{Parameters}
+{\em out} & The outstream to write to. \\
+\hline
+{\em n} & The \hyperlink{class_news}{News} to be written. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the output stream to allow chaining 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+News.\+h\item 
+News.\+cpp\end{DoxyCompactItemize}

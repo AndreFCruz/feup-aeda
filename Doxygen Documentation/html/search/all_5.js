@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['get_5fday',['get_day',['../class_date.html#a86208bd42da6587c4b45ed93d688d483',1,'Date']]],
+  ['get_5fmonth',['get_month',['../class_date.html#a89ae60bad421600e3ee901eb0df44975',1,'Date']]],
+  ['get_5fyear',['get_year',['../class_date.html#a9e77e9f49890449fea9aeb8114da95ff',1,'Date']]],
+  ['getaddress',['getAddress',['../class_client.html#afdf2c15b5ef6f4069786077717702a3f',1,'Client']]],
+  ['getbuyernif',['getBuyerNIF',['../class_transaction.html#afa91c88bb936d8bd8480ac36b599649b',1,'Transaction']]],
+  ['getclassification',['getClassification',['../class_news.html#a8a4ee8e5da2485868cd8b25105d55299',1,'News']]],
+  ['getclientmanager',['getClientManager',['../class_market.html#a9a1890b1cbe63050690562427a3c7a0d',1,'Market']]],
+  ['getclientnif',['getClientNIF',['../class_order.html#a9831f386726f74ee20eea13a46282e13',1,'Order::getClientNIF()'],['../class_buy_order.html#ab79597b9bf0656216b2283bfa3a650e0',1,'BuyOrder::getClientNIF()'],['../class_sell_order.html#a2f34e30d8bc5c891c40d8b80342cc34d',1,'SellOrder::getClientNIF()']]],
+  ['getclients',['getClients',['../class_manager.html#ac72967b5719ee6f9461923bedc8d47b7',1,'Manager']]],
+  ['getcompany',['getCompany',['../class_news.html#aa95b12d89e76616f0fbfd34d4d6bfab6',1,'News']]],
+  ['getcontact',['getContact',['../class_client.html#ac78e5756e7151f9bdfc2662dd4cab207',1,'Client']]],
+  ['getcurrentmanager',['getCurrentManager',['../class_market.html#ad64fc7b35bb0b060345ff1bd0fbe2f51',1,'Market']]],
+  ['getcurrentnif',['getCurrentNIF',['../class_market.html#acc909b8410ea76b1dfecf92088264741',1,'Market']]],
+  ['getdate',['getDate',['../class_news.html#ac0970d5b32fede42e29a3b326113cda0',1,'News::getDate()'],['../class_transaction.html#af2ef4a1ef82f9ff5d34dae7234211589',1,'Transaction::getDate()']]],
+  ['getdateplaced',['getDatePlaced',['../class_order.html#a8ffb9095f78f8a3b1942e7995516007c',1,'Order']]],
+  ['getname',['getName',['../class_client.html#a5c473ba52d7678744edec9e51052c947',1,'Client::getName()'],['../class_manager.html#ae351774d9435b59ece5d1287e9056a02',1,'Manager::getName()']]],
+  ['getnewspaper',['getNewspaper',['../class_news.html#af94abb955ce219bce13bb3169df25826',1,'News']]],
+  ['getnif',['getNIF',['../class_client.html#a2f9bc46f381dcbd0f35929f54dabad59',1,'Client::getNIF()'],['../class_client_1_1_invalid_n_i_f.html#a9ce8fd030fcd6ea099d40e3c53495684',1,'Client::InvalidNIF::getNIF()']]],
+  ['getnumberclients',['getNumberClients',['../class_manager.html#a7cbdf1fa72bc7a42be54d69ca121bc24',1,'Manager']]],
+  ['getpassword',['getPassword',['../class_manager_1_1_invalid_password.html#a50dac6f3a960996704aad8613aace04b',1,'Manager::InvalidPassword::getPassword()'],['../class_manager.html#a0e51eb07257a109072b7d0c9740915f3',1,'Manager::getPassword()']]],
+  ['getquantity',['getQuantity',['../class_order.html#a1d34436da1dbc3ffad588505eca5ff49',1,'Order::getQuantity()'],['../class_transaction.html#ab3bfaa0469e1f45c5bd5dc164ac3c850',1,'Transaction::getQuantity()']]],
+  ['getsellernif',['getSellerNIF',['../class_transaction.html#a3c3a57a3240bece392c56ff41bc3c21b',1,'Transaction']]],
+  ['getstock',['getStock',['../class_order.html#aa008956fd77ac3d254117443b7d916fa',1,'Order::getStock()'],['../class_transaction.html#af6582ddc59e9cfa99a7ef178216799be',1,'Transaction::getStock()']]],
+  ['getvalue',['getValue',['../class_order.html#a7e93f84ff8b0468aef7e7ee23ea1979c',1,'Order::getValue()'],['../class_transaction.html#a95976b2e60b66d766edf4db534324db4',1,'Transaction::getValue()']]]
+];

@@ -1,0 +1,530 @@
+\hypertarget{class_market}{}\section{Market Class Reference}
+\label{class_market}\index{Market@{Market}}
+
+
+{\ttfamily \#include $<$Market.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_market_a6b0d677963c278fc238c1efdd29ba43e}{sign\+In} (string name, nif\+\_\+t nif)
+\item 
+void \hyperlink{class_market_acbd4a1e28685f78b6b2c59aa5ca9874f}{sign\+Out} ()
+\item 
+bool \hyperlink{class_market_ae575e2c591bd3e14bae27b81cfecada9}{sign\+Up} (string name, nif\+\_\+t nif, string address, string contact)
+\item 
+bool \hyperlink{class_market_a036f56168e25a9ee71a6d0818641ac10}{sign\+In\+Manager} (string name, string pass)
+\item 
+void \hyperlink{class_market_a59f7b338118ec5b93624a4e6ab62ba6d}{sign\+Out\+Manager} ()
+\item 
+bool \hyperlink{class_market_a716ee722e79de53b8a191a6bd1bb48dd}{sign\+Up\+Manager} (string name, string pass)
+\item 
+nif\+\_\+t \hyperlink{class_market_acc909b8410ea76b1dfecf92088264741}{get\+Current\+N\+IF} () const
+\item 
+string \hyperlink{class_market_ad64fc7b35bb0b060345ff1bd0fbe2f51}{get\+Current\+Manager} () const
+\item 
+void \hyperlink{class_market_ad55d5db41984c8c4f1f027cd1f720a0b}{show\+Client\+Info} () const
+\item 
+void \hyperlink{class_market_ab12d4a35aed820924483f336948cf4b4}{show\+Client\+History} () const
+\item 
+void \hyperlink{class_market_aa81ff10670a6d41b22573cb48c40938e}{show\+Client\+Orders} () const
+\item 
+bool \hyperlink{class_market_a84df7da0cc63a1ff6d22e467e5060758}{erase\+Client\+Order} (unsigned choice)
+\item 
+void \hyperlink{class_market_aa6a0bba5a4f5fdd7fa4ffecb50c90c3b}{show\+Buy\+Orders} () const
+\item 
+void \hyperlink{class_market_aecbdf10d55744d01d95eba5027b671e0}{show\+Sell\+Orders} () const
+\item 
+vector$<$ \hyperlink{class_transaction}{Transaction} $\ast$ $>$ \hyperlink{class_market_aecf8063cd4ed62c3a74a44960b68eb7e}{client\+History} (\hyperlink{class_client}{Client} $\ast$c) const
+\item 
+void \hyperlink{class_market_a64150295ef3217f7ca581126b0f97c59}{show\+Transactions} () const
+\item 
+void \hyperlink{class_market_a0e812e86e9c5585e845bf0cc3dbc3fed}{show\+Transactions} (string stock) const
+\item 
+void \hyperlink{class_market_a52591efe5c3cf54723f5eff4f21f22f3}{show\+Transactions} (\hyperlink{class_date}{Date} day1, \hyperlink{class_date}{Date} day2) const
+\item 
+void \hyperlink{class_market_a69c72b9564aea368cb80e856cb54c9ec}{show\+Transactions} (\hyperlink{class_date}{Date} d) const
+\item 
+void \hyperlink{class_market_aa6ebd2d116f126606ab2b7cd34fe8fc7}{show\+News} () const
+\item 
+void \hyperlink{class_market_a535cb8ea17975f6f6525a23c84d44cbf}{show\+News} (string company) const
+\item 
+void \hyperlink{class_market_ac0a4c5af7d4b8c15a4c58677058909d9}{show\+News} (\hyperlink{class_date}{Date} day1, \hyperlink{class_date}{Date} day2) const
+\item 
+void \hyperlink{class_market_a97943574ae26cb5203db0a92c5148b5f}{show\+News} (\hyperlink{class_date}{Date} d) const
+\item 
+void \hyperlink{class_market_ac61a075368b27b8beea8054cd66d8068}{show\+Inactive\+Clients} () const
+\item 
+bool \hyperlink{class_market_a60df6a7d9ea6f4e2bd9eddc118fa81eb}{is\+Active\+Client} () const
+\item 
+bool \hyperlink{class_market_a0a1864c71f84d819280d92894a57b197}{change\+Address} (string address)
+\item 
+bool \hyperlink{class_market_a3dd294fab22a4de9ee4d29dbb6808af8}{change\+Contact} (string contact)
+\item 
+bool \hyperlink{class_market_a8465d2d146d10bd163325ac7503749fc}{add\+News} (string company, \hyperlink{class_date}{Date} d, string newspaper, unsigned short int classification)
+\item 
+bool \hyperlink{class_market_ab185568375c98363c52da328f926dfd8}{erase\+News} (unsigned idx)
+\item 
+bool \hyperlink{class_market_aed66e17ba743e8aca8674c1005ca957f}{change\+News\+Class} (unsigned idx, unsigned num)
+\item 
+void \hyperlink{class_market_a5576cae65a6b9c2cea668246e1683b2e}{show\+Managers} ()
+\item 
+void \hyperlink{class_market_adc76de7d85e9b35b082b0c710de5ce0b}{show\+Own\+Manager} ()
+\item 
+void \hyperlink{class_market_adec18f71a55512b0ea152c06e95662f9}{Change\+Manager\+Password} (string newpass)
+\item 
+bool \hyperlink{class_market_ab2b282d3a7f73a5e71b54a5367e85d12}{delete\+Own\+Manager} ()
+\item 
+void \hyperlink{class_market_af1966f2ec86347b1fbfc085d8e5c2781}{redistribute\+Managers} ()
+\item 
+\hyperlink{class_manager}{Manager} \hyperlink{class_market_a9a1890b1cbe63050690562427a3c7a0d}{get\+Client\+Manager} ()
+\item 
+pair$<$ vector$<$ \hyperlink{class_transaction}{Transaction} $\ast$ $>$\+::iterator, vector$<$ \hyperlink{class_transaction}{Transaction} $\ast$ $>$\+::iterator $>$ \hyperlink{class_market_adbc97b770d67a3af3258737a00112dc0}{place\+Order} (\hyperlink{class_order}{Order} $\ast$o)
+\item 
+void \hyperlink{class_market_abbd4b3c218551e7fcce39cd7916aa35e}{save\+Changes} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_market}{Market} $\ast$ \hyperlink{class_market_ab55699aa5df4c8c7a6085cdd3ddc9b38}{instance} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_market_adddd5c43ff870a047aa66db4edf82a7e}{}\label{class_market_adddd5c43ff870a047aa66db4edf82a7e} 
+class {\bfseries Manager}
+\item 
+ostream \& \hyperlink{class_market_a7011d607c3f984135fbc081b8909a1d6}{operator$<$$<$} (ostream \&out, const \hyperlink{class_market}{Market} \&m)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Singleton Class to implement most of the logic behind the Stock\+Market 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_market_a8465d2d146d10bd163325ac7503749fc}{}\label{class_market_a8465d2d146d10bd163325ac7503749fc} 
+\index{Market@{Market}!add\+News@{add\+News}}
+\index{add\+News@{add\+News}!Market@{Market}}
+\subsubsection{\texorpdfstring{add\+News()}{addNews()}}
+{\footnotesize\ttfamily bool Market\+::add\+News (\begin{DoxyParamCaption}\item[{string}]{company,  }\item[{\hyperlink{class_date}{Date}}]{d,  }\item[{string}]{newspaper,  }\item[{unsigned short int}]{classification }\end{DoxyParamCaption})}
+
+A member function that creates a \hyperlink{class_news}{News} object with the given parameters, and adds it to the attribute B\+ST. 
+\begin{DoxyParams}{Parameters}
+{\em company} & The name of the company mentioned in the \hyperlink{class_news}{News}. \\
+\hline
+{\em d} & The date the news was published. \\
+\hline
+{\em newspaper} & The name of the newspaper it was published in. \\
+\hline
+{\em classification} & The \hyperlink{class_news}{News}\textquotesingle{} classification (from 0 to 10). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A bool indicating whether the insert was successful. 
+\end{DoxyReturn}
+\hypertarget{class_market_a0a1864c71f84d819280d92894a57b197}{}\label{class_market_a0a1864c71f84d819280d92894a57b197} 
+\index{Market@{Market}!change\+Address@{change\+Address}}
+\index{change\+Address@{change\+Address}!Market@{Market}}
+\subsubsection{\texorpdfstring{change\+Address()}{changeAddress()}}
+{\footnotesize\ttfamily bool Market\+::change\+Address (\begin{DoxyParamCaption}\item[{string}]{address }\end{DoxyParamCaption})}
+
+A member function that changes the current client\textquotesingle{}s address, if he is considered inactive. 
+\begin{DoxyParams}{Parameters}
+{\em address} & The new address. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if change was successful. 
+\end{DoxyReturn}
+\hypertarget{class_market_a3dd294fab22a4de9ee4d29dbb6808af8}{}\label{class_market_a3dd294fab22a4de9ee4d29dbb6808af8} 
+\index{Market@{Market}!change\+Contact@{change\+Contact}}
+\index{change\+Contact@{change\+Contact}!Market@{Market}}
+\subsubsection{\texorpdfstring{change\+Contact()}{changeContact()}}
+{\footnotesize\ttfamily bool Market\+::change\+Contact (\begin{DoxyParamCaption}\item[{string}]{contact }\end{DoxyParamCaption})}
+
+A member function that changes the current client\textquotesingle{}s contact information, if he is considered inactive. 
+\begin{DoxyParams}{Parameters}
+{\em contact} & The new contact information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if change was successful. 
+\end{DoxyReturn}
+\hypertarget{class_market_adec18f71a55512b0ea152c06e95662f9}{}\label{class_market_adec18f71a55512b0ea152c06e95662f9} 
+\index{Market@{Market}!Change\+Manager\+Password@{Change\+Manager\+Password}}
+\index{Change\+Manager\+Password@{Change\+Manager\+Password}!Market@{Market}}
+\subsubsection{\texorpdfstring{Change\+Manager\+Password()}{ChangeManagerPassword()}}
+{\footnotesize\ttfamily void Market\+::\+Change\+Manager\+Password (\begin{DoxyParamCaption}\item[{string}]{newpass }\end{DoxyParamCaption})}
+
+A member function that prints all information about the current \hyperlink{class_manager}{Manager}. 
+\begin{DoxyParams}{Parameters}
+{\em newpass} & The new password for the \hyperlink{class_manager}{Manager} account. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_aed66e17ba743e8aca8674c1005ca957f}{}\label{class_market_aed66e17ba743e8aca8674c1005ca957f} 
+\index{Market@{Market}!change\+News\+Class@{change\+News\+Class}}
+\index{change\+News\+Class@{change\+News\+Class}!Market@{Market}}
+\subsubsection{\texorpdfstring{change\+News\+Class()}{changeNewsClass()}}
+{\footnotesize\ttfamily bool Market\+::change\+News\+Class (\begin{DoxyParamCaption}\item[{unsigned}]{idx,  }\item[{unsigned}]{num }\end{DoxyParamCaption})}
+
+A member function that changes a given \hyperlink{class_news}{News} classification by its index in an iteration through the B\+ST. 
+\begin{DoxyParams}{Parameters}
+{\em idx} & The index corresponding to the \hyperlink{class_news}{News} to be erased. \\
+\hline
+{\em num} & The new classification. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if change was successful. 
+\end{DoxyReturn}
+\hypertarget{class_market_aecf8063cd4ed62c3a74a44960b68eb7e}{}\label{class_market_aecf8063cd4ed62c3a74a44960b68eb7e} 
+\index{Market@{Market}!client\+History@{client\+History}}
+\index{client\+History@{client\+History}!Market@{Market}}
+\subsubsection{\texorpdfstring{client\+History()}{clientHistory()}}
+{\footnotesize\ttfamily vector$<$ \hyperlink{class_transaction}{Transaction} $\ast$ $>$ Market\+::client\+History (\begin{DoxyParamCaption}\item[{\hyperlink{class_client}{Client} $\ast$}]{c }\end{DoxyParamCaption}) const}
+
+A const member function used to get the client\textquotesingle{}s history of transactions. 
+\begin{DoxyParams}{Parameters}
+{\em c} & A client pointer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of the client\textquotesingle{}s transactions. 
+\end{DoxyReturn}
+\hypertarget{class_market_ab2b282d3a7f73a5e71b54a5367e85d12}{}\label{class_market_ab2b282d3a7f73a5e71b54a5367e85d12} 
+\index{Market@{Market}!delete\+Own\+Manager@{delete\+Own\+Manager}}
+\index{delete\+Own\+Manager@{delete\+Own\+Manager}!Market@{Market}}
+\subsubsection{\texorpdfstring{delete\+Own\+Manager()}{deleteOwnManager()}}
+{\footnotesize\ttfamily bool Market\+::delete\+Own\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that erases the current \hyperlink{class_manager}{Manager}. \begin{DoxyReturn}{Returns}
+Bool corresponding to whether delete was successful. 
+\end{DoxyReturn}
+\hypertarget{class_market_a84df7da0cc63a1ff6d22e467e5060758}{}\label{class_market_a84df7da0cc63a1ff6d22e467e5060758} 
+\index{Market@{Market}!erase\+Client\+Order@{erase\+Client\+Order}}
+\index{erase\+Client\+Order@{erase\+Client\+Order}!Market@{Market}}
+\subsubsection{\texorpdfstring{erase\+Client\+Order()}{eraseClientOrder()}}
+{\footnotesize\ttfamily bool Market\+::erase\+Client\+Order (\begin{DoxyParamCaption}\item[{unsigned}]{choice }\end{DoxyParamCaption})}
+
+A member function that erases a client\textquotesingle{}s unfulfilled order. 
+\begin{DoxyParams}{Parameters}
+{\em The} & number corresponding to the order to be erased (sorted by date placed). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if deletion of the order was done successfully. 
+\end{DoxyReturn}
+\hypertarget{class_market_ab185568375c98363c52da328f926dfd8}{}\label{class_market_ab185568375c98363c52da328f926dfd8} 
+\index{Market@{Market}!erase\+News@{erase\+News}}
+\index{erase\+News@{erase\+News}!Market@{Market}}
+\subsubsection{\texorpdfstring{erase\+News()}{eraseNews()}}
+{\footnotesize\ttfamily bool Market\+::erase\+News (\begin{DoxyParamCaption}\item[{unsigned}]{idx }\end{DoxyParamCaption})}
+
+A member function that erases a given \hyperlink{class_news}{News} by its index in an iteration through the B\+ST. 
+\begin{DoxyParams}{Parameters}
+{\em The} & index corresponding to the \hyperlink{class_news}{News} to be erased. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if deletion was successful. 
+\end{DoxyReturn}
+\hypertarget{class_market_a9a1890b1cbe63050690562427a3c7a0d}{}\label{class_market_a9a1890b1cbe63050690562427a3c7a0d} 
+\index{Market@{Market}!get\+Client\+Manager@{get\+Client\+Manager}}
+\index{get\+Client\+Manager@{get\+Client\+Manager}!Market@{Market}}
+\subsubsection{\texorpdfstring{get\+Client\+Manager()}{getClientManager()}}
+{\footnotesize\ttfamily \hyperlink{class_manager}{Manager} Market\+::get\+Client\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that returns the current client\textquotesingle{}s \hyperlink{class_manager}{Manager}. \hypertarget{class_market_ad64fc7b35bb0b060345ff1bd0fbe2f51}{}\label{class_market_ad64fc7b35bb0b060345ff1bd0fbe2f51} 
+\index{Market@{Market}!get\+Current\+Manager@{get\+Current\+Manager}}
+\index{get\+Current\+Manager@{get\+Current\+Manager}!Market@{Market}}
+\subsubsection{\texorpdfstring{get\+Current\+Manager()}{getCurrentManager()}}
+{\footnotesize\ttfamily string Market\+::get\+Current\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A member function that returns the current manager\textquotesingle{}s N\+IF. \begin{DoxyReturn}{Returns}
+The current manager\textquotesingle{}s nif. 
+\end{DoxyReturn}
+\hypertarget{class_market_acc909b8410ea76b1dfecf92088264741}{}\label{class_market_acc909b8410ea76b1dfecf92088264741} 
+\index{Market@{Market}!get\+Current\+N\+IF@{get\+Current\+N\+IF}}
+\index{get\+Current\+N\+IF@{get\+Current\+N\+IF}!Market@{Market}}
+\subsubsection{\texorpdfstring{get\+Current\+N\+I\+F()}{getCurrentNIF()}}
+{\footnotesize\ttfamily nif\+\_\+t Market\+::get\+Current\+N\+IF (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A member function that returns the current client\textquotesingle{}s N\+IF. \begin{DoxyReturn}{Returns}
+The current client\textquotesingle{}s nif. 
+\end{DoxyReturn}
+\hypertarget{class_market_ab55699aa5df4c8c7a6085cdd3ddc9b38}{}\label{class_market_ab55699aa5df4c8c7a6085cdd3ddc9b38} 
+\index{Market@{Market}!instance@{instance}}
+\index{instance@{instance}!Market@{Market}}
+\subsubsection{\texorpdfstring{instance()}{instance()}}
+{\footnotesize\ttfamily \hyperlink{class_market}{Market} $\ast$ Market\+::instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+A member function returning the one and only instace of \hyperlink{class_market}{Market} (creates it if one doesn\textquotesingle{}t exist). \begin{DoxyReturn}{Returns}
+A pointer to the singleton instance of \hyperlink{class_market}{Market}. 
+\end{DoxyReturn}
+\hypertarget{class_market_a60df6a7d9ea6f4e2bd9eddc118fa81eb}{}\label{class_market_a60df6a7d9ea6f4e2bd9eddc118fa81eb} 
+\index{Market@{Market}!is\+Active\+Client@{is\+Active\+Client}}
+\index{is\+Active\+Client@{is\+Active\+Client}!Market@{Market}}
+\subsubsection{\texorpdfstring{is\+Active\+Client()}{isActiveClient()}}
+{\footnotesize\ttfamily bool Market\+::is\+Active\+Client (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Checks whether currently logged in client is considered active. \begin{DoxyReturn}{Returns}
+true if client is not in the Hash inactive\+\_\+clients, false otherwise. 
+\end{DoxyReturn}
+\hypertarget{class_market_adbc97b770d67a3af3258737a00112dc0}{}\label{class_market_adbc97b770d67a3af3258737a00112dc0} 
+\index{Market@{Market}!place\+Order@{place\+Order}}
+\index{place\+Order@{place\+Order}!Market@{Market}}
+\subsubsection{\texorpdfstring{place\+Order()}{placeOrder()}}
+{\footnotesize\ttfamily pair$<$ vector$<$ \hyperlink{class_transaction}{Transaction} $\ast$ $>$\+::iterator, vector$<$ \hyperlink{class_transaction}{Transaction} $\ast$ $>$\+::iterator $>$ Market\+::place\+Order (\begin{DoxyParamCaption}\item[{\hyperlink{class_order}{Order} $\ast$}]{o }\end{DoxyParamCaption})}
+
+A member function that adds an order to the unfulfilled\+Orders vector. Can be from Sell or Buy type. 
+\begin{DoxyParams}{Parameters}
+{\em o} & A pointer to the order. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_af1966f2ec86347b1fbfc085d8e5c2781}{}\label{class_market_af1966f2ec86347b1fbfc085d8e5c2781} 
+\index{Market@{Market}!redistribute\+Managers@{redistribute\+Managers}}
+\index{redistribute\+Managers@{redistribute\+Managers}!Market@{Market}}
+\subsubsection{\texorpdfstring{redistribute\+Managers()}{redistributeManagers()}}
+{\footnotesize\ttfamily void Market\+::redistribute\+Managers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that redistributes all Managers over the clients. \hypertarget{class_market_abbd4b3c218551e7fcce39cd7916aa35e}{}\label{class_market_abbd4b3c218551e7fcce39cd7916aa35e} 
+\index{Market@{Market}!save\+Changes@{save\+Changes}}
+\index{save\+Changes@{save\+Changes}!Market@{Market}}
+\subsubsection{\texorpdfstring{save\+Changes()}{saveChanges()}}
+{\footnotesize\ttfamily void Market\+::save\+Changes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that saves A\+LL information to the files. \hypertarget{class_market_aa6a0bba5a4f5fdd7fa4ffecb50c90c3b}{}\label{class_market_aa6a0bba5a4f5fdd7fa4ffecb50c90c3b} 
+\index{Market@{Market}!show\+Buy\+Orders@{show\+Buy\+Orders}}
+\index{show\+Buy\+Orders@{show\+Buy\+Orders}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Buy\+Orders()}{showBuyOrders()}}
+{\footnotesize\ttfamily void Market\+::show\+Buy\+Orders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function that lists the buy orders. \hypertarget{class_market_ab12d4a35aed820924483f336948cf4b4}{}\label{class_market_ab12d4a35aed820924483f336948cf4b4} 
+\index{Market@{Market}!show\+Client\+History@{show\+Client\+History}}
+\index{show\+Client\+History@{show\+Client\+History}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Client\+History()}{showClientHistory()}}
+{\footnotesize\ttfamily void Market\+::show\+Client\+History (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function that displays the client\textquotesingle{}s history of transactions. \hypertarget{class_market_ad55d5db41984c8c4f1f027cd1f720a0b}{}\label{class_market_ad55d5db41984c8c4f1f027cd1f720a0b} 
+\index{Market@{Market}!show\+Client\+Info@{show\+Client\+Info}}
+\index{show\+Client\+Info@{show\+Client\+Info}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Client\+Info()}{showClientInfo()}}
+{\footnotesize\ttfamily void Market\+::show\+Client\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function that displays the client\textquotesingle{}s information. \hypertarget{class_market_aa81ff10670a6d41b22573cb48c40938e}{}\label{class_market_aa81ff10670a6d41b22573cb48c40938e} 
+\index{Market@{Market}!show\+Client\+Orders@{show\+Client\+Orders}}
+\index{show\+Client\+Orders@{show\+Client\+Orders}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Client\+Orders()}{showClientOrders()}}
+{\footnotesize\ttfamily void Market\+::show\+Client\+Orders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function that displays the client\textquotesingle{}s unfulfilled orders. \hypertarget{class_market_ac61a075368b27b8beea8054cd66d8068}{}\label{class_market_ac61a075368b27b8beea8054cd66d8068} 
+\index{Market@{Market}!show\+Inactive\+Clients@{show\+Inactive\+Clients}}
+\index{show\+Inactive\+Clients@{show\+Inactive\+Clients}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Inactive\+Clients()}{showInactiveClients()}}
+{\footnotesize\ttfamily void Market\+::show\+Inactive\+Clients (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Shows the current list of inactive clients. \hypertarget{class_market_a5576cae65a6b9c2cea668246e1683b2e}{}\label{class_market_a5576cae65a6b9c2cea668246e1683b2e} 
+\index{Market@{Market}!show\+Managers@{show\+Managers}}
+\index{show\+Managers@{show\+Managers}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Managers()}{showManagers()}}
+{\footnotesize\ttfamily void Market\+::show\+Managers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that prints all Managers to the C\+O\+UT output stream. \hypertarget{class_market_aa6ebd2d116f126606ab2b7cd34fe8fc7}{}\label{class_market_aa6ebd2d116f126606ab2b7cd34fe8fc7} 
+\index{Market@{Market}!show\+News@{show\+News}}
+\index{show\+News@{show\+News}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+News()}{showNews()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Market\+::show\+News (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function that prints all \hyperlink{class_news}{News} to the C\+O\+UT output stream. \hypertarget{class_market_a535cb8ea17975f6f6525a23c84d44cbf}{}\label{class_market_a535cb8ea17975f6f6525a23c84d44cbf} 
+\index{Market@{Market}!show\+News@{show\+News}}
+\index{show\+News@{show\+News}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+News()}{showNews()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Market\+::show\+News (\begin{DoxyParamCaption}\item[{string}]{company }\end{DoxyParamCaption}) const}
+
+Overload of member function that prints all \hyperlink{class_news}{News} of a given Company. 
+\begin{DoxyParams}{Parameters}
+{\em company} & The Company\textquotesingle{}s name. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_ac0a4c5af7d4b8c15a4c58677058909d9}{}\label{class_market_ac0a4c5af7d4b8c15a4c58677058909d9} 
+\index{Market@{Market}!show\+News@{show\+News}}
+\index{show\+News@{show\+News}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+News()}{showNews()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Market\+::show\+News (\begin{DoxyParamCaption}\item[{\hyperlink{class_date}{Date}}]{day1,  }\item[{\hyperlink{class_date}{Date}}]{day2 }\end{DoxyParamCaption}) const}
+
+Overload of member function that lists the \hyperlink{class_news}{News} between 2 days. 
+\begin{DoxyParams}{Parameters}
+{\em day1} & The first day of the interval. \\
+\hline
+{\em day2} & The last day of the interval. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_a97943574ae26cb5203db0a92c5148b5f}{}\label{class_market_a97943574ae26cb5203db0a92c5148b5f} 
+\index{Market@{Market}!show\+News@{show\+News}}
+\index{show\+News@{show\+News}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+News()}{showNews()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Market\+::show\+News (\begin{DoxyParamCaption}\item[{\hyperlink{class_date}{Date}}]{d }\end{DoxyParamCaption}) const}
+
+Overload of member function that lists the \hyperlink{class_news}{News} of a given day. 
+\begin{DoxyParams}{Parameters}
+{\em d} & The day whose news will be shown. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_adc76de7d85e9b35b082b0c710de5ce0b}{}\label{class_market_adc76de7d85e9b35b082b0c710de5ce0b} 
+\index{Market@{Market}!show\+Own\+Manager@{show\+Own\+Manager}}
+\index{show\+Own\+Manager@{show\+Own\+Manager}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Own\+Manager()}{showOwnManager()}}
+{\footnotesize\ttfamily void Market\+::show\+Own\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that prints all information about the signed in \hyperlink{class_manager}{Manager}. \hypertarget{class_market_aecbdf10d55744d01d95eba5027b671e0}{}\label{class_market_aecbdf10d55744d01d95eba5027b671e0} 
+\index{Market@{Market}!show\+Sell\+Orders@{show\+Sell\+Orders}}
+\index{show\+Sell\+Orders@{show\+Sell\+Orders}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Sell\+Orders()}{showSellOrders()}}
+{\footnotesize\ttfamily void Market\+::show\+Sell\+Orders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function that lists the sell orders. \hypertarget{class_market_a64150295ef3217f7ca581126b0f97c59}{}\label{class_market_a64150295ef3217f7ca581126b0f97c59} 
+\index{Market@{Market}!show\+Transactions@{show\+Transactions}}
+\index{show\+Transactions@{show\+Transactions}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Transactions()}{showTransactions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Market\+::show\+Transactions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+A const member function that prints all transactions to the C\+O\+UT output stream. \hypertarget{class_market_a0e812e86e9c5585e845bf0cc3dbc3fed}{}\label{class_market_a0e812e86e9c5585e845bf0cc3dbc3fed} 
+\index{Market@{Market}!show\+Transactions@{show\+Transactions}}
+\index{show\+Transactions@{show\+Transactions}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Transactions()}{showTransactions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Market\+::show\+Transactions (\begin{DoxyParamCaption}\item[{string}]{stock }\end{DoxyParamCaption}) const}
+
+Overload of member function that prints the transactions of a given Stock. 
+\begin{DoxyParams}{Parameters}
+{\em stock} & The Stock\textquotesingle{}s name. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_a52591efe5c3cf54723f5eff4f21f22f3}{}\label{class_market_a52591efe5c3cf54723f5eff4f21f22f3} 
+\index{Market@{Market}!show\+Transactions@{show\+Transactions}}
+\index{show\+Transactions@{show\+Transactions}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Transactions()}{showTransactions()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Market\+::show\+Transactions (\begin{DoxyParamCaption}\item[{\hyperlink{class_date}{Date}}]{day1,  }\item[{\hyperlink{class_date}{Date}}]{day2 }\end{DoxyParamCaption}) const}
+
+Overload of member function that lists the transactions between 2 days. 
+\begin{DoxyParams}{Parameters}
+{\em day1} & The first day of the interval. \\
+\hline
+{\em day2} & The last day of the interval. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_a69c72b9564aea368cb80e856cb54c9ec}{}\label{class_market_a69c72b9564aea368cb80e856cb54c9ec} 
+\index{Market@{Market}!show\+Transactions@{show\+Transactions}}
+\index{show\+Transactions@{show\+Transactions}!Market@{Market}}
+\subsubsection{\texorpdfstring{show\+Transactions()}{showTransactions()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Market\+::show\+Transactions (\begin{DoxyParamCaption}\item[{\hyperlink{class_date}{Date}}]{d }\end{DoxyParamCaption}) const}
+
+Overload of member function that lists the transactions of a given day. 
+\begin{DoxyParams}{Parameters}
+{\em d} & The day whose transactions will be shown. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_market_a6b0d677963c278fc238c1efdd29ba43e}{}\label{class_market_a6b0d677963c278fc238c1efdd29ba43e} 
+\index{Market@{Market}!sign\+In@{sign\+In}}
+\index{sign\+In@{sign\+In}!Market@{Market}}
+\subsubsection{\texorpdfstring{sign\+In()}{signIn()}}
+{\footnotesize\ttfamily bool Market\+::sign\+In (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{nif\+\_\+t}]{nif }\end{DoxyParamCaption})}
+
+A member function that signs in the user. 
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the client/user \\
+\hline
+{\em nif} & N\+IF othe client/user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if signing in was done successfully. 
+\end{DoxyReturn}
+\hypertarget{class_market_a036f56168e25a9ee71a6d0818641ac10}{}\label{class_market_a036f56168e25a9ee71a6d0818641ac10} 
+\index{Market@{Market}!sign\+In\+Manager@{sign\+In\+Manager}}
+\index{sign\+In\+Manager@{sign\+In\+Manager}!Market@{Market}}
+\subsubsection{\texorpdfstring{sign\+In\+Manager()}{signInManager()}}
+{\footnotesize\ttfamily bool Market\+::sign\+In\+Manager (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{string}]{pass }\end{DoxyParamCaption})}
+
+A member function that signs in the manager. 
+\begin{DoxyParams}{Parameters}
+{\em name} & Username of the manager/user \\
+\hline
+{\em pass} & Password of the manager/user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if signing in was done successfully. 
+\end{DoxyReturn}
+\hypertarget{class_market_acbd4a1e28685f78b6b2c59aa5ca9874f}{}\label{class_market_acbd4a1e28685f78b6b2c59aa5ca9874f} 
+\index{Market@{Market}!sign\+Out@{sign\+Out}}
+\index{sign\+Out@{sign\+Out}!Market@{Market}}
+\subsubsection{\texorpdfstring{sign\+Out()}{signOut()}}
+{\footnotesize\ttfamily void Market\+::sign\+Out (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that signs out the user. \hypertarget{class_market_a59f7b338118ec5b93624a4e6ab62ba6d}{}\label{class_market_a59f7b338118ec5b93624a4e6ab62ba6d} 
+\index{Market@{Market}!sign\+Out\+Manager@{sign\+Out\+Manager}}
+\index{sign\+Out\+Manager@{sign\+Out\+Manager}!Market@{Market}}
+\subsubsection{\texorpdfstring{sign\+Out\+Manager()}{signOutManager()}}
+{\footnotesize\ttfamily void Market\+::sign\+Out\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A member function that signs out the user. \hypertarget{class_market_ae575e2c591bd3e14bae27b81cfecada9}{}\label{class_market_ae575e2c591bd3e14bae27b81cfecada9} 
+\index{Market@{Market}!sign\+Up@{sign\+Up}}
+\index{sign\+Up@{sign\+Up}!Market@{Market}}
+\subsubsection{\texorpdfstring{sign\+Up()}{signUp()}}
+{\footnotesize\ttfamily bool Market\+::sign\+Up (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{nif\+\_\+t}]{nif,  }\item[{string}]{address,  }\item[{string}]{contact }\end{DoxyParamCaption})}
+
+A member function that signs up the user. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The client\textquotesingle{}s name. \\
+\hline
+{\em nif} & The client\textquotesingle{}s N\+IF. \\
+\hline
+{\em address} & The client\textquotesingle{}s address. \\
+\hline
+{\em contact} & The client\textquotesingle{}s contact information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if signing up was done successfully. 
+\end{DoxyReturn}
+\hypertarget{class_market_a716ee722e79de53b8a191a6bd1bb48dd}{}\label{class_market_a716ee722e79de53b8a191a6bd1bb48dd} 
+\index{Market@{Market}!sign\+Up\+Manager@{sign\+Up\+Manager}}
+\index{sign\+Up\+Manager@{sign\+Up\+Manager}!Market@{Market}}
+\subsubsection{\texorpdfstring{sign\+Up\+Manager()}{signUpManager()}}
+{\footnotesize\ttfamily bool Market\+::sign\+Up\+Manager (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{string}]{pass }\end{DoxyParamCaption})}
+
+A member function that signs up the user. 
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the manager/user \\
+\hline
+{\em pass} & Password of the manager/user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean, true if signing up was done successfully. 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_market_a7011d607c3f984135fbc081b8909a1d6}{}\label{class_market_a7011d607c3f984135fbc081b8909a1d6} 
+\index{Market@{Market}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Market@{Market}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{out,  }\item[{const \hyperlink{class_market}{Market} \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Overload of Operator $<$$<$ for class \hyperlink{class_market}{Market}. Prints the \hyperlink{class_market}{Market} statistics. 
+\begin{DoxyParams}{Parameters}
+{\em out} & The outstream to write to. \\
+\hline
+{\em m} & The \hyperlink{class_market}{Market}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the output stream to allow chaining 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Market.\+h\item 
+Market.\+cpp\end{DoxyCompactItemize}
